@@ -19,7 +19,7 @@ const Splash = () => {
     return (
         <View
             style={style.mainView}>
-            <ImageBackground source={images.backgroundSpalsh} resizeMode="contain" style={style.imageBGContainer}>
+            <ImageBackground source={images.backgroundSpalsh} resizeMode="cover" style={style.imageBGContainer}>
                 <Image source={images.appLogo} style={style.imageLogoContainer} resizeMode='contain' />
             </ImageBackground>
         </View>

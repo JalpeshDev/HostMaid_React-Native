@@ -8,6 +8,8 @@ import Responsive from '../../../utils/Responsive';
 import { TextFieldComponent } from '../../../components/TextFieldComponent';
 import { ThemeButtonComponent } from '../../../components/ThemeButtonComponent';
 import { emailvalidate } from '../../../utils/Validation';
+import navigationServices from '../../../navigator/navigationServices';
+import routes from '../../../navigator/routes';
 
 const Login = () => {
     const { onChange, visiblePassword, email } = viewModel()
@@ -15,7 +17,7 @@ const Login = () => {
     return (
         <View
             style={style.mainView}>
-            <ImageBackground source={images.backgroundSpalsh} resizeMode="contain" style={style.imageBGContainer}>
+            <ImageBackground source={images.backgroundSpalsh} resizeMode="cover" style={style.imageBGContainer}>
                 <Image source={images.appLogo} style={style.imageLogoContainer} resizeMode='contain' />
                 <View style={{ flex: 1 }} />
                 <View style={style.containContainer}>
@@ -48,7 +50,7 @@ const Login = () => {
                         isActive={true}
                         buttonStyle={{ marginTop: Responsive.hp(5) }}
                         onPress={() => {
-
+                            navigationServices.navigateToNext(routes.CheckInUnavaibleMap, {})
                         }}
                     />
                 </View>
