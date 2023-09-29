@@ -6,6 +6,7 @@ import Login from '../../screen/LoginModule/Login';
 import Welcome from '../../screen/LoginModule/Welcome';
 import CheckInUnavaibleMap from '../../screen/MapModule/CheckInUnavaibleMap';
 import CodeScreen from '../../screen/CodeModule';
+import HomeScreen from '../../screen/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 export default function StackNavigation() {
@@ -15,6 +16,7 @@ export default function StackNavigation() {
         { name: routes.Login, component: Login },
         { name: routes.CheckInUnavaibleMap, component: CheckInUnavaibleMap },
         { name: routes.CodeScreen, component: CodeScreen },
+        { name: routes.HomeScreen, component: HomeScreen },
 
     ];
     return (

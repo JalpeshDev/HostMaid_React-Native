@@ -11,13 +11,15 @@ import { images } from '../../../utils/images';
 import MapAddressCmp from '../../../components/MapAddressCmp';
 import { ThemeButtonComponent } from '../../../components/ThemeButtonComponent';
 import navigationServices from '../../../navigator/navigationServices';
+import routes from '../../../navigator/routes';
+import MapViewDirections from 'react-native-maps-directions';
 
 const screen = Dimensions.get('window');
 const ASPECT_RATIO = screen.width / screen.height;
 const LATITUDE_DELTA = 0.04;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const CheckInUnavaibleMap = () => {
-    const { onChange, coordinates, latitude, longitude, } = viewModel()
+    const { onChange, coordinates, } = viewModel()
 
     useEffect(() => {
         const requestLocationPermission = async () => {
@@ -106,14 +108,25 @@ const CheckInUnavaibleMap = () => {
                     longitudeDelta: 0.0121,
                 }}
             >
-                <Marker coordinate={coordinates[0]} />
-                <Marker coordinate={coordinates[1]} />
-                <Polyline
+                <Marker coordinate={coordinates[0]} image={images.sourceImg} />
+                <Marker coordinate={coordinates[1]} image={images.destination} />
+                <MapViewDirections
+                    origin={coordinates[0]}
+                    destination={coordinates[1]}
+                    apikey={"AIzaSyBLJUSUqWRtd4OSbWfp-z-q64K64ge5GFM"}
+                    strokeWidth={4}
+                    strokeColor={colors.directionLine}
+                    strokeColors={['#7F0000']}
+                    optimizeWaypoints={true}
+
+
+                />
+                {/* <Polyline 
                     coordinates={coordinates}
                     strokeColor="#bf8221"
                     strokeColors={['#7F0000']}
                     strokeWidth={6}
-                />
+                /> */}
             </MapView>
             <View style={style.MapDownView}>
                 <View style={style.btnContainer} />
@@ -127,7 +140,7 @@ const CheckInUnavaibleMap = () => {
                         isActive={false}
                         buttonStyle={{ ...style.btn, }}
                         onPress={() => {
-                            navigationServices.navigateToNext("CodeScreen", {})
+                            navigationServices.navigateToNext(routes.HomeScreen, {})
                         }}
                         onValidation={() => {
                         }}

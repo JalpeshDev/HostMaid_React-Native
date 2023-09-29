@@ -4,8 +4,12 @@ export const images = {
     avtarImg: require('../assests/images/avtar.png'),
     callImg: require('../assests/images/Icon_Phone.png'),
     messageImg: require('../assests/images/Icon_Chat.png'),
-    locationImg: require('../assests/images/location.png'),
-
+    sourceImg: require('../assests/images/source.png'),
+    destination: require('../assests/images/Vector.png'),
+    locationImg: require('../assests/images/destination.png'),
+    filter: require('../assests/images/filter.png'),
+    people: require('../assests/images/people.png'),
+    forward: require('../assests/images/forword.png'),
 
 };
 

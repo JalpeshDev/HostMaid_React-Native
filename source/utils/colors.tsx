@@ -12,7 +12,7 @@ export default {
   textFieldBackground: "#D8DADC",
   themeBlueGray: "#6B779A",
   themeFontBlack: "#23374D",
-  themeSubFontGray: "#6B779A",
+  themeSubFontGray: "#6B779A10",
   themeBackground: "rgba(107, 119, 154, 0.05)",
   themeTextGrey: "#6F6F6F",
   themeTextBlack: "#222B45",
@@ -21,5 +21,6 @@ export default {
   headerTitleColor: "#2F2E36",
   locationText: "#263257",
   deactive: "#D0D0D0",
-  numberBox: "#EFEFF5"
+  numberBox: "#EFEFF5",
+  directionLine: "#83DEEE"
 };

@@ -4,5 +4,6 @@ export default {
     Register: 'Register',
     Welcome: "Welcome",
     CheckInUnavaibleMap: "CheckInUnavaibleMap",
-    CodeScreen: "CodeScreen"
+    CodeScreen: "CodeScreen",
+    HomeScreen: "HomeScreen"
 };
