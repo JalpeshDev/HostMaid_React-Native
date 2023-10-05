@@ -19,7 +19,7 @@ export const AddressFlatlistCmp = ({ item }: any) => {
                 </View>
                 <View style={style.secondView}>
                     <View style={style.imageView}>
-                        <Image source={images.forward} style={style.image} />
+                        <Image source={images.forward} style={style.image} resizeMode='contain' />
                     </View>
                 </View>
             </View>
@@ -34,15 +34,17 @@ const style = StyleSheet.create({
         alignItems: "center", marginHorizontal: Responsive.wp(1), borderRadius: Responsive.hp(1),
         shadowOffset: { width: 0.2, height: 0.2 },
         shadowColor: colors.black,
-        shadowRadius: 2, shadowOpacity: 0.3, elevation: 5,
+        shadowRadius: 1,
+        shadowOpacity: 0.1,
+        elevation: 5,
+        marginTop: Responsive.hp(1.3),
     },
     itemUpContainer: {
         width: "100%",
         backgroundColor: colors.themeSubFontGray,
         flexDirection: "row", justifyContent: "space-between",
         alignItems: "center", paddingHorizontal: Responsive.wp(2),
-        paddingVertical: Responsive.hp(1.5), borderRadius: Responsive.hp(1),
-
+        paddingVertical: Responsive.hp(2), borderRadius: Responsive.hp(1),
     },
     firstTextList: {
         marginHorizontal: Responsive.wp(1), ...GlobalStyle.Fonts_B_16,
@@ -59,10 +61,16 @@ const style = StyleSheet.create({
         height: Responsive.hp(5),
         justifyContent: 'center',
         alignSelf: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        elevation: 3,
+        shadowOffset: { width: 0.2, height: 0.2 },
+        shadowColor: colors.black,
+        shadowRadius: 1,
+        shadowOpacity: 0.1,
     },
     image: {
-        width: Responsive.hp(3.2), height: Responsive.hp(2),
+        width: Responsive.hp(3.2),
+        height: Responsive.hp(1.5),
     },
     flexView: {
         flexDirection: 'row',

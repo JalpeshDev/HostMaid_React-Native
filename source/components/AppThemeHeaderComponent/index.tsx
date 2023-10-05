@@ -20,23 +20,32 @@ export const AppThemeHeaderComponent = ({
     header,
     title1,
     title2,
-    imgStyle
+    imgStyle,
+    onDateSelect
 }: any) => {
-    const dynamicStyles: any = {
+    const containerInStyleObj: any = {
         width: header ? '90%' : '86%',
     }
-    const dynamicStyles2: any = {
-        backgroundColor: header ? colors.white : colors.MapDownColor
+    const imgViewStylesObj: any = {
+        backgroundColor: header ? colors.white : colors.MapDownColor,
+        elevation: header ? 3 : 0,
+        shadowOffset: { width: 0.2, height: 0.2 },
+        shadowColor: colors.black,
+        shadowRadius: 1,
+        shadowOpacity: 0.1,
+        height: Responsive.hp(4.5), width: Responsive.hp(4.5),
     }
     return (
         <View
             style={style.container}
         >
-            <View style={[style.containerIn, dynamicStyles]}>
+            <View style={[style.containerIn, containerInStyleObj]}>
                 {header ?
                     <View>
                         <Text style={style.title1}>{title1}</Text>
-                        <Text style={style.title2}>{title2}</Text>
+                        <TouchableOpacity onPress={onDateSelect}>
+                            <Text style={style.title2}>{title2}</Text>
+                        </TouchableOpacity>
                     </View> :
                     <View style={style.rightContainBG}>
                         <Image source={images.avtarImg} style={style.logoBg} resizeMode='contain' />
@@ -47,22 +56,22 @@ export const AppThemeHeaderComponent = ({
                 }
 
 
-                <View style={[style.rightContainBG, { width: header === true ? Responsive.wp(30) : Responsive.wp(25), justifyContent: 'space-around' }]}>
+                <View style={{ ...style.rightContainBG, width: header ? Responsive.wp(21) : Responsive.wp(23), }}>
                     <TouchableOpacity
-                        style={[style.imgView, dynamicStyles2]}
+                        style={[style.imgView, imgViewStylesObj]}
                         onPress={() => {
                             onPressRightLeft()
                         }}
                     >
-                        <Image source={LeftIcon} style={{ ...style.iconsView, ...imgStyle, }} />
+                        <Image source={LeftIcon} style={{ ...style.iconsView, ...imgStyle, }} resizeMode='contain' />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={style.imgView}
+                        style={{ ...style.imgView, paddingBottom: 5, alignItems: header ? 'flex-end' : 'center', }}
                         onPress={() => {
                             onPressRight()
                         }}
                     >
-                        <Image source={RightIcon} style={{ ...style.iconsView, ...imgStyle }} />
+                        <Image source={RightIcon} style={{ ...style.iconsView, ...imgStyle }} resizeMode='contain' />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -82,10 +91,12 @@ const style = StyleSheet.create({
         width: "86%",
         justifyContent: "space-between",
         alignItems: "center",
-        // paddingHorizontal: PlatformType.ios ? Responsive.wp(6) : Responsive.wp(5),
     },
     logoBg: { width: Responsive.wp(15), height: Responsive.hp(5), },
-    rightContainBG: { flexDirection: "row", },
+    rightContainBG: {
+        flexDirection: "row", width: Responsive.wp(23),
+        justifyContent: 'space-between',
+    },
 
     title: {
         color: colors.headerTitleColor,
@@ -94,22 +105,22 @@ const style = StyleSheet.create({
         ...GlobalStyle.Fonts_R_14
     },
     rightIcons: { width: Responsive.wp(1), height: Responsive.hp(5), },
-    iconsView: { width: Responsive.wp(10.1), height: Responsive.hp(5), },
+    iconsView: { width: Responsive.hp(5), height: Responsive.hp(5), },
     imgStyle: { width: Responsive.wp(6), height: Responsive.hp(4), },
     imgView: {
-        height: Responsive.hp(6), width: Responsive.hp(6),
+        height: Responsive.hp(5.5), width: Responsive.hp(5.5),
         justifyContent: 'center',
         alignItems: 'center', borderRadius: Responsive.hp(1),
-
     },
     title1: {
         color: colors.themeTextBlack,
-        ...GlobalStyle.Fonts_R_14
-
+        ...GlobalStyle.Fonts_R_14,
+        fontSize: Responsive.hp(1.3)
     },
     title2: {
         color: colors.themeTextBlack,
-        ...GlobalStyle.Fonts_B_16
+        ...GlobalStyle.Fonts_B_16,
+        paddingTop: Responsive.hp(0.3)
     },
     subContainer: {
         width: "90%",

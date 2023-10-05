@@ -110,7 +110,7 @@ const CheckInUnavaibleMap = () => {
             >
                 <Marker coordinate={coordinates[0]} image={images.sourceImg} />
                 <Marker coordinate={coordinates[1]} image={images.destination} />
-                <MapViewDirections
+                {/* <MapViewDirections
                     origin={coordinates[0]}
                     destination={coordinates[1]}
                     apikey={"AIzaSyBLJUSUqWRtd4OSbWfp-z-q64K64ge5GFM"}
@@ -120,13 +120,13 @@ const CheckInUnavaibleMap = () => {
                     optimizeWaypoints={true}
 
 
-                />
-                {/* <Polyline 
+                /> */}
+                <Polyline
                     coordinates={coordinates}
                     strokeColor="#bf8221"
                     strokeColors={['#7F0000']}
                     strokeWidth={6}
-                /> */}
+                />
             </MapView>
             <View style={style.MapDownView}>
                 <View style={style.btnContainer} />

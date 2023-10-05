@@ -12,8 +12,8 @@ const MapAddressCmp = ({ icon }: any) => {
             style={style.container}
         >
             <View style={style.containerIn}>
-                <View style={style.logoBg}>
-                    <Image source={icon} style={style.iconsView} />
+                <View style={style.iconsView}>
+                    <Image source={icon} style={style.logoBg} resizeMode='contain' />
                 </View>
                 <Text style={style.title}>
                     81-83 Campbell Street,Surry Hills, NSW 2010, Street,Surry Hills, Australia
@@ -36,13 +36,17 @@ const style = StyleSheet.create({
     },
     containerIn: {
         flexDirection: "row",
-        // width: "84%",
         justifyContent: "space-between",
         alignItems: "center",
         backgroundColor: colors.white,
         borderRadius: Responsive.hp(1),
         maxWidth: "85%",
-        minWidth: "85%"
+        minWidth: "85%",
+        elevation: 1,
+        shadowOffset: { width: 0.2, height: 0.2 },
+        shadowColor: colors.black,
+        shadowRadius: 1,
+        shadowOpacity: 0.1,
     },
     title: {
         color: colors.locationText,
@@ -52,9 +56,9 @@ const style = StyleSheet.create({
         minWidth: "83%"
     },
     rightIcons: { width: Responsive.wp(1), height: Responsive.hp(5), },
-    iconsView: { width: Responsive.wp(5), height: Responsive.hp(3.1), },
-    logoBg: {
+    logoBg: { width: Responsive.wp(5), height: Responsive.hp(2.5), },
+    iconsView: {
         width: Responsive.wp(15), height: Responsive.hp(5),
-        justifyContent: 'center', alignItems: 'center'
+        justifyContent: 'center', alignItems: 'center',
     },
 })
