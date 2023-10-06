@@ -17,7 +17,8 @@ export const style = StyleSheet.create({
         borderTopLeftRadius: Responsive.hp(4),
         borderTopRightRadius: Responsive.hp(4),
         borderWidth: 1,
-        borderColor: colors.MapDownColor
+        borderColor: colors.MapDownColor,
+        paddingBottom: 10
     },
     btnContainer: {
         width: Responsive.wp(20),
@@ -35,4 +36,7 @@ export const style = StyleSheet.create({
         marginTop: Responsive.hp(5)
     },
     btn: { marginVertical: Responsive.hp(1), width: "90%" },
+    sourceIconStyle: { height: Responsive.hp(4), width: Responsive.wp(8) },
+    destinationIconStyle: { height: Responsive.hp(6), width: Responsive.wp(8), },
+    markerStyle: { height: '100%', width: '100%' }
 });

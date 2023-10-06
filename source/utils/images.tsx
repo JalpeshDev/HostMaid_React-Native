@@ -10,6 +10,13 @@ export const images = {
     filter: require('../assests/images/filter.png'),
     people: require('../assests/images/people.png'),
     forward: require('../assests/images/forword.png'),
+    map: require('../assests/images/map.png'),
+    codes: require('../assests/images/codes.png'),
+    bath: require('../assests/images/bath.png'),
+    misc: require('../assests/images/misc.png'),
+    photos: require('../assests/images/photos.png'),
+    dataNotFound: require('../assests/images/dataNotFound.png'),
+    notFound: require('../assests/images/notFound.png'),
 
 };
 

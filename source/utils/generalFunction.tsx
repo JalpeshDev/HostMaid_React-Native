@@ -1,3 +1,45 @@
+import React from 'react';
+import Icons from './icons';
+import routes from '../navigator/routes';
+import { images } from './images';
+import { Platform, View, Image } from 'react-native'
+import Responsive from './Responsive';
+import Toast from 'react-native-simple-toast';
+import moment from "moment";
+
+export const bottomIconsChange = (tab: any, color: any) => {
+    switch (tab) {
+        case 'Map':
+            return <Image source={images.map} tintColor={color} style={{ height: 20, width: 20 }} resizeMode='contain' />;
+        case 'Codes':
+            return <Image source={images.codes} tintColor={color} style={{ height: 20, width: 20 }} resizeMode='contain' />;
+        case 'Bath':
+            return <Image source={images.bath} tintColor={color} style={{ height: 20, width: 20 }} resizeMode='contain' />;
+        case 'Misc':
+            return <Image source={images.misc} tintColor={color} style={{ height: 20, width: 20 }} resizeMode='contain' />;
+        case 'Photos':
+            return <Image source={images.photos} tintColor={color} style={{ height: 20, width: 20 }} resizeMode='contain' />;
+        default:
+            break;
+    }
+};
+
+// export const checkHideTab = (route: any) => {
+//     {
+//       let routesname = hideTab;
+//       const routeName = getFocusedRouteNameFromRoute(route) ?? '';
+//       if (routesname.indexOf(routeName) > -1) {
+//         return {display: 'none'};
+//       }
+//       return {
+//         backgroundColor: 'black',
+//         borderTopLeftRadius: 15,
+//         borderTopRightRadius: 15,
+//         height: responsive.hp(8),
+//       };
+//     }
+//   };
+
 // export const getCalendarDateAndDay = (year: number, month: number) => {
 //     // Create a Date object for the given year and month
 //     const date = new Date(year, month - 1, 1); // Note: Months are 0-based (0 = January, 11 = December)
@@ -146,3 +188,35 @@ export const CalendarInfo = (year: any, month: any) => {
 
     return calendarDataByWeek;
 };
+
+// export const ToastStyle = {
+//     duration: Toast.durations.SHORT,
+//     position: Toast.positions.CENTER,
+//     shadow: true,
+//     animation: true,
+//     backgroundColor: Color.white,
+//     textColor: Color.themeDarkBlue,
+//     textStyle: { ...GlobalStyle.H4_M },
+// };
+
+export function convertDateWithFormat(publishTime: any) {
+    let date = moment(publishTime);
+    if (moment().diff(date, "year") >= 1) {
+        let number = moment().diff(date, "year");
+        return number + (number > 1 ? " years ago" : " year ago");
+    } else if (moment().diff(date, "month") >= 1) {
+        let number = moment().diff(date, "month");
+        return number + (number > 1 ? " months ago" : " month ago");
+    } else if (moment().diff(date, "week") >= 1) {
+        let number = moment().diff(date, "week");
+        return number + (number > 1 ? " weeks ago" : " week ago");
+    } else if (moment().diff(date, "days") >= 1) {
+        return date.fromNow() === "a day ago" ? "1 day ago" : date.fromNow(); // '2 days ago' etc.
+    }
+    else if (date.fromNow() === "a day ago") {
+        return "1 day ago"
+    }
+
+    return date.calendar()
+    // return `${date.calendar().split("at")[1]}`;
+}

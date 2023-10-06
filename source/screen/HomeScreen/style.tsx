@@ -32,7 +32,7 @@ export const style = StyleSheet.create({
     rowContainer: {
         flexDirection: 'row', width: '100%', paddingVertical: Responsive.hp(2),
     },
-    paddingBottom: { paddingBottom: Responsive.hp(3.2) },
+    paddingBottom: { paddingBottom: Responsive.hp(3.2), },
     weekView: {
         width: "18%", backgroundColor: colors.themeGreen, borderRadius: Responsive.hp(2),
         paddingVertical: Responsive.hp(1.5),
@@ -42,4 +42,21 @@ export const style = StyleSheet.create({
         borderColor: colors.themeSubFontGray,
         // elevation: 1
     },
+    dataNot: {
+        justifyContent: 'center', alignItems: 'center',
+        borderRadius: Responsive.hp(1),
+        flex: 1,
+        paddingBottom: Responsive.hp(5)
+    },
+    dataNotImg: {
+        height: Responsive.hp(15),
+        width: Responsive.hp(15),
+    },
+    dataNotText: {
+        ...GlobalStyle.Fonts_B_15,
+        fontSize: Responsive.hp(1.8),
+        paddingTop: Responsive.hp(2),
+        color: colors.themeTextBlack
+
+    }
 });

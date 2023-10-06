@@ -41,12 +41,12 @@ export const AppThemeHeaderComponent = ({
         >
             <View style={[style.containerIn, containerInStyleObj]}>
                 {header ?
-                    <View>
+                    <TouchableOpacity onPress={onDateSelect}>
                         <Text style={style.title1}>{title1}</Text>
                         <TouchableOpacity onPress={onDateSelect}>
                             <Text style={style.title2}>{title2}</Text>
                         </TouchableOpacity>
-                    </View> :
+                    </TouchableOpacity> :
                     <View style={style.rightContainBG}>
                         <Image source={images.avtarImg} style={style.logoBg} resizeMode='contain' />
                         <Text style={style.title}>

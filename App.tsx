@@ -8,6 +8,8 @@
 import { StatusBar } from 'react-native'
 import React, { useEffect } from 'react'
 import Navigation from './source/navigator/navigation'
+import { Provider } from 'react-redux'
+import { store } from './source/redux'
 
 const App = () => {
   return (
@@ -18,7 +20,9 @@ const App = () => {
         backgroundColor={'black'}
         barStyle="light-content"
       />
-      <Navigation />
+      <Provider store={store}>
+        <Navigation />
+      </Provider>
     </>
   )
 }

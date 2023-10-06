@@ -1,7 +1,8 @@
-export const url = 'http://192.168.1.34:4002/';
+export const url = 'https://emazdev.com/';
 
 export const apiUrl = {
     authUrl: {
-        userLogin: url + 'user-login',
+        userLogin: url + 'api/login',
+        bookingList: url + 'api/bookings/list'
     },
 };

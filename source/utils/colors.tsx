@@ -22,5 +22,7 @@ export default {
   locationText: "#263257",
   deactive: "#D0D0D0",
   numberBox: "#EFEFF5",
-  directionLine: "#83DEEE"
+  directionLine: "#83DEEE",
+  active: "#292D32",
+  deActive: "#A3A3A3"
 };

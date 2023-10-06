@@ -13,23 +13,30 @@ const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
 ];
-const arryList = [
+const arryList: any = [
     {
-        text1: "1340 Reynolds Ave #116-1097",
-        text2: "Irvine, CA 92614 United States"
+        property_name: "1340 Reynolds Ave #116-1097",
+        property_address1: "Irvine, CA 92614 United States",
+        cleaning_date: "2023-08-28 00:00:00",
     },
     {
-        text1: "1340 Reynolds Ave #116-1097",
-        text2: "Irvine, CA 92614 United States"
+        property_name: "1340 Reynolds Ave #116-1097",
+        property_address1: "Irvine, CA 92614 United States",
+        cleaning_date: "2023-10-06T10:11:21.189Z",
+
     },
     {
-        text1: "1340 Reynolds Ave #116-1097",
-        text2: "Irvine, CA 92614 United States"
+        property_name: "1340 Reynolds Ave #116-1097",
+        property_address1: "Irvine, CA 92614 United States",
+        cleaning_date: "2023-08-28 00:00:00",
+
     },
     {
-        text1: "1340 Reynolds Ave #116-1097",
-        text2: "Irvine, CA 92614 United States"
-    }
+        property_name: "1340 Reynolds Ave #116-1097",
+        property_address1: "Irvine, CA 92614 United States",
+        cleaning_date: "2023-10-06T10:11:21.189Z",
+
+    },
 ]
 export default function viewModel() {
     const [values, setValues] = useState<any>({

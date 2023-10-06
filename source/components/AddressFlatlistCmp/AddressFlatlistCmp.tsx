@@ -1,26 +1,36 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import colors from '../../utils/colors'
 import Responsive from '../../utils/Responsive'
 import { GlobalStyle } from '../../utils/GlobalStyle'
 import { images } from '../../utils/images'
+import { convertDateWithFormat } from '../../utils/generalFunction'
 
-export const AddressFlatlistCmp = ({ item }: any) => {
+export const AddressFlatlistCmp = ({ item, onArrowPress }: any) => {
+    const dateTime = new Date(item.item.cleaning_date);
+    const hours = dateTime.getHours();
+    const minutes = dateTime.getMinutes();
+    const amOrPm = hours >= 12 ? 'PM' : 'AM';
+    const hours12 = hours % 12 || 12;
+    const timeString = `${hours12.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${amOrPm}`;
+
+
     return (
         <View style={style.itemContainer}>
             <View style={style.itemUpContainer}>
                 <View style={style.firstView}>
                     <View style={style.flexView}>
-                        <Text numberOfLines={1} style={style.firstTextList}>{`${item.item.text1}`}</Text>
+                        <Text numberOfLines={2} style={style.firstTextList}>{`${item.item.property_name}`}</Text>
                     </View>
-                    <View style={style.flexView}>
-                        <Text numberOfLines={1} style={style.secondTextList}>{`${item.item.text2}`}</Text>
+                    <View style={{ ...style.flexView, width: "90%", }}>
+                        <Text numberOfLines={1} style={style.secondTextList}>{`${item.item.property_address1}`}</Text>
+                        <Text style={style.timeStyle}>{timeString}</Text>
                     </View>
                 </View>
                 <View style={style.secondView}>
-                    <View style={style.imageView}>
+                    <TouchableOpacity style={style.imageView} onPress={onArrowPress} >
                         <Image source={images.forward} style={style.image} resizeMode='contain' />
-                    </View>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -48,11 +58,12 @@ const style = StyleSheet.create({
     },
     firstTextList: {
         marginHorizontal: Responsive.wp(1), ...GlobalStyle.Fonts_B_16,
-        color: colors.themeFontBlack, flex: 1, marginBottom: Responsive.hp(0.6)
+        color: colors.themeFontBlack, flex: 1, marginBottom: Responsive.hp(0.6),
     },
     secondTextList: {
         marginHorizontal: Responsive.wp(1), ...GlobalStyle.Fonts_R_14,
-        color: colors.themeBlueGray, flex: 1
+        color: colors.themeBlueGray, flex: 1,
+        fontSize: Responsive.hp(1.5),
     },
     imageView: {
         backgroundColor: colors.white,
@@ -74,12 +85,21 @@ const style = StyleSheet.create({
     },
     flexView: {
         flexDirection: 'row',
-
     },
     firstView: {
-        width: "80%"
+        width: "80%",
     },
     secondView: {
         width: "20%"
     },
+    timeStyle: {
+        ...GlobalStyle.Fonts_M_15,
+        fontSize: Responsive.hp(1.2),
+        backgroundColor: colors.themeGreen,
+        borderRadius: Responsive.hp(1),
+        paddingVertical: Responsive.hp(0.4),
+        paddingHorizontal: Responsive.hp(1),
+        color: colors.white,
+        elevation: 1
+    }
 })

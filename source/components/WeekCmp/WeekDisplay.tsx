@@ -8,14 +8,14 @@ const WeekDisplay = ({ keyIndex, data, isCheckWeekView, onPressWeek, numberOfWee
     return (
         <TouchableOpacity style={{
             ...style.weekView,
-            backgroundColor: isCheckWeekView ? colors.themeGreen : colors.MapDownColor,
-            borderWidth: isCheckWeekView ? 0 : 1,
+            backgroundColor: isCheckWeekView == keyIndex ? colors.themeGreen : colors.MapDownColor,
+            borderWidth: isCheckWeekView == keyIndex ? 0 : 1,
 
         }} onPress={() => {
             onPressWeek(data, keyIndex)
         }}>
             <Text style={{
-                ...style.title, color: isCheckWeekView ? colors.white : colors.themeTextGrey,
+                ...style.title, color: isCheckWeekView == keyIndex ? colors.white : colors.themeTextGrey,
             }}>{`Week ${keyIndex + 1}`}</Text>
         </TouchableOpacity>
     )

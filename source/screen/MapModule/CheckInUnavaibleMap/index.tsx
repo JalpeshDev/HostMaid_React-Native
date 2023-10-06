@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Button, Dimensions, PermissionsAndroid, SafeAreaView, StyleSheet, Text, View, Alert, Platform, } from 'react-native';
+import { Button, Dimensions, PermissionsAndroid, SafeAreaView, StyleSheet, Text, View, Alert, Platform, Image } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
 import viewModel from './viewModel';
@@ -18,7 +18,9 @@ const screen = Dimensions.get('window');
 const ASPECT_RATIO = screen.width / screen.height;
 const LATITUDE_DELTA = 0.04;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-const CheckInUnavaibleMap = () => {
+const CheckInUnavaibleMap = ({ route }: any) => {
+    // const { location } = route.params
+
     const { onChange, coordinates, } = viewModel()
 
     useEffect(() => {
@@ -108,8 +110,18 @@ const CheckInUnavaibleMap = () => {
                     longitudeDelta: 0.0121,
                 }}
             >
-                <Marker coordinate={coordinates[0]} image={images.sourceImg} />
-                <Marker coordinate={coordinates[1]} image={images.destination} />
+                <Marker coordinate={coordinates[0]}>
+                    <View style={style.sourceIconStyle}>
+                        <Image source={images.sourceImg} style={style.markerStyle} resizeMode='contain' />
+                    </View>
+                </Marker>
+                <Marker coordinate={coordinates[1]}>
+                    <View style={style.destinationIconStyle}>
+                        <Image source={images.destination} style={style.markerStyle} resizeMode='contain' />
+                    </View>
+                </Marker>
+                {/* <Marker coordinate={coordinates[0]} image={images.sourceImg} /> */}
+                {/* <Marker coordinate={coordinates[1]} image={images.destination} /> */}
                 {/* <MapViewDirections
                     origin={coordinates[0]}
                     destination={coordinates[1]}
@@ -118,7 +130,19 @@ const CheckInUnavaibleMap = () => {
                     strokeColor={colors.directionLine}
                     strokeColors={['#7F0000']}
                     optimizeWaypoints={true}
-
+                    onReady={result => {
+                            console.log(`Distance: ${result.distance} km`)
+                            console.log(`Duration: ${result.duration} min.`)
+                            fetchTime(result.distance, result.duration),
+                                mapRef.current.fitToCoordinates(result.coordinates, {
+                                    edgePadding: {
+                                        right: 30,
+                                        bottom: 300,
+                                        left: 30,
+                                        top: 100,
+                                    },
+                                });
+                        }}
 
                 /> */}
                 <Polyline
