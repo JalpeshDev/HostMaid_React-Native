@@ -4,10 +4,7 @@ import Splash from '../../screen/LoginModule/Splash';
 import routes from '../routes';
 import Login from '../../screen/LoginModule/Login';
 import Welcome from '../../screen/LoginModule/Welcome';
-import CheckInUnavaibleMap from '../../screen/MapModule/CheckInUnavaibleMap';
-import CodeScreen from '../../screen/CodeModule';
 import HomeScreen from '../../screen/HomeScreen';
-import BottomNavigation from '../bottomNavigation/bottomNavigation';
 
 const Stack = createNativeStackNavigator();
 export default function StackNavigation() {
@@ -15,10 +12,7 @@ export default function StackNavigation() {
         { name: routes.Splash, component: Splash },
         { name: routes.Welcome, component: Welcome },
         { name: routes.Login, component: Login },
-        { name: routes.CheckInUnavaibleMap, component: CheckInUnavaibleMap },
-        { name: routes.CodeScreen, component: CodeScreen },
         { name: routes.HomeScreen, component: HomeScreen },
-        { name: "BottomNavigation", component: BottomNavigation },
     ];
     return (
         <Stack.Navigator

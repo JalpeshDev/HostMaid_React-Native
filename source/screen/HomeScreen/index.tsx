@@ -100,8 +100,13 @@ const HomeScreen = () => {
     useEffect(() => {
         const result = data?.data?.filter((item: any) => new Date(item.cleaning_date).getDate() == selectDate);
         if (result?.length != 0) {
-            setFlatlistData(data?.data)
-            setShowAppoinment(true)
+            if (currentMonth === month && currentYear === year && currentDay == selectDate) {
+                setFlatlistData(arryList)
+                setShowAppoinment(true)
+            } else {
+                setFlatlistData(data?.data)
+                setShowAppoinment(true)
+            }
         } else {
             setShowAppoinment(false)
         }
