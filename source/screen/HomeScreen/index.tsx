@@ -45,14 +45,7 @@ const HomeScreen = () => {
 
     const renderItem = (item: any) => {
         return (
-            <AddressFlatlistCmp item={item}
-                onArrowPress={() => navigationServices.navigateToNext("BottomNavigation", {
-                    location: {
-                        latitude: 48.8323785,
-                        longitude: 2.3361663,
-                    },
-                })}
-            />
+            <AddressFlatlistCmp item={item} />
         )
     }
     const showPicker = useCallback((value: any) => setShow(value), []);
