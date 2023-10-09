@@ -1,4 +1,9 @@
 import { useState } from "react";
+import { AlertPopUp } from "../../utils/generalFunction";
+import { Strings } from "../../utils/strings";
+import { localStorage } from "../../utils/localStorageProvider";
+import navigationServices from "../../navigator/navigationServices";
+import routes from "../../navigator/routes";
 const passArryList = [
     { id: 0, week: "Week 1" },
     { id: 1, week: "Week 2" },
@@ -67,12 +72,26 @@ export default function viewModel() {
         onChange(tempArry, "arryList")
     }
 
-
+    const createTwoButtonAlert = () => {
+        AlertPopUp({
+            title: `${Strings.SignOutTitle}`, message: `${Strings.SignOutMsg}`, btn: `${Strings.SignOutBtn}`,
+            btnPresed: () => { SignOut() }
+        })
+    }
+    const SignOut = async () => {
+        try {
+            localStorage.clear();
+            navigationServices.navigateAndReset(routes.Login);
+        } catch (error) {
+            console.error(error);
+        }
+    };
     return {
         values,
         onChange,
         createAList,
         monthNames,
-        arryList
+        arryList,
+        createTwoButtonAlert
     };
 }

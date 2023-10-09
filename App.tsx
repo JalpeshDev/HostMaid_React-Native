@@ -10,6 +10,7 @@ import React, { useEffect } from 'react'
 import Navigation from './source/navigator/navigation'
 import { Provider } from 'react-redux'
 import { store } from './source/redux'
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 const App = () => {
   return (
@@ -21,7 +22,9 @@ const App = () => {
         barStyle="light-content"
       />
       <Provider store={store}>
-        <Navigation />
+        <RootSiblingParent>
+          <Navigation />
+        </RootSiblingParent>
       </Provider>
     </>
   )

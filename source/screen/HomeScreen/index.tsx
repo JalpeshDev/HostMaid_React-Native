@@ -1,4 +1,4 @@
-import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View, ScrollView, Image } from 'react-native'
+import { FlatList, SafeAreaView, Text, View, ScrollView, Image } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import { AppThemeHeaderComponent } from '../../components/AppThemeHeaderComponent'
 import { images } from '../../utils/images'
@@ -10,11 +10,10 @@ import viewModel from './viewModel'
 import DateDisplay from '../../components/WeekCmp/DateDisplay'
 import MonthPicker from 'react-native-month-year-picker'
 import { CalendarInfo, } from '../../utils/generalFunction'
-import navigationServices from '../../navigator/navigationServices'
 import { useDispatch, useSelector } from 'react-redux'
 import { getBookingsAction } from '../../redux/action/authAction'
 import Loader from '../../components/Loader'
-import colors from '../../utils/colors'
+
 const HomeScreen = () => {
     const dispatch = useDispatch();
     const currentDate = new Date();
@@ -23,21 +22,26 @@ const HomeScreen = () => {
     let currentMonth = currentDate.getMonth() + 1
     let currentYear = currentDate.getFullYear()
     let currentWeek = Math.ceil((currentDay + 6 - day) / 7)
-    const { values, onChange, createAList, monthNames, arryList } = viewModel()
+
+    const { createAList, monthNames, arryList, createTwoButtonAlert } = viewModel()
     const [calendarDataArray, setCalendarDataArray] = useState<any>([]);
     const [date, setDate] = useState(new Date());
     const [show, setShow] = useState(false);
     const [dateShowArray, setDateShowArray] = useState([]);
-    const [selectIndex, setSelectIndex] = useState(0);
+    const [selectIndex, setSelectIndex] = useState(currentWeek - 1);
     const [selectDate, setSelectDate] = useState(currentDay);
+    const [showAppoinment, setShowAppoinment] = useState(false);
+    const [flatlistData, setFlatlistData] = useState([]);
+
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const monthFormate = monthNames[date.getMonth()];
     const yearFormate = date.getFullYear();
     const formattedDate = `${monthFormate}, ${yearFormate}`;
-    const [flatlistData, setFlatlistData] = useState([]);
-    const [showAppoinment, setShowAppoinment] = useState(false);
-    const { data, loading } = useSelector((state: any) => state.bookingReducer);
+
+
+    const { data, loading } = useSelector((state: any) => state.bookingReducer);;
+
     useEffect(() => {
         createAList();
         dispatch(getBookingsAction());
@@ -69,14 +73,18 @@ const HomeScreen = () => {
     useEffect(() => {
         const calendarData = CalendarInfo(year, month);
         const calendarDataValues: any = Object.values(calendarData);
-        setDateShowArray(calendarDataValues[0])
+        setDateShowArray(calendarDataValues[selectIndex])
         if (currentMonth == month && currentYear == year) {
-            setSelectDate(currentDay)
+            if (currentWeek - 1 == selectIndex) {
+                setSelectDate(currentDay)
+            } else {
+                setSelectDate(calendarDataValues[selectIndex][0].date)
+            }
         } else {
-            setSelectDate(calendarDataValues[0][0].date)
+            setSelectDate(calendarDataValues[selectIndex][0].date)
         }
         setCalendarDataArray(() => [...calendarDataValues]);
-    }, [date]);
+    }, [date, selectIndex]);
 
     const checkCurrentWeek = (selectedDate: any) => {
         const year = selectedDate.getFullYear();
@@ -91,24 +99,30 @@ const HomeScreen = () => {
     }
 
     useEffect(() => {
-        const result = data?.data?.filter((item: any) => new Date(item.cleaning_date).getDate() == selectDate);
+        const result: any = data?.data?.filter((item: any) => {
+            const bookingDate = new Date(item.cleaning_date);
+            let filterDate = bookingDate.getDate();
+            let filterMonth = bookingDate.getMonth() + 1;
+            let filterYear = bookingDate.getFullYear();
+            return filterDate == selectDate && filterMonth == month && filterYear == year;
+        });
         if (result?.length != 0) {
+            setFlatlistData(result)
+            setShowAppoinment(true)
+        } else {
             if (currentMonth === month && currentYear === year && currentDay == selectDate) {
                 setFlatlistData(arryList)
                 setShowAppoinment(true)
             } else {
-                setFlatlistData(data?.data)
-                setShowAppoinment(true)
+                setShowAppoinment(false)
             }
-        } else {
-            setShowAppoinment(false)
         }
     }, [selectIndex, selectDate, loading])
 
     return (
         <SafeAreaView style={style.mainView}>
             <View style={{ paddingTop: Responsive.hp(1.5) }}>
-                <AppThemeHeaderComponent onPressRight={() => { }} onPressRightLeft={() => { }}
+                <AppThemeHeaderComponent onPressRight={() => { createTwoButtonAlert() }} onPressRightLeft={() => { }}
                     LeftIcon={images.filter}
                     RightIcon={images.people}
                     header={true}
@@ -171,16 +185,14 @@ const HomeScreen = () => {
 
                 </View>
             </View>
-
             {showAppoinment ?
                 <View>
-
                     <View style={style.flatlistHeaderView}>
                         <Text style={style.flatlistHeader}>Appointments</Text>
                     </View>
                     <FlatList
                         numColumns={1}
-                        data={flatlistData}
+                        data={loading ? [] : flatlistData}
                         renderItem={renderItem}
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={style.listInContainer}
@@ -194,7 +206,6 @@ const HomeScreen = () => {
                     <Text style={style.dataNotText}>No Appointments Founds!</Text>
                 </View>
             }
-
             {show && (
                 <MonthPicker
                     onChange={onValueChange}

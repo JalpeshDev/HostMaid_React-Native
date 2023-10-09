@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { userLoginAction } from '../../../redux/action/authAction';
-import Toast from 'react-native-simple-toast';
+// import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-root-toast';
+
 import colors from '../../../utils/colors';
 import { APIServiceManager, RequestType } from '../../../utils/APIViewModel/APIServiceManager';
 import { apiUrl } from '../../../utils/apiUrl';
@@ -10,6 +12,7 @@ import { localStorage } from '../../../utils/localStorageProvider';
 import routes from '../../../navigator/routes';
 import navigationServices from '../../../navigator/navigationServices';
 import { LocalStorageKey } from '../../../utils/strings';
+import { ToastStyle } from '../../../utils/generalFunction';
 export default function viewModel() {
     const dispatch = useDispatch();
     const [error, setError] = useState(null);
@@ -44,20 +47,14 @@ export default function viewModel() {
                         navigationServices.navigateToNext(routes.HomeScreen, {})
                     } else {
                         setLoading(false)
-                        Toast.show('Invalid login details', Toast.LONG, {
-                            backgroundColor: colors.themeGreen,
-                        });
+                        Toast.show('Invalid login details', ToastStyle);
                     }
                 });
             } else {
                 if (body.email == "" || body.email == undefined) {
-                    Toast.show('Enter Email', Toast.LONG, {
-                        backgroundColor: colors.themeGreen,
-                    });
+                    Toast.show('Enter Email', ToastStyle);
                 } else if (body.password == undefined || body.password == "") {
-                    Toast.show('Enter Password', Toast.LONG, {
-                        backgroundColor: colors.themeGreen,
-                    });
+                    Toast.show('Enter Password', ToastStyle);
                 }
             }
 

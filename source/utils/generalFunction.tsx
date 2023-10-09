@@ -4,9 +4,10 @@ import routes from '../navigator/routes';
 import { images } from './images';
 import { Platform, View, Image } from 'react-native'
 import Responsive from './Responsive';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-root-toast';
 import moment from "moment";
-
+import colors from './colors';
+import { Alert } from 'react-native'
 export const bottomIconsChange = (tab: any, color: any) => {
     switch (tab) {
         case 'Map':
@@ -189,15 +190,14 @@ export const CalendarInfo = (year: any, month: any) => {
     return calendarDataByWeek;
 };
 
-// export const ToastStyle = {
-//     duration: Toast.durations.SHORT,
-//     position: Toast.positions.CENTER,
-//     shadow: true,
-//     animation: true,
-//     backgroundColor: Color.white,
-//     textColor: Color.themeDarkBlue,
-//     textStyle: { ...GlobalStyle.H4_M },
-// };
+export const ToastStyle = {
+    duration: Toast.durations.SHORT,
+    position: Toast.positions.BOTTOM,
+    shadow: true,
+    animation: true,
+    backgroundColor: colors.white,
+    textColor: colors.black,
+};
 
 export function convertDateWithFormat(publishTime: any) {
     let date = moment(publishTime);
@@ -219,4 +219,24 @@ export function convertDateWithFormat(publishTime: any) {
 
     return date.calendar()
     // return `${date.calendar().split("at")[1]}`;
+}
+
+export const AlertPopUp = (props: any) => {
+
+    return Alert.alert(
+        `${props?.title}`,
+        `${props?.message}`,
+        [
+            {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+            },
+            {
+                text: `${props?.btn}`,
+                onPress: props?.btnPresed,
+            },
+        ],
+    );
+
 }

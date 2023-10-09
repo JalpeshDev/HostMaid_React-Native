@@ -33,7 +33,7 @@ export const errorValidation = (res: any, code: any) => {
           resolve({ status: 10, data: null });
         }
         break;
-      case ApiResponseCode.BadRequest:
+      case 400:
         let msg = "Bad Request";
         if (res.message != null) {
           if (Array.isArray(res.message) && res.message.length > 0) {
@@ -42,7 +42,7 @@ export const errorValidation = (res: any, code: any) => {
         }
         resolve({ message: msg, status: 0 });
         break;
-      case ApiResponseCode.Unauthorized:
+      case 401:
         let msgValidation1 = "Unauthorized user";
         if (res.message) {
           if (Array.isArray(res.message) && res.message.length > 0) {
@@ -55,10 +55,12 @@ export const errorValidation = (res: any, code: any) => {
           resolve({ message: msgValidation1, status: 0 });
         }
         break;
-      case ApiResponseCode.NotFound:
+      case 404:
         resolve({ message: "data not found", status: 0 });
         break;
-      case ApiResponseCode.Validation || ApiResponseCode.FieldValidation:
+      case 422 || 403:
+        console.log("FieldValidation-->", res);
+
         let msgValidation = "Validation Error";
         if (res.emailNumber_exists != null) {
           if (Array.isArray(res.message) && res.message.length > 0) {

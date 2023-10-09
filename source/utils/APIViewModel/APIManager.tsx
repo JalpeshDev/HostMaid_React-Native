@@ -19,7 +19,7 @@ export const APIManager = (data: any, type: RequestType, formData: Boolean = fal
       maxBodyLength: Infinity,
       url: data.url,
       headers: {},
-      timeout: formData ? 120000 : 15000,
+      timeout: formData ? 120000 : 12000,
       data: formData ? data.body : bodyData,
     };
 
