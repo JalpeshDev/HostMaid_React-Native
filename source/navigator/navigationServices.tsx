@@ -7,11 +7,12 @@ function setTopLevelNavigator(navigatorRef: any) {
     _navigator = navigatorRef;
 }
 
-function navigateAndReset() {
+function navigateAndReset(name: any) {
     _navigator.dispatch(
         CommonActions.reset({
             index: 0,
-            routes: [{ name: '' }],
+            routeNames: [name],
+            routes: [{ name: name }],
         }),
     );
 }

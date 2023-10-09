@@ -4,10 +4,17 @@ import navigationServices from '../../../navigator/navigationServices';
 import routes from '../../../navigator/routes';
 import { style } from './style';
 import { images } from '../../../utils/images';
+import { localStorage } from '../../../utils/localStorageProvider';
+import { LocalStorageKey } from '../../../utils/strings';
 
 const Splash = () => {
     const nextScreen = async () => {
-        navigationServices.navigateToNext(routes.Welcome, {});
+        let isLoggedIn = await localStorage.getItemObject(LocalStorageKey.isLoggedIn)
+        if (isLoggedIn) {
+            navigationServices.navigateToNext(routes.HomeScreen, {});
+        } else {
+            navigationServices.navigateToNext(routes.Welcome, {});
+        }
     };
 
     useEffect(() => {
@@ -19,7 +26,7 @@ const Splash = () => {
     return (
         <View
             style={style.mainView}>
-            <ImageBackground source={images.backgroundSpalsh} resizeMode="contain" style={style.imageBGContainer}>
+            <ImageBackground source={images.backgroundSpalsh} resizeMode="cover" style={style.imageBGContainer}>
                 <Image source={images.appLogo} style={style.imageLogoContainer} resizeMode='contain' />
             </ImageBackground>
         </View>

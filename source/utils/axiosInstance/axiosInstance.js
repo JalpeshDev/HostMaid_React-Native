@@ -7,7 +7,6 @@ axiosInstance.defaults.timeout = 1000 * 15;
 
 axiosInstance.interceptors.request.use(async config => {
   const token = await localStorage.getItemObject('token');
-  console.log('token', token);
 
   if (token) {
     (config.headers['Content-Type'] = 'application/json'),

@@ -26,7 +26,6 @@ export default function Navigation() {
 
 function RootNavigator() {
     const isLogin = localStorage.getItemString(LocalStorageKey.isLoggedIn);
-    console.log('isLogin==>', isLogin);
     return <StackNavigation />
     //   return isLogin ? <DrawerNavigation /> : <StackNavigation />;
 }

@@ -8,12 +8,11 @@
 import { StatusBar } from 'react-native'
 import React, { useEffect } from 'react'
 import Navigation from './source/navigator/navigation'
-import SplashScreen from 'react-native-splash-screen'
+import { Provider } from 'react-redux'
+import { store } from './source/redux'
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 const App = () => {
-  useEffect(() => {
-    SplashScreen.hide()
-  }, [])
   return (
     <>
       <StatusBar
@@ -22,7 +21,11 @@ const App = () => {
         backgroundColor={'black'}
         barStyle="light-content"
       />
-      <Navigation />
+      <Provider store={store}>
+        <RootSiblingParent>
+          <Navigation />
+        </RootSiblingParent>
+      </Provider>
     </>
   )
 }

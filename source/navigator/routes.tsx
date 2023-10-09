@@ -2,5 +2,8 @@ export default {
     Splash: 'Splash',
     Login: 'Login',
     Register: 'Register',
-    Welcome:"Welcome"
+    Welcome: "Welcome",
+    CheckInUnavaibleMap: "CheckInUnavaibleMap",
+    CodeScreen: "CodeScreen",
+    HomeScreen: "HomeScreen"
 };

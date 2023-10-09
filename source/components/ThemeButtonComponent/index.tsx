@@ -16,13 +16,13 @@ export const ThemeButtonComponent = ({
     <>
       <TouchableOpacity
         style={{
-          backgroundColor: isActive ? Color.themeGreen : Color.whiteGrey60,
+          backgroundColor: isActive ? Color.themeGreen : Color.deactive,
           ...style.mainView,
           ...buttonStyle,
         }}
         activeOpacity={0.9}
         onPress={() => {
-          isActive && onPress();
+          onPress();
         }}
       >
         <Text

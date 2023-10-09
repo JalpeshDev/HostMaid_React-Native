@@ -4,6 +4,7 @@ import Splash from '../../screen/LoginModule/Splash';
 import routes from '../routes';
 import Login from '../../screen/LoginModule/Login';
 import Welcome from '../../screen/LoginModule/Welcome';
+import HomeScreen from '../../screen/HomeScreen';
 
 const Stack = createNativeStackNavigator();
 export default function StackNavigation() {
@@ -11,6 +12,7 @@ export default function StackNavigation() {
         { name: routes.Splash, component: Splash },
         { name: routes.Welcome, component: Welcome },
         { name: routes.Login, component: Login },
+        { name: routes.HomeScreen, component: HomeScreen },
     ];
     return (
         <Stack.Navigator
