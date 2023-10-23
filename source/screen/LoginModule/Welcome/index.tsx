@@ -20,7 +20,6 @@ const Welcome = () => {
             style={style.mainView}>
             <ImageBackground source={images.backgroundSpalsh} resizeMode="cover" style={style.imageBGContainer}>
                 <Image source={images.appLogo} style={style.imageLogoContainer} resizeMode='contain' />
-                {/* {isVisible && */}
                 <View style={style.containContainer}>
                     <Text style={style.textTitle}>Get Started</Text>
                     <Text style={style.textSubTitle}>Login now to manage your <Text style={style.textSubHighlight}>work schedules.</Text></Text>
@@ -30,7 +29,6 @@ const Welcome = () => {
                         {icons.nextIcon}
                     </TouchableOpacity>
                 </View>
-                {/* } */}
             </ImageBackground>
         </View>
     );

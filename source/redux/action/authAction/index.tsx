@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { apiUrl } from '../../../utils/apiUrl';
-import axiosInstance from '../../../utils/axiosInstance/axiosInstance';
+import AxiosInstance from '../../../utils/AxiosInstance/AxiosInstance';
 let headers = {
   'Content-Type': 'application/json',
 };
 const config = { headers };
 const httpClient = axios.create();
-httpClient.defaults.timeout = 1000 * 30;
+httpClient.defaults.timeout = 12000;
 export const userLoginAction: any = createAsyncThunk(
   'user/login',
   async (body, { rejectWithValue }) => {
@@ -26,7 +26,7 @@ export const userLoginAction: any = createAsyncThunk(
 
 
 export const getBookingsAction: any = createAsyncThunk('bookings', async () => {
-  const response = await axiosInstance.get(
+  const response = await AxiosInstance.get(
     apiUrl.authUrl.bookingList,
   );
   return response.data

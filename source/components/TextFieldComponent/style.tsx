@@ -21,5 +21,6 @@ export const styles = StyleSheet.create({
       },
       rightTickIcon: {
             width: Responsive.hp(5), height: Responsive.hp(5), position: "absolute", right: 0, justifyContent: "center", alignItems: "center"
-      }
+      },
+      textInputStyle: { marginHorizontal: Responsive.wp(3), ...GlobalStyle.Fonts_R_16, width: "80%" }
 });

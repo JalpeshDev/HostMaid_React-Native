@@ -32,6 +32,9 @@ function navigateToCloseDrawer() {
 function navigateToToggleDrawer() {
     _navigator.dispatch(DrawerActions.toggleDrawer());
 }
+function navigationGoBack() {
+    _navigator.goBack()
+}
 
 export default {
     setTopLevelNavigator,
@@ -40,4 +43,5 @@ export default {
     navigateToOpenDrawer,
     navigateToCloseDrawer,
     navigateToToggleDrawer,
+    navigationGoBack
 };

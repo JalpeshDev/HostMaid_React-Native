@@ -2,10 +2,10 @@ import axios from 'axios';
 import {url} from '../apiUrl';
 import {localStorage} from '../localStorageProvider';
 
-const ImgaesAxiosInstance = axios.create({baseURL: url});
-ImgaesAxiosInstance.defaults.timeout = 1000 * 120;
+const ImagesAxiosInstance = axios.create({baseURL: url});
+ImagesAxiosInstance.defaults.timeout = 1000 * 120;
 
-ImgaesAxiosInstance.interceptors.request.use(async config => {
+ImagesAxiosInstance.interceptors.request.use(async config => {
   const token = await localStorage.getItemObject('token');
   if (token) {
     (config.headers['Content-Type'] = 'multipart/form-data'),
@@ -13,4 +13,4 @@ ImgaesAxiosInstance.interceptors.request.use(async config => {
   }
   return config;
 });
-export default ImgaesAxiosInstance;
+export default ImagesAxiosInstance;

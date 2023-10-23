@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from 'react';
-
 import viewModel from './viewModel'
-import { Text, View, Image, ImageBackground, SafeAreaView, Dimensions } from 'react-native';
+import { Text, View, Image, ImageBackground, SafeAreaView, Platform, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { style } from './style';
 import { images } from '../../../utils/images';
 import Responsive from '../../../utils/Responsive';
 import { TextFieldComponent } from '../../../components/TextFieldComponent';
 import { ThemeButtonComponent } from '../../../components/ThemeButtonComponent';
 import { emailvalidate } from '../../../utils/Validation';
-import navigationServices from '../../../navigator/navigationServices';
-import routes from '../../../navigator/routes';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useSelector } from 'react-redux';
 import Loader from '../../../components/Loader';
+import { Strings } from '../../../utils/strings';
 
 const Login = () => {
-    // const { data, loading } = useSelector((state: any) => state.authReducer);
     const { onChange, visiblePassword, email, loginService, loading } = viewModel()
+    const keyboardBehavior = Platform.OS == 'ios' ? 'padding' : 'height'
 
     return (
         <SafeAreaView
             style={style.mainView}>
             <ImageBackground source={images.backgroundSpalsh} resizeMode="cover" style={style.imageBGContainer}>
                 <KeyboardAwareScrollView>
+                    {/* <KeyboardAvoidingView style={{ flex: 1 }} >
+                    <ScrollView contentContainerStyle={style.scrollViewContent} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}> */}
                     <View style={style.headerView}>
                         <Image source={images.appLogo} style={{ ...style.imageLogoContainer, }} resizeMode='contain' />
                     </View>
@@ -31,8 +30,8 @@ const Login = () => {
                         <View style={style.btnContainer} />
                         <Text style={style.loginTitleContainer}>Log in</Text>
                         <TextFieldComponent
-                            title={"Email address"}
-                            placeholder={"Email address"}
+                            title={Strings.EmailAddress}
+                            placeholder={Strings.EmailAddress}
                             style={{ marginTop: Responsive.hp(4) }}
                             onTextChange={(value: any) => {
                                 onChange(value, "email")
@@ -40,8 +39,8 @@ const Login = () => {
                             isValidation={emailvalidate(email.trim())}
                         />
                         <TextFieldComponent
-                            title={"Password"}
-                            placeholder={"Password"}
+                            title={Strings.Password}
+                            placeholder={Strings.Password}
                             style={{ marginTop: Responsive.hp(3) }}
                             onTextChange={(value: any) => {
                                 onChange(value, "password")
@@ -53,15 +52,16 @@ const Login = () => {
                             }}
                         />
                         <ThemeButtonComponent
-                            title={"Login"}
+                            title={Strings.Login}
                             isActive={true}
                             buttonStyle={{ marginTop: Responsive.hp(5) }}
                             onPress={() => {
                                 loginService()
-                                // navigationServices.navigateToNext(routes.HomeScreen, {})
                             }}
                         />
                     </View>
+                    {/* </ScrollView>
+                </KeyboardAvoidingView> */}
                 </KeyboardAwareScrollView>
             </ImageBackground>
         </SafeAreaView>
@@ -69,3 +69,4 @@ const Login = () => {
 }
 
 export default Login
+

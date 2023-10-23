@@ -64,3 +64,7 @@ yarn-error.log
 
 # testing
 /coverage
+package-lock.json
+Gemfile.lock
+app-release.apk
+HOSTMAID.keystore

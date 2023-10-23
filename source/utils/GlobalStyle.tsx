@@ -1,8 +1,9 @@
 import { StyleSheet, Platform } from "react-native";
 import Color from "./colors";
 import Responsive from "./Responsive";
-import Toast from "react-native-root-toast";
+import Toast, { ToastOptions } from "react-native-root-toast";
 import Fonts from "./Fonts";
+import colors from "./colors";
 
 export const GlobalStyle = StyleSheet.create({
   containerSafeView: {
@@ -23,13 +24,17 @@ export const GlobalStyle = StyleSheet.create({
   Fonts_M_15: { fontSize: Responsive.hp(1.7), fontFamily: Fonts.DMSans_M, fontWeight: "500" },
   Fonts_R_16: { fontSize: Responsive.hp(1.8), fontFamily: Fonts.DMSans_R, fontWeight: "400" },
   Fonts_R_14: { fontSize: Responsive.hp(1.6), fontFamily: Fonts.DMSans_R, fontWeight: "400" },
+  bottomIconStyle: {
+    height: Responsive.hp(3), width: Responsive.hp(3)
+  }
 });
 
-export const ToastStyle = {
+
+export const ToastStyle: any = {
   duration: Toast.durations.SHORT,
-  position: Toast.positions.CENTER,
+  position: Toast.positions.BOTTOM,
   shadow: true,
   animation: true,
-  backgroundColor: Color.white,
-  textColor: Color.black,
+  backgroundColor: colors.white,
+  textColor: colors.black,
 };

@@ -4,15 +4,6 @@ import { Strings } from "../../utils/strings";
 import { localStorage } from "../../utils/localStorageProvider";
 import navigationServices from "../../navigator/navigationServices";
 import routes from "../../navigator/routes";
-const passArryList = [
-    { id: 0, week: "Week 1" },
-    { id: 1, week: "Week 2" },
-    { id: 2, week: "Week 3" },
-    { id: 3, week: "Week 4" },
-    { id: 4, week: "Week 5" },
-    { id: 5, week: "Week 6" },
-
-]
 
 const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -44,40 +35,42 @@ const arryList: any = [
     },
 ]
 export default function viewModel() {
-    const [values, setValues] = useState<any>({
-        arryList: [],
+    const currentDate = new Date();
+    let currentDay = currentDate.getDate()
+    let day = currentDate.getDay()
+    let currentMonth = currentDate.getMonth() + 1
+    let currentYear = currentDate.getFullYear()
+    let currentWeek = Math.ceil((currentDay + 6 - day) / 7)
+    const [state, setState] = useState<any>({
+        calendarDataArray: [],
+        date: new Date(),
+        show: false,
+        dateShowArray: [],
+        selectIndex: currentWeek - 1,
+        selectDate: currentDay,
+        showAppoinment: false,
+        flatlistData: []
     });
+    const year = state?.date?.getFullYear();
+    const month = state?.date?.getMonth() + 1;
+    const monthFormate = monthNames[state?.date?.getMonth()];
+    const yearFormate = state?.date.getFullYear();
+    const formattedDate = `${monthFormate}, ${yearFormate}`;
+
+    const updateState = (data: any) => setState((state: any) => ({ ...state, ...data }));
 
     /**
-     * update value based on key and value
-     * @param value 
-     * @param prop 
+     * Pop up alert
      */
-    function onChange(value: any, prop: any) {
-        setValues({ ...values, [prop]: value });
-    }
-
-    /**
-     * create a list
-     */
-    function createAList() {
-        let tempArry: any[] = []
-        passArryList.forEach(element => {
-            const data = {
-                ...element,
-                isCheck: false,
-            }
-            tempArry.push(data)
-        });
-        onChange(tempArry, "arryList")
-    }
-
     const createTwoButtonAlert = () => {
         AlertPopUp({
             title: `${Strings.SignOutTitle}`, message: `${Strings.SignOutMsg}`, btn: `${Strings.SignOutBtn}`,
             btnPresed: () => { SignOut() }
         })
     }
+    /**
+    * Sign out function
+    */
     const SignOut = async () => {
         try {
             localStorage.clear();
@@ -86,12 +79,13 @@ export default function viewModel() {
             console.error(error);
         }
     };
+
     return {
-        values,
-        onChange,
-        createAList,
-        monthNames,
+        state,
+        updateState,
         arryList,
-        createTwoButtonAlert
+        createTwoButtonAlert, year, month,
+        formattedDate, currentDate, currentDay,
+        currentMonth, currentYear, currentWeek
     };
 }

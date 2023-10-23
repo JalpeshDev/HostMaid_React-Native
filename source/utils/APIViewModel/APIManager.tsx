@@ -41,7 +41,6 @@ export const APIManager = (data: any, type: RequestType, formData: Boolean = fal
         );
       })
       .catch((error: any) => {
-        // console.log("call 123: ", error.response);
         if (error.response != undefined) {
           let errorData = null;
           if (error.response.data != null) {

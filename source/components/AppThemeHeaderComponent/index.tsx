@@ -60,7 +60,7 @@ export const AppThemeHeaderComponent = ({
                     <TouchableOpacity
                         style={[style.imgView, imgViewStylesObj]}
                         onPress={() => {
-                            onPressRightLeft()
+                            onPressRightLeft("+1 123-456-7890")
                         }}
                     >
                         <Image source={LeftIcon} style={{ ...style.iconsView, ...imgStyle, }} resizeMode='contain' />

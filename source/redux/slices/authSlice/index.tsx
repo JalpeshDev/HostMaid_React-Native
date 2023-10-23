@@ -1,20 +1,28 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { userLoginAction } from '../../action/authAction';
 import Toast from 'react-native-simple-toast';
-import colors from '../../../utils/colors';
 import { localStorage } from '../../../utils/localStorageProvider';
-import routes from '../../../navigator/routes';
-import navigationServices from '../../../navigator/navigationServices';
+import { ToastStyle } from '../../../utils/GlobalStyle';
+import { LocalStorageKey, Strings } from '../../../utils/strings';
+import { AuthStateType } from '../../types';
 
-const initialState = {
+const initialState: AuthStateType = {
   loading: false,
   data: {},
+  isClickable: false,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    enableTabNavigation: (state) => {
+      state.isClickable = true;
+    },
+    disableTabNavigation: (state) => {
+      state.isClickable = false;
+    },
+  },
   extraReducers: builder => {
     builder.addCase(userLoginAction.pending, (state, action) => {
       state.loading = true;
@@ -22,17 +30,14 @@ const authSlice = createSlice({
     builder.addCase(userLoginAction.fulfilled, (state, action) => {
       state.data = action.payload;
       state.loading = false;
-      localStorage.setItemObject("token", action.payload?.content?.access_token);
-      navigationServices.navigateToNext(routes.HomeScreen, {})
+      localStorage.setItemObject(LocalStorageKey.Token, action.payload?.content?.access_token);
     });
     builder.addCase(userLoginAction.rejected, (state, action) => {
       state.data = {};
       state.loading = false;
-      Toast.show('Invalid login details', Toast.LONG, {
-        backgroundColor: colors.themeGreen,
-      });
+      Toast.show(Strings.InvalidMsg, ToastStyle);
     });
   },
 });
-
+export const { enableTabNavigation, disableTabNavigation } = authSlice.actions;
 export const authReducer = authSlice.reducer;

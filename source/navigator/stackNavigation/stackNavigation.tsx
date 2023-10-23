@@ -5,6 +5,7 @@ import routes from '../routes';
 import Login from '../../screen/LoginModule/Login';
 import Welcome from '../../screen/LoginModule/Welcome';
 import HomeScreen from '../../screen/HomeScreen';
+import BottomNavigation from '../bottomNavigation/bottomNavigation';
 
 const Stack = createNativeStackNavigator();
 export default function StackNavigation() {
@@ -13,6 +14,7 @@ export default function StackNavigation() {
         { name: routes.Welcome, component: Welcome },
         { name: routes.Login, component: Login },
         { name: routes.HomeScreen, component: HomeScreen },
+        { name: routes.BottomNavigation, component: BottomNavigation },
     ];
     return (
         <Stack.Navigator

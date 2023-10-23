@@ -11,12 +11,21 @@ export const ThemeButtonComponent = ({
   textStyle,
   onPress,
   isActive,
+  checkInBtn
 }: any) => {
+
   return (
     <>
       <TouchableOpacity
         style={{
-          backgroundColor: isActive ? Color.themeGreen : Color.deactive,
+          backgroundColor: checkInBtn === 0
+            ? Color.deactive
+            : checkInBtn === 1
+              ? Color.themeGreen
+              : checkInBtn === 2
+                ? Color.timerColor
+                : Color.deactive,
+          // backgroundColor: isActive ? Color.themeGreen : Color.deactive,
           ...style.mainView,
           ...buttonStyle,
         }}

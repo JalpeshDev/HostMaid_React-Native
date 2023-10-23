@@ -1,20 +1,18 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { userLoginAction } from '../../../redux/action/authAction';
-// import Toast from 'react-native-simple-toast';
 import Toast from 'react-native-root-toast';
 
-import colors from '../../../utils/colors';
-import { APIServiceManager, RequestType } from '../../../utils/APIViewModel/APIServiceManager';
+import { RequestType } from '../../../utils/APIViewModel/APIServiceManager';
 import { apiUrl } from '../../../utils/apiUrl';
 import { APIManager } from '../../../utils/APIViewModel/APIManager';
 import { localStorage } from '../../../utils/localStorageProvider';
 import routes from '../../../navigator/routes';
 import navigationServices from '../../../navigator/navigationServices';
 import { LocalStorageKey } from '../../../utils/strings';
-import { ToastStyle } from '../../../utils/generalFunction';
+import { ToastStyle } from '../../../utils/GlobalStyle';
+import { useAppDispatch } from '../../../redux';
 export default function viewModel() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 

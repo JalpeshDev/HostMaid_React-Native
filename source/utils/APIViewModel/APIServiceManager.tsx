@@ -59,8 +59,6 @@ export const errorValidation = (res: any, code: any) => {
         resolve({ message: "data not found", status: 0 });
         break;
       case 422 || 403:
-        console.log("FieldValidation-->", res);
-
         let msgValidation = "Validation Error";
         if (res.emailNumber_exists != null) {
           if (Array.isArray(res.message) && res.message.length > 0) {

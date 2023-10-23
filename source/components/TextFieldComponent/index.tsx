@@ -12,14 +12,16 @@ export const TextFieldComponent = ({ title, placeholder, onTextChange, style, is
         <View style={{ ...styles.mainView, ...style }}>
             <Text style={styles.title}>{title}</Text>
             <View style={styles.textInputFieldView}>
-                <TextInput placeholder={placeholder} secureTextEntry={visiblePassword}
+                <TextInput
+                    placeholder={placeholder}
+                    secureTextEntry={visiblePassword}
                     placeholderTextColor={colors.black}
                     autoCapitalize='none'
-                    style={{ marginHorizontal: Responsive.wp(3), ...GlobalStyle.Fonts_R_16, width: "80%" }}
+                    style={{ ...styles.textInputStyle }}
                     onChangeText={(value) => {
                         onTextChange(value)
-                    }}>
-
+                    }}
+                >
                 </TextInput>
                 {isSecure &&
                     <TouchableOpacity activeOpacity={0.9} style={styles.eyeBtnView}

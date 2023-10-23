@@ -5,5 +5,6 @@ export default {
     Welcome: "Welcome",
     CheckInUnavaibleMap: "CheckInUnavaibleMap",
     CodeScreen: "CodeScreen",
-    HomeScreen: "HomeScreen"
+    HomeScreen: "HomeScreen",
+    BottomNavigation: "BottomNavigation"
 };

@@ -1,95 +1,27 @@
 import React from 'react';
-import Icons from './icons';
-import routes from '../navigator/routes';
 import { images } from './images';
-import { Platform, View, Image } from 'react-native'
-import Responsive from './Responsive';
-import Toast from 'react-native-root-toast';
+import { Image } from 'react-native'
+
 import moment from "moment";
-import colors from './colors';
 import { Alert } from 'react-native'
+import Responsive from './Responsive';
+import { GlobalStyle } from './GlobalStyle';
 export const bottomIconsChange = (tab: any, color: any) => {
     switch (tab) {
         case 'Map':
-            return <Image source={images.map} tintColor={color} style={{ height: 20, width: 20 }} resizeMode='contain' />;
+            return <Image source={images.map} tintColor={color} style={GlobalStyle.bottomIconStyle} resizeMode='contain' />;
         case 'Codes':
-            return <Image source={images.codes} tintColor={color} style={{ height: 20, width: 20 }} resizeMode='contain' />;
+            return <Image source={images.codes} tintColor={color} style={GlobalStyle.bottomIconStyle} resizeMode='contain' />;
         case 'Bath':
-            return <Image source={images.bath} tintColor={color} style={{ height: 20, width: 20 }} resizeMode='contain' />;
+            return <Image source={images.bath} tintColor={color} style={GlobalStyle.bottomIconStyle} resizeMode='contain' />;
         case 'Misc':
-            return <Image source={images.misc} tintColor={color} style={{ height: 20, width: 20 }} resizeMode='contain' />;
+            return <Image source={images.misc} tintColor={color} style={GlobalStyle.bottomIconStyle} resizeMode='contain' />;
         case 'Photos':
-            return <Image source={images.photos} tintColor={color} style={{ height: 20, width: 20 }} resizeMode='contain' />;
+            return <Image source={images.photos} tintColor={color} style={GlobalStyle.bottomIconStyle} resizeMode='contain' />;
         default:
             break;
     }
 };
-
-// export const checkHideTab = (route: any) => {
-//     {
-//       let routesname = hideTab;
-//       const routeName = getFocusedRouteNameFromRoute(route) ?? '';
-//       if (routesname.indexOf(routeName) > -1) {
-//         return {display: 'none'};
-//       }
-//       return {
-//         backgroundColor: 'black',
-//         borderTopLeftRadius: 15,
-//         borderTopRightRadius: 15,
-//         height: responsive.hp(8),
-//       };
-//     }
-//   };
-
-// export const getCalendarDateAndDay = (year: number, month: number) => {
-//     // Create a Date object for the given year and month
-//     const date = new Date(year, month - 1, 1); // Note: Months are 0-based (0 = January, 11 = December)
-
-//     // Get the number of days in the given month
-//     const lastDay = new Date(year, month, 0).getDate();
-
-//     // Initialize an array to hold the calendar data
-//     const calendarData = [];
-
-//     // Days of the week
-//     const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THUR', 'FRI', 'SAT'];
-
-//     // Helper function to calculate the ISO week number
-//     const getISOWeekNumber = (date: any) => {
-//         const target: any = new Date(date.valueOf());
-//         const dayNr = (date.getDay() + 6) % 7;
-//         target.setDate(target.getDate() - dayNr + 3);
-//         const firstThursday = target.valueOf();
-//         target.setMonth(0, 1);
-//         if (target.getDay() !== 4) {
-//             target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
-//         }
-//         return 1 + Math.ceil((firstThursday - target) / 604800000); // 604800000 ms per week
-//     };
-
-//     // Loop through each day of the month
-//     for (let day = 1; day <= lastDay; day++) {
-//         // Create a new Date object for the current day
-//         const currentDate = new Date(year, month - 1, day);
-
-//         // Get the day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
-//         const dayOfWeekIndex = currentDate.getDay();
-//         const dayOfWeekName = daysOfWeek[dayOfWeekIndex];
-
-//         // Get the ISO week number for the current date
-//         const weekNumber = getISOWeekNumber(currentDate);
-
-//         // Push the date, day of the week index, day of the week name, and week number into the calendarData array
-//         calendarData.push({
-//             date: currentDate.getDate(),
-//             dayOfWeekIndex,
-//             dayOfWeekName,
-//             weekNumber,
-//         });
-//     }
-
-//     return calendarData;
-// };
 
 export const getNumberOfWeeksInMonth = (year: any, month: any) => {
     // Create a Date object for the given year and month
@@ -103,8 +35,6 @@ export const getNumberOfWeeksInMonth = (year: any, month: any) => {
 
     return numberOfWeeks;
 };
-
-
 
 export const getCalendarDateAndDay = (year: any, month: any) => {
     // Create a Date object for the given year and month
@@ -145,7 +75,6 @@ export const getCalendarDateAndDay = (year: any, month: any) => {
 
     return calendarData;
 };
-
 
 export const CalendarInfo = (year: any, month: any) => {
     // Create a Date object for the given year and month
@@ -190,15 +119,6 @@ export const CalendarInfo = (year: any, month: any) => {
     return calendarDataByWeek;
 };
 
-export const ToastStyle = {
-    duration: Toast.durations.SHORT,
-    position: Toast.positions.BOTTOM,
-    shadow: true,
-    animation: true,
-    backgroundColor: colors.white,
-    textColor: colors.black,
-};
-
 export function convertDateWithFormat(publishTime: any) {
     let date = moment(publishTime);
     if (moment().diff(date, "year") >= 1) {
@@ -222,7 +142,6 @@ export function convertDateWithFormat(publishTime: any) {
 }
 
 export const AlertPopUp = (props: any) => {
-
     return Alert.alert(
         `${props?.title}`,
         `${props?.message}`,
@@ -239,4 +158,13 @@ export const AlertPopUp = (props: any) => {
         ],
     );
 
+}
+
+export const timeFormate = () => {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+
+    return hours + ' : ' + minutes + ' : ' + seconds;
 }

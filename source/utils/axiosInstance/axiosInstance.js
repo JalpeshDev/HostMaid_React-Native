@@ -2,10 +2,10 @@ import axios from 'axios';
 import {localStorage} from '../localStorageProvider';
 import {url} from '../apiUrl';
 
-const axiosInstance = axios.create({baseURL: url});
-axiosInstance.defaults.timeout = 1000 * 15;
+const AxiosInstance = axios.create({baseURL: url});
+AxiosInstance.defaults.timeout = 1000 * 15;
 
-axiosInstance.interceptors.request.use(async config => {
+AxiosInstance.interceptors.request.use(async config => {
   const token = await localStorage.getItemObject('token');
 
   if (token) {
@@ -14,4 +14,4 @@ axiosInstance.interceptors.request.use(async config => {
   }
   return config;
 });
-export default axiosInstance;
+export default AxiosInstance;

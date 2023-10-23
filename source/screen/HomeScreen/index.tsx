@@ -10,49 +10,49 @@ import viewModel from './viewModel'
 import DateDisplay from '../../components/WeekCmp/DateDisplay'
 import MonthPicker from 'react-native-month-year-picker'
 import { CalendarInfo, } from '../../utils/generalFunction'
-import { useDispatch, useSelector } from 'react-redux'
 import { getBookingsAction } from '../../redux/action/authAction'
 import Loader from '../../components/Loader'
+import { Strings } from '../../utils/strings'
+import navigationServices from '../../navigator/navigationServices'
+import routes from '../../navigator/routes'
+import { useAppDispatch, useAppSelector } from '../../redux'
 
 const HomeScreen = () => {
-    const dispatch = useDispatch();
-    const currentDate = new Date();
-    let currentDay = currentDate.getDate()
-    let day = currentDate.getDay()
-    let currentMonth = currentDate.getMonth() + 1
-    let currentYear = currentDate.getFullYear()
-    let currentWeek = Math.ceil((currentDay + 6 - day) / 7)
+    const dispatch = useAppDispatch();
 
-    const { createAList, monthNames, arryList, createTwoButtonAlert } = viewModel()
-    const [calendarDataArray, setCalendarDataArray] = useState<any>([]);
-    const [date, setDate] = useState(new Date());
-    const [show, setShow] = useState(false);
-    const [dateShowArray, setDateShowArray] = useState([]);
-    const [selectIndex, setSelectIndex] = useState(currentWeek - 1);
-    const [selectDate, setSelectDate] = useState(currentDay);
-    const [showAppoinment, setShowAppoinment] = useState(false);
-    const [flatlistData, setFlatlistData] = useState([]);
+    const {
+        state,
+        updateState,
+        arryList,
+        createTwoButtonAlert, year, month,
+        formattedDate, currentDay,
+        currentMonth, currentYear, currentWeek } = viewModel()
+    const { data, loading } = useAppSelector((state) => state.bookingReducer);
 
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const monthFormate = monthNames[date.getMonth()];
-    const yearFormate = date.getFullYear();
-    const formattedDate = `${monthFormate}, ${yearFormate}`;
-
-
-    const { data, loading } = useSelector((state: any) => state.bookingReducer);;
+    const {
+        calendarDataArray,
+        date,
+        show,
+        dateShowArray,
+        selectIndex,
+        selectDate,
+        showAppoinment,
+        flatlistData } = state
 
     useEffect(() => {
-        createAList();
         dispatch(getBookingsAction());
     }, [])
 
     const renderItem = (item: any) => {
         return (
-            <AddressFlatlistCmp item={item} />
+            <AddressFlatlistCmp item={item}
+                onArrowPress={() => navigationServices.navigateToNext(routes.BottomNavigation, {})}
+            />
         )
     }
-    const showPicker = useCallback((value: any) => setShow(value), []);
+
+    const showPicker = useCallback((value: any) => updateState({ show: value }), []);
+
     const onValueChange = useCallback(
         (event: any, newDate: any) => {
             const selectedDate = newDate || date;
@@ -73,28 +73,28 @@ const HomeScreen = () => {
     useEffect(() => {
         const calendarData = CalendarInfo(year, month);
         const calendarDataValues: any = Object.values(calendarData);
-        setDateShowArray(calendarDataValues[selectIndex])
+        updateState({ dateShowArray: calendarDataValues[selectIndex] })
         if (currentMonth == month && currentYear == year) {
             if (currentWeek - 1 == selectIndex) {
-                setSelectDate(currentDay)
+                updateState({ selectDate: currentDay })
             } else {
-                setSelectDate(calendarDataValues[selectIndex][0].date)
+                updateState({ selectDate: calendarDataValues[selectIndex][0].date })
             }
         } else {
-            setSelectDate(calendarDataValues[selectIndex][0].date)
+            updateState({ selectDate: calendarDataValues[selectIndex][0].date })
         }
-        setCalendarDataArray(() => [...calendarDataValues]);
+        updateState({ calendarDataArray: [...calendarDataValues] })
     }, [date, selectIndex]);
 
     const checkCurrentWeek = (selectedDate: any) => {
         const year = selectedDate.getFullYear();
         const month = selectedDate.getMonth() + 1;
         showPicker(false);
-        setDate(selectedDate);
+        updateState({ date: selectedDate })
         if (currentMonth === month && currentYear === year) {
-            setSelectIndex(currentWeek - 1)
+            updateState({ selectIndex: currentWeek - 1 })
         } else {
-            setSelectIndex(0)
+            updateState({ selectIndex: 0 })
         }
     }
 
@@ -107,14 +107,14 @@ const HomeScreen = () => {
             return filterDate == selectDate && filterMonth == month && filterYear == year;
         });
         if (result?.length != 0) {
-            setFlatlistData(result)
-            setShowAppoinment(true)
+            updateState({ flatlistData: result })
+            updateState({ showAppoinment: true })
         } else {
             if (currentMonth === month && currentYear === year && currentDay == selectDate) {
-                setFlatlistData(arryList)
-                setShowAppoinment(true)
+                updateState({ flatlistData: arryList })
+                updateState({ showAppoinment: true })
             } else {
-                setShowAppoinment(false)
+                updateState({ showAppoinment: false })
             }
         }
     }, [selectIndex, selectDate, loading])
@@ -126,7 +126,7 @@ const HomeScreen = () => {
                     LeftIcon={images.filter}
                     RightIcon={images.people}
                     header={true}
-                    title1={'Welcome John!'}
+                    title1={Strings.HeaderTitle1}
                     title2={formattedDate}
                     imgStyle={style.imgStyle}
                     onDateSelect={() => showPicker(true)}
@@ -144,17 +144,17 @@ const HomeScreen = () => {
                                         <WeekDisplay key={index} keyIndex={index} data={item}
                                             isCheckWeekView={selectIndex}
                                             onPressWeek={(data: any, keyIndex: any) => {
-                                                setSelectIndex(keyIndex)
-                                                setDateShowArray(data)
+                                                updateState({ selectIndex: keyIndex })
+                                                updateState({ dateShowArray: data })
                                                 if (currentMonth == month && currentYear == year) {
                                                     const result = data.filter((element: any) => element.date == currentDay);
                                                     if (result.length > 0) {
-                                                        setSelectDate(currentDay)
+                                                        updateState({ selectDate: currentDay })
                                                     } else {
-                                                        setSelectDate(data[0].date)
+                                                        updateState({ selectDate: data[0].date })
                                                     }
                                                 } else {
-                                                    setSelectDate(data[0].date)
+                                                    updateState({ selectDate: data[0].date })
                                                 }
                                             }}
                                         />
@@ -174,7 +174,7 @@ const HomeScreen = () => {
                                         <DateDisplay key={index} data={item}
                                             isCheckDateView={item?.date == selectDate}
                                             onPressDate={(data: any) => {
-                                                setSelectDate(data?.date)
+                                                updateState({ selectDate: data?.date })
                                             }}
                                         />
                                     )
@@ -210,7 +210,6 @@ const HomeScreen = () => {
                 <MonthPicker
                     onChange={onValueChange}
                     value={date}
-                    // maximumDate={new Date()}
                     locale="en"
                     mode="full"
                     autoTheme={false}

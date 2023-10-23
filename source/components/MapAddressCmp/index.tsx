@@ -32,7 +32,7 @@ const style = StyleSheet.create({
         width: "100%",
         maxHeight: Responsive.hp(10),
         minHeight: Responsive.hp(7),
-        marginTop: Responsive.hp(2)
+        marginTop: Responsive.hp(2),
     },
     containerIn: {
         flexDirection: "row",

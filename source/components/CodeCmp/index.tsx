@@ -24,7 +24,6 @@ const CodeCmp = ({ label, number, onPressNumberBox }: any) => {
                             )
                         })
                     }
-
                 </View>
             </View>
         </View>
@@ -49,13 +48,13 @@ const style = StyleSheet.create({
     },
     numberStyle: {
         color: colors.themeTextBlack,
-        ...GlobalStyle.Fonts_B_16
+        ...GlobalStyle.Fonts_B_16,
     },
     rightContainBG: {
         flexDirection: "row",
         justifyContent: 'space-between',
-        width: "65%",
-        paddingTop: Responsive.hp(4)
+        width: "63%",
+        paddingTop: Responsive.hp(3.5),
     },
     boxStyle: {
         height: Responsive.hp(6),
@@ -63,7 +62,12 @@ const style = StyleSheet.create({
         backgroundColor: colors.numberBox,
         borderRadius: Responsive.hp(1),
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        elevation: 1,
+        shadowOffset: { width: 0.2, height: 0.2 },
+        shadowColor: colors.black,
+        shadowRadius: 1,
+        shadowOpacity: 0.1,
     },
     content: {
         color: colors.locationText,

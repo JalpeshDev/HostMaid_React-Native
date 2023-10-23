@@ -23,6 +23,9 @@ export const style = StyleSheet.create({
     },
     loginTitleContainer: { textAlign: "left", marginTop: Responsive.hp(6), ...GlobalStyle.Fonts_B_30, color: colors.themeGray, width: "100%" },
     btnContainer: { width: Responsive.wp(10), backgroundColor: colors.white, borderRadius: Responsive.hp(1), height: Responsive.hp(0.8), marginTop: Responsive.hp(0.8) },
-    headerView: { height: Responsive.hp(40), justifyContent: 'center' }
+    headerView: { height: Responsive.hp(40), justifyContent: 'center' },
+    scrollViewContent: {
+        flex: 1,
+    },
 });
 

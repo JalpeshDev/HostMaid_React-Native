@@ -17,6 +17,17 @@ export const images = {
     photos: require('../assests/images/photos.png'),
     dataNotFound: require('../assests/images/dataNotFound.png'),
     notFound: require('../assests/images/notFound.png'),
+    backIcon: require('../assests/images/back.png'),
+    SourceAvtar: require('../assests/images/SourceAvtar.png'),
+    House: require('../assests/images/House.png'),
+    CircleHouse: require('../assests/images/CircleHouse.png'),
+    Info: require('../assests/images/info.png'),
+    HomeDestination: require('../assests/images/HomeDestination.png'),
+    sliderImg1: require('../assests/images/sliderImg1.png'),
+    ForwordArrow: require('../assests/images/ForwordArrow.png'),
+    BackArrow: require('../assests/images/BackArrow.png'),
+    Home2: require('../assests/images/Home2.jpg'),
+    Home1: require('../assests/images/Home1.jpg'),
 
 };
 

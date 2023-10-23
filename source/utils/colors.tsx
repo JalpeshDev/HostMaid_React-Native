@@ -24,5 +24,11 @@ export default {
   numberBox: "#EFEFF5",
   directionLine: "#83DEEE",
   active: "#292D32",
-  deActive: "#A3A3A3"
+  deActive: "#A3A3A3",
+  themeGreen40: "#80DEF040",
+  themeGreenLight: "#82DEEE50",
+  themeGrayLight: "#D9D9D9",
+  timerbackground: "#C7C7C7",
+  timerColor: "#F56E6E",
+  mapBottomBorder: "#F2F2F2"
 };
