@@ -3,10 +3,9 @@ import React from 'react'
 import Responsive from '../utils/Responsive'
 import colors from '../utils/colors'
 import { GlobalStyle } from '../utils/GlobalStyle'
-import { timeFormate } from '../utils/generalFunction'
+import { formatTime, timeFormate, trackerTime } from '../utils/generalFunction'
 
-const TimerCmp = ({ mainTimerStyle, timetitleStyle }: any) => {
-
+const TimerCmp = ({ mainTimerStyle, timetitleStyle, elapsedTime }: any) => {
     return (
         <TouchableOpacity style={{
             ...style.main, ...mainTimerStyle,
@@ -16,7 +15,9 @@ const TimerCmp = ({ mainTimerStyle, timetitleStyle }: any) => {
         }}>
             <Text style={{
                 ...style.title, ...timetitleStyle
-            }}>{timeFormate()}</Text>
+            }}>
+                {trackerTime(elapsedTime)}
+            </Text>
         </TouchableOpacity>
     )
 }

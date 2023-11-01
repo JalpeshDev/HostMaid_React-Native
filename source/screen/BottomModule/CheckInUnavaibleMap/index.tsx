@@ -1,70 +1,74 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Dimensions, PermissionsAndroid, SafeAreaView, View, Alert, Platform, Image, TouchableOpacity, Linking } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Dimensions, PermissionsAndroid, SafeAreaView, View, Alert, Image, TouchableOpacity, Linking } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-import MapView, { PROVIDER_GOOGLE, Marker, Polyline, Callout } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
 import viewModel from './viewModel';
 import colors from '../../../utils/colors';
 import Responsive from '../../../utils/Responsive';
 import { style } from './style';
-import { AppThemeHeaderComponent } from '../../../components/AppThemeHeaderComponent';
 import { images } from '../../../utils/images';
 import MapAddressCmp from '../../../components/MapAddressCmp';
 import { ThemeButtonComponent } from '../../../components/ThemeButtonComponent';
 import navigationServices from '../../../navigator/navigationServices';
-import MapViewDirections from 'react-native-maps-directions';
-import { useDispatch, useSelector } from 'react-redux';
-import { disableTabNavigation, enableTabNavigation } from '../../../redux/slices/authSlice';
+import { elapsedTimes } from '../../../redux/slices/authSlice';
 import { Strings } from '../../../utils/strings';
 import { NavigationHeader } from '../../../components/AppThemeHeaderComponent/navigationHeader';
 import ImageView from 'react-native-image-viewing'
 import InfoPopUp from '../../../components/PopUp/InfoPopUp';
-import Carousel, { Pagination } from "react-native-snap-carousel";
+import Carousel from "react-native-snap-carousel";
 import TimerCmp from '../../../components/TimerCmp';
+import { useAppDispatch } from '../../../redux';
+import { localStorage } from '../../../utils/localStorageProvider';
+import AppThemeHeaderComponent from '../../../components/AppThemeHeaderComponent';
+import RenderImgSlider from '../../../components/ListCmp/RenderImgSlider';
+import PlatformType from '../../../utils/PlatformType';
+import ArrowCmp from '../../../components/ArrowCmp';
+import { useGetBookingByIdQuery } from '../../../redux/services/ApiQuery';
+import Loader from '../../../components/Loader';
+
 export const SLIDER_WIDTH = Dimensions.get('window').width + 30;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.8);
 const screen = Dimensions.get('window');
 const ASPECT_RATIO = screen.width / screen.height;
 const LATITUDE_DELTA = 0.04;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
 const CheckInUnavaibleMap = ({ route }: any) => {
-    const [checkInBtn, setCheckInBtn] = useState(0)
-    const [index, setIndex] = useState(0);
-    const isCarousel = useRef<any>(null);
-    const { onChange, coordinates, state, updateState } = viewModel()
-    const { isFullViewImgVisible, isInfoPopup, isShowHome, isImgScroll, timer, isImagePop } = state;
-    const data: { id: number; url: any }[] = [
-        {
-            id: 1,
-            url: images.sliderImg1,
-        },
-        {
-            id: 2,
-            url: images.Home1,
-        },
-        {
-            id: 3,
-            url: images.Home2,
-        },
-    ];
-    const dispatch = useDispatch();
-    const isClickable = useSelector((state: any) => state.authReducer.isClickable);
-    // const { location } = route.params
-    const fullViewImg = [
-        {
-            uri: "https://fastly.picsum.photos/id/869/200/200.jpg?hmac=Eqnjw4kAS1sFTick74KSN6CBN01wmQg8OpxqbGtdyCU",
-        },
-    ];
+    const routeData = route.params.routeData;
+    const { isLoading, data } = useGetBookingByIdQuery(routeData?.property_id)
+
+    const [elapsedTime, setElapsedTime] = useState(0);
+    const dispatch = useAppDispatch();
+    const {
+        onChange, coordinates, state, updateState, checkInBtnText, createAList, callNumber,
+        isCarousel, onScrollLeft, onScrollRight, isLeftArrowDisabled,
+        isRightArrowDisabled, fullViewImg, isClickable, onMarkerPress
+    } = viewModel()
+
+    const {
+        isFullViewImgVisible, isInfoPopup, isShowHome, isImgScroll, isTimer, slideImgdata,
+        isRunning, index, checkInBtn
+    } = state;
+
+    useEffect(() => {
+        createAList()
+    }, [])
+
     const renderImageSlider = ({ item }: any) => {
         return (
-            <View style={style.backgroundSlider}>
-                <Image source={item.url} style={style.imageSlider} />
-            </View>
+            <RenderImgSlider checkInBtnText={checkInBtnText} item={item}
+                onCheckBoxPress={(item: any) => {
+                    let tempArry = [...slideImgdata]
+                    tempArry[item.id - 1].isCheck = !item.isCheck
+                    updateState({ slideImgdata: tempArry })
+                }}
+            />
         );
     };
 
     useEffect(() => {
         const requestLocationPermission = async () => {
-            if (Platform.OS === 'android') {
+            if (PlatformType.android) {
                 try {
                     const granted = await PermissionsAndroid.request(
                         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -137,91 +141,118 @@ const CheckInUnavaibleMap = ({ route }: any) => {
         requestLocationPermission();
     }, []);
 
-    const handleTabNavigation = () => {
-        if (isClickable) {
-            dispatch(disableTabNavigation());
-        } else {
-            dispatch(enableTabNavigation());
-        }
+    useEffect(() => {
+        const loadElapsedTime = async () => {
+            try {
+                const savedTimeData = await localStorage.getItemObject(`property_id${routeData?.property_id}`);
 
-    };
-    const onScrollLeft = (index: any) => {
-        if (isCarousel.current) {
-            const newIndex = (index - 1 + data.length) % data.length;
-            isCarousel.current.snapToItem(newIndex);
-            setIndex(newIndex);
-        }
-    }
-    const onScrollRight = (index: any) => {
-        if (isCarousel.current) {
-            const newIndex = (index + 1) % data.length;
-            isCarousel.current.snapToItem(newIndex);
-            setIndex(newIndex);
-        }
-    }
-    const isLeftArrowDisabled = index === 0;
-    const isRightArrowDisabled = index === data.length - 1;
+                if (savedTimeData) {
+                    const startTime = parseInt(savedTimeData.startTime, 10);
+                    const timerStartingDate = savedTimeData.timerStartingDate;
+                    const now = Date.now();
+                    const elapsed = now - startTime;
 
-    const onMarkerPress = () => {
-        if (isShowHome) {
-            updateState({ isFullViewImgVisible: !isFullViewImgVisible })
-        } else {
-            updateState({ isShowHome: !isShowHome })
-        }
-    }
-    const callNumber = (phone: any) => {
-        let phoneNumber = phone;
-        if (Platform.OS !== 'android') {
-            phoneNumber = `telprompt:${phone}`;
-        }
-        else {
-            phoneNumber = `tel:${phone}`;
-        }
-        Linking.canOpenURL(phoneNumber)
-            .then(supported => {
-                if (!supported) {
-                    Alert.alert('Phone number is not available');
-                } else {
-                    return Linking.openURL(phoneNumber);
+                    setElapsedTime(elapsed + parseInt(savedTimeData.elapsedTime, 10));
+
+                    // Calculate the time elapsed since the timer was started
+                    const timeElapsedSinceStart = now - timerStartingDate;
+                    updateState({ isImgScroll: true })
+                    updateState({ isTimer: true })
+                    updateState({ checkInBtn: 2 })
+                    updateState({ isRunning: true })
+
+                    // if (timeElapsedSinceStart >= 0 && timeElapsedSinceStart < 24 * 60 * 60 * 1000) {
+                    //     await localStorage.setItemObject(`property_id${routeData?.property_id}`, {
+                    //         startTime: startTime.toString(),
+                    //         timerStartingDate: Date.now(),
+                    //         elapsedTime: savedTimeData ? savedTimeData.elapsedTime + elapsedTime : elapsedTime,
+                    //     });
+                    //     // updateState({ isRunning: true })
+                    // } else {
+                    //     // updateState({ isRunning: false })
+                    // }
                 }
-            })
-            .catch(err => console.log(err));
+            } catch (error) {
+                console.error('Error loading elapsed time: ', error);
+            }
+        };
+
+        loadElapsedTime();
+    }, [routeData]);
+
+    useEffect(() => {
+        if (isRunning) {
+            const interval = setInterval(() => {
+                setElapsedTime(prevElapsedTime => prevElapsedTime + 1000);
+            }, 1000);
+
+            return () => clearInterval(interval);
+        }
+    }, [isRunning]);
+
+    const startTimer = async () => {
+        try {
+            const savedTimeData = await localStorage.getItemObject(`property_id${routeData?.property_id}`);
+            const startTime = Date.now() - elapsedTime;
+
+            // Store the start time and current elapsed time
+            await localStorage.setItemObject(`property_id${routeData?.property_id}`, {
+                startTime: startTime.toString(),
+                timerStartingDate: Date.now(),
+                elapsedTime: savedTimeData ? savedTimeData.elapsedTime + elapsedTime : elapsedTime,
+            });
+            updateState({ isRunning: true })
+        } catch (error) {
+            console.error('Error starting timer: ', error);
+        }
     };
+    const pauseTimer = () => {
+        updateState({ isRunning: false })
+    };
+
+    useEffect(() => {
+        dispatch(elapsedTimes({ elapsedTime: elapsedTime }))
+    }, [elapsedTime])
 
     return (
         <SafeAreaView style={style.mainView}>
-            <NavigationHeader LeftIcon={images.backIcon} RightIcon={images.Info} checkInBtn={checkInBtn} timer={timer}
+            <NavigationHeader LeftIcon={images.backIcon} RightIcon={images.Info} checkInBtn={checkInBtn} isTimer={isTimer}
                 onPressLeft={() => navigationServices.navigationGoBack()} onPressRight={() => updateState({ isInfoPopup: !isInfoPopup })} />
+            <Loader loading={isLoading} />
             {isImgScroll ?
                 <View style={style.mapView}>
                     <View style={style.imgContainer}>
                         <View style={style.arrowContainer}>
-                            {data.length != 0 &&
-                                <TouchableOpacity style={style.arrowView} onPress={() => onScrollLeft(index)} disabled={isLeftArrowDisabled}>
-                                    <Image source={images.BackArrow} resizeMode='contain'
-                                        style={style.arrowImg} tintColor={isLeftArrowDisabled ? colors.blackGrey30 : colors.black} />
-                                </TouchableOpacity>
+                            {slideImgdata.length != 0 &&
+                                <ArrowCmp onPress={(index: any) => { onScrollLeft(index) }}
+                                    disabled={isLeftArrowDisabled}
+                                    arrowImg={images.BackArrow}
+                                    index={index}
+                                />
                             }
-
                         </View>
 
                         <View style={style.CarouselStyle}>
                             <Carousel
                                 ref={isCarousel}
-                                data={data}
+                                data={slideImgdata}
                                 renderItem={renderImageSlider}
-                                sliderWidth={Responsive.hp(32.7)}
-                                itemWidth={Responsive.hp(32.7)}
-                                onSnapToItem={(index) => setIndex(index)}
+                                sliderWidth={Responsive.hp(36)}
+                                itemWidth={Responsive.hp(36)}
+                                onSnapToItem={(index) => updateState({ index: index })}
                                 scrollEnabled={true}
+
                             />
                         </View>
                         <View style={style.arrowContainer}>
-                            {data.length != 0 &&
-                                <TouchableOpacity style={style.arrowView} onPress={() => onScrollRight(index)} disabled={isRightArrowDisabled}>
-                                    <Image source={images.ForwordArrow} resizeMode='contain'
-                                        style={style.arrowImg} tintColor={isRightArrowDisabled ? colors.blackGrey30 : colors.black} />
-                                </TouchableOpacity>
+                            {slideImgdata.length != 0 &&
+                                <ArrowCmp onPress={(index: any) => {
+                                    onScrollRight(index)
+                                }}
+                                    disabled={isRightArrowDisabled}
+                                    arrowImg={images.ForwordArrow}
+                                    index={index}
+                                />
                             }
                         </View>
                     </View>
@@ -304,7 +335,7 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                 />
                 <MapAddressCmp icon={images.locationImg} />
                 <View style={style.timerContainer}>
-                    {timer && <TimerCmp />}
+                    {isTimer && <TimerCmp elapsedTime={elapsedTime} />}
                 </View>
                 <View style={style.bottomContainer}>
                     <ThemeButtonComponent title={checkInBtn == 2 ? Strings.CheckOut : Strings.CheckIn}
@@ -312,12 +343,12 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                         buttonStyle={{ ...style.btn, }}
                         onPress={() => {
                             if (checkInBtn == 0) {
-                                setCheckInBtn(checkInBtn + 1)
+                                updateState({ checkInBtn: checkInBtn + 1 })
                             } else if (checkInBtn == 1) {
                                 updateState({ isInfoPopup: !isInfoPopup })
-                                // setCheckInBtn(checkInBtn + 1)
-                            } else { }
-                            // handleTabNavigation()
+                            } else {
+                                pauseTimer()
+                            }
                         }}
                         onValidation={() => {
                         }}
@@ -326,9 +357,9 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                 </View>
             </View>
             {isInfoPopup &&
-                <InfoPopUp isInfoPopup={isInfoPopup} setIsPopup={updateState}
-                    timer={timer} isImgScroll={isImgScroll} checkInBtn={checkInBtn}
-                    setCheckInBtn={setCheckInBtn}
+                <InfoPopUp isInfoPopup={isInfoPopup} updateState={updateState}
+                    timer={isTimer} isImgScroll={isImgScroll} checkInBtn={checkInBtn}
+                    startTimer={startTimer} property_id={routeData?.property_id}
                 />
             }
 

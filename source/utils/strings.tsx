@@ -1,6 +1,9 @@
 export const LocalStorageKey = {
     isLoggedIn: 'isLoggedIn',
-    Token: "token"
+    Token: "token",
+    IsCheckIn: "isCheckIn",
+    CheckInTime: "CheckInTime",
+    CheckInId: "CheckInId"
 };
 export const IconStrings = {
     Setting: 'setting',

@@ -3,6 +3,8 @@ import {
   errorValidation,
   RequestType,
 } from "./APIServiceManager";
+import Toast from "react-native-root-toast";
+import { ToastStyle } from "../GlobalStyle";
 export const headers = {
   Accept: "application/json",
   "Content-Type": "application/json",
@@ -41,21 +43,29 @@ export const APIManager = (data: any, type: RequestType, formData: Boolean = fal
         );
       })
       .catch((error: any) => {
-        if (error.response != undefined) {
+        if (error?.response != undefined) {
           let errorData = null;
-          if (error.response.data != null) {
-            errorData = error.response.data;
+          if (error?.response.data != null) {
+            errorData = error?.response?.data;
           }
           errorValidation(errorData, error.response.status).then((data: any) => {
-            console.log("request data config: ", data);
             if (data.status == 5) {
+              Toast.show(data.message, ToastStyle);
+              if (data.message == "Unauthenticated.") {
+                reject({ message: "Unauthenticated", status: 401 })
+              } else {
+                resolve(null);
+              }
+
+            } else if (data.status == 6 || data.status == 7) {
+              Toast.show(data.message, ToastStyle);
               resolve(null);
             } else {
               resolve(data);
             }
           });
         } else {
-          resolve(null);
+          reject(error?.message);
         }
       });
   });

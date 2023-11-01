@@ -1,12 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import colors from '../../utils/colors'
 import Responsive from '../../utils/Responsive'
 import { GlobalStyle } from '../../utils/GlobalStyle'
 import { images } from '../../utils/images'
-import { convertDateWithFormat } from '../../utils/generalFunction'
+import { localStorage } from '../../utils/localStorageProvider'
+import { useIsFocused } from '@react-navigation/native';
 
-export const AddressFlatlistCmp = ({ item, onArrowPress }: any) => {
+export const AddressFlatlistCmp = ({ item, onArrowPress, property_id }: any) => {
+    const [state, setState] = useState(false)
+    useEffect(() => {
+        const loadElapsedTime = async () => {
+            try {
+                const savedTimeData = await localStorage.getItemObject(`property_id${property_id}`)
+                if (savedTimeData) {
+                    setState(true)
+                } else { setState(false) }
+            } catch (error) {
+                console.error('Error loading elapsed time: ', error);
+            }
+        };
+
+        loadElapsedTime();
+    }, [property_id, item]);
+
     const dateTime = new Date(item.item.cleaning_date);
     const hours = dateTime.getHours();
     const minutes = dateTime.getMinutes();
@@ -17,7 +34,7 @@ export const AddressFlatlistCmp = ({ item, onArrowPress }: any) => {
 
     return (
         <View style={style.itemContainer}>
-            <View style={style.itemUpContainer}>
+            <View style={{ ...style.itemUpContainer, backgroundColor: state ? colors.themeGreen20 : colors.themeSubFontGray }}>
                 <View style={style.firstView}>
                     <View style={style.flexView}>
                         <Text numberOfLines={2} style={style.firstTextList}>{`${item.item.property_name}`}</Text>

@@ -37,7 +37,7 @@ const style = StyleSheet.create({
         width: "100%",
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: Responsive.hp(4)
+        paddingTop: Responsive.hp(3)
     },
     sunContainer: {
         width: "90%",

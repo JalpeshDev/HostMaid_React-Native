@@ -15,8 +15,9 @@ import { useSelector } from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
-const BottomNavigation = () => {
+const BottomNavigation = ({ route }: any) => {
     const isClickable = useSelector((state: any) => state.authReducer.isClickable);
+    const data = route.params;
 
     const menudata = [
         { name: 'Map', component: CheckInUnavaibleMap, label: "Map" },
@@ -53,10 +54,11 @@ const BottomNavigation = () => {
                         tabBarButton: (props) => (
                             <Pressable
                                 {...props}
-                                disabled={!isClickable} // Control clickability here
+                                disabled={false} // Control clickability here
                             />
                         ),
                     })}
+                    initialParams={{ routeData: data }}
                 />
             ))}
         </Tab.Navigator>

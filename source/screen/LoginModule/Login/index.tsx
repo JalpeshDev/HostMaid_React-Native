@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import viewModel from './viewModel'
-import { Text, View, Image, ImageBackground, SafeAreaView, Platform, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Text, View, Image, ImageBackground, SafeAreaView, Platform, } from 'react-native';
 import { style } from './style';
 import { images } from '../../../utils/images';
 import Responsive from '../../../utils/Responsive';
@@ -20,8 +20,6 @@ const Login = () => {
             style={style.mainView}>
             <ImageBackground source={images.backgroundSpalsh} resizeMode="cover" style={style.imageBGContainer}>
                 <KeyboardAwareScrollView>
-                    {/* <KeyboardAvoidingView style={{ flex: 1 }} >
-                    <ScrollView contentContainerStyle={style.scrollViewContent} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}> */}
                     <View style={style.headerView}>
                         <Image source={images.appLogo} style={{ ...style.imageLogoContainer, }} resizeMode='contain' />
                     </View>
@@ -60,8 +58,6 @@ const Login = () => {
                             }}
                         />
                     </View>
-                    {/* </ScrollView>
-                </KeyboardAvoidingView> */}
                 </KeyboardAwareScrollView>
             </ImageBackground>
         </SafeAreaView>

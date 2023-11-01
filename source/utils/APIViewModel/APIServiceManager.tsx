@@ -42,7 +42,7 @@ export const errorValidation = (res: any, code: any) => {
         }
         resolve({ message: msg, status: 0 });
         break;
-      case 401:
+      case ApiResponseCode.Unauthorized:
         let msgValidation1 = "Unauthorized user";
         if (res.message) {
           if (Array.isArray(res.message) && res.message.length > 0) {

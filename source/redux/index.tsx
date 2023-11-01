@@ -4,12 +4,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import { authReducer } from './slices/authSlice';
 import { bookingReducers } from './slices/bookings';
 import { setupListeners } from '@reduxjs/toolkit/query'
+import { rtkQueryApi } from './services/ApiQuery';
 
 const reducer = combineReducers({
   // reducerPath and reducer are created for us, which we can pass straight into the reducer parameter of configureStore.
   authReducer: authReducer,
   bookingReducer: bookingReducers,
-
+  [rtkQueryApi.reducerPath]: rtkQueryApi.reducer
 });
 
 export const store = configureStore({
@@ -21,7 +22,7 @@ export const store = configureStore({
       immutableCheck: true,
       serializableCheck: false,
       thunk: true,
-    }),
+    }).concat(rtkQueryApi.middleware),
 });
 
 export type RootState = ReturnType<typeof reducer>  //when we use combineReducers then use-> ReturnType<typeof reducer>

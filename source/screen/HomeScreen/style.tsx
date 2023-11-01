@@ -4,10 +4,6 @@ import Responsive from '../../utils/Responsive';
 import { GlobalStyle } from '../../utils/GlobalStyle';
 
 export const style = StyleSheet.create({
-    mainView: {
-        flex: 1,
-        backgroundColor: colors.MapDownColor
-    },
     imgStyle: { width: Responsive.wp(5), height: Responsive.hp(3.2), },
     flatlistHeader: {
         color: colors.themeTextBlack,

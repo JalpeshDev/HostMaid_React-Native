@@ -1,14 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import React from 'react'
+import { GlobalStyle } from '../../../utils/GlobalStyle'
 
 const Photos = () => {
     return (
-        <View>
+        <SafeAreaView style={GlobalStyle.mainContainer}>
             <Text>Photos</Text>
-        </View>
+        </SafeAreaView>
     )
 }
 
 export default Photos
 
-const styles = StyleSheet.create({})

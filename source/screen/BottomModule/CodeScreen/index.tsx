@@ -5,9 +5,13 @@ import viewModel from './viewModel'
 import CodeCmp from '../../../components/CodeCmp'
 import { NavigationHeader } from '../../../components/AppThemeHeaderComponent/navigationHeader'
 import { Strings } from '../../../utils/strings'
+import { useAppSelector } from '../../../redux'
+import { GlobalStyle } from '../../../utils/GlobalStyle'
 
 const CodeScreen = () => {
+
     const { data, onChange, values, createAList } = viewModel();
+    const { elapsed } = useAppSelector((state) => state.authReducer);
 
     useEffect(() => {
         createAList()
@@ -15,8 +19,8 @@ const CodeScreen = () => {
 
 
     return (
-        <SafeAreaView style={style.mainView}>
-            <NavigationHeader containerStyle={style.headerContainer} centerText={Strings.CodesParking} />
+        <SafeAreaView style={GlobalStyle.mainContainer}>
+            <NavigationHeader containerStyle={style.headerContainer} centerText={Strings.CodesParking} elapsedTime={elapsed} />
             {values.arryList &&
                 values.arryList.map((item: any, index: any) => {
                     return (

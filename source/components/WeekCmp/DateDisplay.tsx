@@ -41,7 +41,7 @@ const style = StyleSheet.create({
         marginHorizontal: Responsive.hp(0.3),
         elevation: 1,
         shadowOffset: { width: 0.2, height: 0.2 },
-        shadowColor: colors.black,
+        shadowColor: "#6B779A50",
         shadowRadius: 1,
         shadowOpacity: 0.1,
 

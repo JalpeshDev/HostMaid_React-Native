@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import Responsive from '../../../utils/Responsive';
 import colors from '../../../utils/colors';
+import { GlobalStyle } from '../../../utils/GlobalStyle';
 const screen = Dimensions.get('window');
 export const style = StyleSheet.create({
     mainView: { flex: 1 },
@@ -64,22 +65,22 @@ export const style = StyleSheet.create({
     },
     homeImages: { width: Responsive.hp(17), height: Responsive.hp(17), resizeMode: 'contain' },
     backgroundSlider: {
-        alignItems: "center",
-        justifyContent: "center",
         elevation: 5,
         shadowOffset: { width: 0.2, height: 0.2 },
-        shadowColor: colors.black,
+        shadowColor: colors.whiteGrey60,
         shadowRadius: 1,
         shadowOpacity: 0.1,
+        paddingBottom: Responsive.hp(8),
+        borderRadius: Responsive.hp(1.5),
+        width: "100%",
     },
     imageSlider: {
         height: "100%",
         width: "100%",
-        resizeMode: "cover", borderRadius: Responsive.hp(1.5),
+        borderRadius: Responsive.hp(1.5), resizeMode: 'contain',
     },
     imgContainer: { marginTop: Responsive.hp(10), flexDirection: "row" },
-    arrowContainer: { justifyContent: 'center', width: "15%", alignItems: 'center' },
-    arrowImg: { height: Responsive.hp(3.5), width: Responsive.hp(3.5) },
+    arrowContainer: { justifyContent: 'center', width: "15%", alignItems: 'center', },
     containerPagging: {
         position: "absolute",
         bottom: 0,
@@ -91,11 +92,28 @@ export const style = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: colors.themeGreen,
     },
-    arrowView: { height: Responsive.hp(10), justifyContent: 'center' },
+
     timerContainer: { height: Responsive.hp(8), justifyContent: 'center', alignItems: 'center' },
     CarouselStyle: {
-        height: Responsive.hp(41), width: "70%", borderRadius: Responsive.hp(2), alignItems: 'center',
-
+        height: Responsive.hp(46), width: "70%",
+        borderRadius: Responsive.hp(1.5), alignItems: 'center',
     },
-    markerInsideView: { justifyContent: 'center', alignItems: 'center' }
+    markerInsideView: { justifyContent: 'center', alignItems: 'center' },
+    containerTextSlider: {
+        position: "absolute",
+        bottom: 0,
+        height: Responsive.hp(8),
+        width: '100%',
+        borderRadius: Responsive.hp(1.5),
+        flexDirection: 'row',
+        justifyContent: 'center', alignItems: 'center',
+    },
+    sliderBottomText: {
+        color: colors.headerTitleColor,
+        ...GlobalStyle.Fonts_M_15,
+        textAlign: 'left',
+        flex: 1
+    },
+    itemCheckView: { paddingRight: Responsive.hp(1.2), },
+    itemCheckImg: { width: Responsive.hp(2.5), height: Responsive.hp(2.5), marginTop: Responsive.hp(0.5) },
 });

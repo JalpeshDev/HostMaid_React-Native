@@ -10,7 +10,10 @@ const initialState: AuthStateType = {
   loading: false,
   data: {},
   isClickable: false,
+  elapsed: null
 };
+
+
 
 const authSlice = createSlice({
   name: 'auth',
@@ -22,6 +25,9 @@ const authSlice = createSlice({
     disableTabNavigation: (state) => {
       state.isClickable = false;
     },
+    elapsedTimes: (state, action) => {
+      state.elapsed = action.payload.elapsedTime;
+    }
   },
   extraReducers: builder => {
     builder.addCase(userLoginAction.pending, (state, action) => {
@@ -39,5 +45,8 @@ const authSlice = createSlice({
     });
   },
 });
-export const { enableTabNavigation, disableTabNavigation } = authSlice.actions;
+export const {
+  enableTabNavigation, disableTabNavigation,
+  elapsedTimes
+} = authSlice.actions;
 export const authReducer = authSlice.reducer;

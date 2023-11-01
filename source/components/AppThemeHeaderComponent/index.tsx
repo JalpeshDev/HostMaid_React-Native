@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Responsive from "../../utils/Responsive";
 import colors from "../../utils/colors";
@@ -8,7 +8,7 @@ import { GlobalStyle } from "../../utils/GlobalStyle";
 import Fonts from "../../utils/Fonts";
 
 
-export const AppThemeHeaderComponent = ({
+const AppThemeHeaderComponent = ({
     isLeft,
     LeftIcon,
     RightIcon,
@@ -78,7 +78,7 @@ export const AppThemeHeaderComponent = ({
         </View>
     );
 };
-
+export default memo(AppThemeHeaderComponent)
 const style = StyleSheet.create({
     container: {
         justifyContent: "center",

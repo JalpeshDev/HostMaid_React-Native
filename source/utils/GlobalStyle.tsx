@@ -6,6 +6,10 @@ import Fonts from "./Fonts";
 import colors from "./colors";
 
 export const GlobalStyle = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    backgroundColor: colors.MapDownColor
+  },
   containerSafeView: {
     flex: 1,
     justifyContent: "center",

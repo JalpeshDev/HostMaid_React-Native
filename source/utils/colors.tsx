@@ -12,7 +12,7 @@ export default {
   textFieldBackground: "#D8DADC",
   themeBlueGray: "#6B779A",
   themeFontBlack: "#23374D",
-  themeSubFontGray: "#6B779A10",
+  themeSubFontGray: "#6B779A0D",
   themeBackground: "rgba(107, 119, 154, 0.05)",
   themeTextGrey: "#6F6F6F",
   themeTextBlack: "#222B45",
@@ -26,9 +26,13 @@ export default {
   active: "#292D32",
   deActive: "#A3A3A3",
   themeGreen40: "#80DEF040",
+  themeGreen20: "#80DEF033",
   themeGreenLight: "#82DEEE50",
   themeGrayLight: "#D9D9D9",
+  themeGrayLight50: "#D9D9D950",
   timerbackground: "#C7C7C7",
   timerColor: "#F56E6E",
-  mapBottomBorder: "#F2F2F2"
+  mapBottomBorder: "#F2F2F2",
+  bedList: "#EEF4FA",
+  bedSeparatorLine: "#7796B550"
 };
