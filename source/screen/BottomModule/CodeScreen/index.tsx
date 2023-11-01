@@ -1,4 +1,4 @@
-import { SafeAreaView } from 'react-native'
+import { SafeAreaView, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { style } from './style'
 import viewModel from './viewModel'
@@ -19,7 +19,7 @@ const CodeScreen = () => {
 
 
     return (
-        <SafeAreaView style={GlobalStyle.mainContainer}>
+        <View style={GlobalStyle.mainContainer}>
             <NavigationHeader containerStyle={style.headerContainer} centerText={Strings.CodesParking} elapsedTime={elapsed} />
             {values.arryList &&
                 values.arryList.map((item: any, index: any) => {
@@ -49,7 +49,7 @@ const CodeScreen = () => {
                 })
             }
 
-        </SafeAreaView>
+        </View>
     )
 }
 

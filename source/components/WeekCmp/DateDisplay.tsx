@@ -3,6 +3,7 @@ import React from 'react'
 import Responsive from '../../utils/Responsive'
 import colors from '../../utils/colors'
 import { GlobalStyle } from '../../utils/GlobalStyle'
+import PlatformType from '../../utils/PlatformType'
 
 const DateDisplay = ({ data, isCheckDateView, onPressDate, firstItemActive }: any) => {
 
@@ -33,11 +34,11 @@ const style = StyleSheet.create({
     dateView: {
         backgroundColor: colors.themeGreen, borderRadius: Responsive.hp(1.2),
         paddingVertical: Responsive.hp(1.5),
-        height: Responsive.hp(8),
+        height: PlatformType.android ? Responsive.hp(8):Responsive.hp(7),
         justifyContent: 'center',
         borderWidth: 0.86,
         borderColor: colors.themeSubFontGray,
-        width: Responsive.hp(7),
+        width: PlatformType.android ? Responsive.hp(7):Responsive.hp(6),
         marginHorizontal: Responsive.hp(0.3),
         elevation: 1,
         shadowOffset: { width: 0.2, height: 0.2 },

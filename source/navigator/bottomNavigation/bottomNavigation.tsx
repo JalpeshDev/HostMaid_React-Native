@@ -12,6 +12,7 @@ import Responsive from '../../utils/Responsive';
 import CheckInUnavaibleMap from '../../screen/BottomModule/CheckInUnavaibleMap';
 import CodeScreen from '../../screen/BottomModule/CodeScreen';
 import { useSelector } from 'react-redux';
+import PlatformType from '../../utils/PlatformType';
 
 const Tab = createBottomTabNavigator();
 
@@ -37,7 +38,7 @@ const BottomNavigation = ({ route }: any) => {
                 tabBarHideOnKeyboard: false,
                 tabBarShowLabel: true,
                 tabBarStyle: {
-                    height: Responsive.hp(7),
+                    height:PlatformType.android ? Responsive.hp(7) : Responsive.hp(9),
                     backgroundColor: colors.MapDownColor,
                     borderTopWidth: 0
                 },

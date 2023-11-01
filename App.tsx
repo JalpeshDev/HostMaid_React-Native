@@ -11,6 +11,7 @@ import Navigation from './source/navigator/navigation'
 import { Provider } from 'react-redux'
 import { store } from './source/redux'
 import { RootSiblingParent } from 'react-native-root-siblings';
+import PlatformType from './source/utils/PlatformType'
 
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
         animated
         translucent={false}
         backgroundColor={'black'}
-        barStyle="light-content"
+        barStyle={PlatformType.android ? "light-content":"dark-content"}
       />
       <Provider store={store}>
         <RootSiblingParent>

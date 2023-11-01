@@ -25,6 +25,7 @@ import PlatformType from '../../../utils/PlatformType';
 import ArrowCmp from '../../../components/ArrowCmp';
 import { useGetBookingByIdQuery } from '../../../redux/services/ApiQuery';
 import Loader from '../../../components/Loader';
+import { locationPermission } from '../../../utils/HelperFunction';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width + 30;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.8);
@@ -86,7 +87,12 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                     console.warn(err);
                 }
             } else {
-                getLocation();
+                const locationStation =await locationPermission()
+                if (locationStation ==='granted') {
+                    getLocation();
+                }else{
+                    
+                }
             }
         };
         const getLocation = () => {
@@ -237,8 +243,8 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                                 ref={isCarousel}
                                 data={slideImgdata}
                                 renderItem={renderImageSlider}
-                                sliderWidth={Responsive.hp(36)}
-                                itemWidth={Responsive.hp(36)}
+                                sliderWidth={PlatformType.android ? Responsive.hp(36):Responsive.hp(34)}
+                                itemWidth={PlatformType.android ? Responsive.hp(36):Responsive.hp(34)}
                                 onSnapToItem={(index) => updateState({ index: index })}
                                 scrollEnabled={true}
 
@@ -273,7 +279,7 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                         longitudeDelta: 0.0121,
                     }}
                 >
-                    <Marker coordinate={coordinates[0]}>
+                    <Marker coordinate={coordinates[0]} T={console.log("coordinates[0]-->",coordinates[0])}>
                         <View style={style.lightGreenRing}>
                             <View style={style.greyRing}>
                                 <View style={style.sourceIconStyle}>
@@ -341,6 +347,7 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                     <ThemeButtonComponent title={checkInBtn == 2 ? Strings.CheckOut : Strings.CheckIn}
                         isActive={isClickable ? true : false}
                         buttonStyle={{ ...style.btn, }}
+                        textStyle={{ ...style.btnTitle }}
                         onPress={() => {
                             if (checkInBtn == 0) {
                                 updateState({ checkInBtn: checkInBtn + 1 })

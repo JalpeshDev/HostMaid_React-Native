@@ -4,6 +4,7 @@ import Responsive from "./Responsive";
 import Toast, { ToastOptions } from "react-native-root-toast";
 import Fonts from "./Fonts";
 import colors from "./colors";
+import PlatformType from "./PlatformType";
 
 export const GlobalStyle = StyleSheet.create({
   mainContainer: {
@@ -29,7 +30,7 @@ export const GlobalStyle = StyleSheet.create({
   Fonts_R_16: { fontSize: Responsive.hp(1.8), fontFamily: Fonts.DMSans_R, fontWeight: "400" },
   Fonts_R_14: { fontSize: Responsive.hp(1.6), fontFamily: Fonts.DMSans_R, fontWeight: "400" },
   bottomIconStyle: {
-    height: Responsive.hp(3), width: Responsive.hp(3)
+    height: PlatformType.android ? Responsive.hp(3) : Responsive.hp(2), width: PlatformType.android ? Responsive.hp(3) : Responsive.hp(2)
   }
 });
 

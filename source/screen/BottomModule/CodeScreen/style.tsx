@@ -6,7 +6,8 @@ export const style = StyleSheet.create({
     headerContainer: {
         backgroundColor: colors.themeGreen,
         top: 0,
-        position: 'relative'
+        position: 'relative',
+        alignItems: "flex-end"
         // borderBottomRightRadius: Responsive.hp(2),
         // borderBottomLeftRadius: Responsive.hp(2)
     }

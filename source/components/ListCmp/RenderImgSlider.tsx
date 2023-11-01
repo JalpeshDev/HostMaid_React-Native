@@ -4,6 +4,7 @@ import colors from '../../utils/colors'
 import Responsive from '../../utils/Responsive'
 import { GlobalStyle } from '../../utils/GlobalStyle'
 import icons from '../../utils/icons'
+import PlatformType from '../../utils/PlatformType'
 
 const RenderImgSlider = ({ item, checkInBtnText, onCheckBoxPress }: any) => {
     return (
@@ -39,7 +40,7 @@ const style = StyleSheet.create({
     imageSlider: {
         height: "100%",
         width: "100%",
-        borderRadius: Responsive.hp(1.5), resizeMode: 'contain',
+        borderRadius: Responsive.hp(1.5), resizeMode:PlatformType.android ? 'contain' : 'cover',
     },
     imgContainer: { marginTop: Responsive.hp(10), flexDirection: "row" },
     itemCheckView: { paddingRight: Responsive.hp(1.2), height: Responsive.hp(8), justifyContent: 'center' },

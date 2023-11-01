@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import colors from '../../utils/colors'
 import Responsive from '../../utils/Responsive'
 import { GlobalStyle } from '../../utils/GlobalStyle'
+import PlatformType from '../../utils/PlatformType'
 
 
 export const BedListCmp = ({ listItem }: any) => {
@@ -49,8 +50,8 @@ const style = StyleSheet.create({
 
     },
     image: {
-        width: Responsive.hp(2.4),
-        height: Responsive.hp(2.4),
+        width: PlatformType.android ? Responsive.hp(2.4) : Responsive.hp(2),
+        height: PlatformType.android ? Responsive.hp(2.4) : Responsive.hp(2),
         resizeMode: 'contain'
     },
     title: {
@@ -73,7 +74,8 @@ const style = StyleSheet.create({
         marginBottom: Responsive.hp(1.3),
     },
     imgContainer: {
-        height: Responsive.hp(4), width: Responsive.hp(4),
+        height:PlatformType.android ? Responsive.hp(4) : Responsive.hp(3.2), 
+        width: PlatformType.android ? Responsive.hp(4) : Responsive.hp(3.2),
         backgroundColor: colors.themeGrayLight50, borderRadius: Responsive.hp(1),
         justifyContent: 'center',
         alignItems: 'center'
@@ -81,6 +83,6 @@ const style = StyleSheet.create({
     row: {
         paddingBottom: Responsive.hp(1.2),
         flexDirection: 'row',
-        paddingHorizontal: Responsive.wp(2.5),
+        paddingHorizontal: Responsive.wp(2.5),alignItems:'center'
     }
 })

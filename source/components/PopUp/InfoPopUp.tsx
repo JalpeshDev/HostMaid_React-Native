@@ -13,6 +13,7 @@ import { GlobalStyle } from '../../utils/GlobalStyle';
 import { Strings } from '../../utils/strings';
 import { images } from '../../utils/images';
 import { localStorage } from '../../utils/localStorageProvider';
+import PlatformType from '../../utils/PlatformType';
 const textInfo = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
 
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
@@ -120,10 +121,10 @@ const style = StyleSheet.create({
     bottomContainer: {
         justifyContent: "center",
         width: "100%", alignItems: "center",
-        position: 'absolute', bottom: 1, marginBottom: Responsive.hp(8)
+        position: 'absolute', bottom: 1, marginBottom: Responsive.hp(8),
     },
     btn: { marginVertical: Responsive.hp(1), width: "90%", backgroundColor: colors.headerTitleColor },
-    btnTitle: { ...GlobalStyle.Fonts_B_15 },
+    btnTitle: { ...GlobalStyle.Fonts_B_15, fontSize:PlatformType.android ? Responsive.hp(1.9) : Responsive.hp(1.5)},
     containerLine: {
         width: Responsive.wp(20),
         backgroundColor: colors.MapHeadLine,

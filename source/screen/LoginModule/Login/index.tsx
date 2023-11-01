@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import viewModel from './viewModel'
-import { Text, View, Image, ImageBackground, SafeAreaView, Platform, } from 'react-native';
+import { Text, View, Image, ImageBackground, SafeAreaView, Platform, StatusBar, } from 'react-native';
 import { style } from './style';
 import { images } from '../../../utils/images';
 import Responsive from '../../../utils/Responsive';
@@ -16,7 +16,7 @@ const Login = () => {
     const keyboardBehavior = Platform.OS == 'ios' ? 'padding' : 'height'
 
     return (
-        <SafeAreaView
+        <View
             style={style.mainView}>
             <ImageBackground source={images.backgroundSpalsh} resizeMode="cover" style={style.imageBGContainer}>
                 <KeyboardAwareScrollView>
@@ -60,7 +60,7 @@ const Login = () => {
                     </View>
                 </KeyboardAwareScrollView>
             </ImageBackground>
-        </SafeAreaView>
+        </View>
     )
 }
 

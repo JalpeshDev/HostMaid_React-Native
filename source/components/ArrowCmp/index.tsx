@@ -3,6 +3,7 @@ import React from 'react'
 import { images } from '../../utils/images'
 import colors from '../../utils/colors'
 import Responsive from '../../utils/Responsive'
+import PlatformType from '../../utils/PlatformType'
 
 const ArrowCmp = ({ onPress, disabled, index, arrowImg }: any) => {
 
@@ -17,6 +18,9 @@ const ArrowCmp = ({ onPress, disabled, index, arrowImg }: any) => {
 export default ArrowCmp
 
 const style = StyleSheet.create({
-    arrowView: { height: Responsive.hp(10), justifyContent: 'center', },
-    arrowImg: { height: Responsive.hp(3.5), width: Responsive.hp(3.5) },
+    arrowView: { height: Responsive.hp(10) , },
+    arrowImg: { 
+        height:PlatformType.android ? Responsive.hp(3.5) : Responsive.hp(2.7), 
+        width:PlatformType.android ?  Responsive.hp(3.5) :Responsive.hp(2.7)
+     },
 })

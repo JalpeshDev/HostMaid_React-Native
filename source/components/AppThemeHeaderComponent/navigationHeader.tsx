@@ -4,6 +4,7 @@ import Responsive from "../../utils/Responsive";
 import colors from "../../utils/colors";
 import { GlobalStyle } from "../../utils/GlobalStyle";
 import TimerCmp from "../TimerCmp";
+import PlatformType from "../../utils/PlatformType";
 
 export const NavigationHeader = ({
     LeftIcon,
@@ -48,7 +49,7 @@ const style = StyleSheet.create({
         justifyContent: "center",
         flexDirection: "row",
         width: "100%",
-        height: Responsive.hp(7),
+        height:PlatformType.android ? Responsive.hp(7) : Responsive.hp(12),
         position: 'absolute', top: 10, zIndex: 100,
     },
     containerIn: {
@@ -57,8 +58,14 @@ const style = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
     },
-    leftIconStyle: { width: Responsive.hp(2.5), height: Responsive.hp(2.5), },
-    rightIconStyle: { width: Responsive.hp(2.5), height: Responsive.hp(2.5), },
+    leftIconStyle: { 
+        width: PlatformType.android ? Responsive.hp(2.5):Responsive.hp(1.8), 
+        height:PlatformType.android ? Responsive.hp(2.5):Responsive.hp(1.8),
+     },
+    rightIconStyle: { 
+        width: PlatformType.android ? Responsive.hp(2.5):Responsive.hp(2), 
+        height:PlatformType.android ? Responsive.hp(2.5):Responsive.hp(2),
+     },
     leftIconView: {
         height: Responsive.hp(7),
         // width: Responsive.hp(7),
@@ -85,7 +92,7 @@ const style = StyleSheet.create({
         borderRadius: Responsive.hp(3),
         borderWidth: 1,
         borderColor: colors.white,
-        height: Responsive.hp(3),
+        height:PlatformType.android ? Responsive.hp(3):Responsive.hp(2),
         justifyContent: 'center',
         backgroundColor: colors.themeGreen
     },
