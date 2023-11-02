@@ -9,7 +9,7 @@ import { AuthStateType } from '../../types';
 const initialState: AuthStateType = {
   loading: false,
   data: {},
-  isClickable: false,
+  isClickable: true,
   elapsed: null
 };
 
@@ -20,10 +20,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     enableTabNavigation: (state) => {
-      state.isClickable = true;
+      state.isClickable = false;
     },
     disableTabNavigation: (state) => {
-      state.isClickable = false;
+      state.isClickable = true;
     },
     elapsedTimes: (state, action) => {
       state.elapsed = action.payload.elapsedTime;

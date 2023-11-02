@@ -33,8 +33,8 @@ const AppThemeHeaderComponent = ({
         shadowColor: colors.black,
         shadowRadius: 1,
         shadowOpacity: 0.1,
-        width:PlatformType.android ?  Responsive.hp(5):Responsive.hp(4), 
-        height:PlatformType.android ?  Responsive.hp(5):Responsive.hp(4),
+        width: PlatformType.android ? Responsive.hp(5) : Responsive.hp(4),
+        height: PlatformType.android ? Responsive.hp(5) : Responsive.hp(4),
         // height: Responsive.hp(4.5), width: Responsive.hp(4.5),
 
     }
@@ -61,7 +61,7 @@ const AppThemeHeaderComponent = ({
 
                 <View style={{ ...style.rightContainBG, width: header ? Responsive.wp(21) : Responsive.wp(23), }}>
                     <TouchableOpacity
-                        style={[style.imgView, imgViewStylesObj,{ borderRadius: header ? Responsive.hp(1) :Responsive.hp(2)}]}
+                        style={[style.imgView, imgViewStylesObj, { borderRadius: header ? Responsive.hp(1) : Responsive.hp(2) }]}
                         onPress={() => {
                             onPressRightLeft("+1 123-456-7890")
                         }}
@@ -95,14 +95,14 @@ const style = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
     },
-    logoBg: { 
+    logoBg: {
         // width: Responsive.wp(15), height: Responsive.hp(5), 
-        width:PlatformType.android ?  Responsive.hp(5):Responsive.hp(4), 
-        height:PlatformType.android ?  Responsive.hp(5):Responsive.hp(4),
+        width: PlatformType.android ? Responsive.hp(5) : Responsive.hp(4),
+        height: PlatformType.android ? Responsive.hp(5) : Responsive.hp(4),
     },
     rightContainBG: {
-        flexDirection: "row", width:PlatformType.android ? Responsive.hp(23) : Responsive.wp(30),
-        justifyContent: 'space-between',alignItems:'center',
+        flexDirection: "row", width: PlatformType.android ? Responsive.hp(15) : Responsive.wp(30),
+        justifyContent: 'space-between', alignItems: 'center',
     },
 
     title: {
@@ -110,21 +110,22 @@ const style = StyleSheet.create({
         textAlign: 'center',
         textAlignVertical: 'center',
         ...GlobalStyle.Fonts_R_14,
-        fontSize : PlatformType.android ? Responsive.hp(1.6) : Responsive.hp(1.4) 
+        fontSize: PlatformType.android ? Responsive.hp(1.6) : Responsive.hp(1.4)
     },
     rightIcons: { width: Responsive.wp(1), height: Responsive.hp(5), },
-    iconsView: { 
-        width:PlatformType.android ?  Responsive.hp(5):Responsive.hp(4), 
-        height:PlatformType.android ?  Responsive.hp(5):Responsive.hp(4),},
-    imgStyle: { 
-        width:PlatformType.android ? Responsive.wp(6):Responsive.wp(4), 
-        height:PlatformType.android ? Responsive.hp(4):Responsive.wp(2), 
+    iconsView: {
+        width: PlatformType.android ? Responsive.hp(5) : Responsive.hp(4),
+        height: PlatformType.android ? Responsive.hp(5) : Responsive.hp(4),
+    },
+    imgStyle: {
+        width: PlatformType.android ? Responsive.wp(6) : Responsive.wp(4),
+        height: PlatformType.android ? Responsive.hp(4) : Responsive.wp(2),
     },
     imgView: {
         height: Responsive.hp(5.5), width: Responsive.hp(5.5),
         justifyContent: 'center',
-        alignItems: 'center', 
-        borderRadius:Responsive.hp(1),
+        alignItems: 'center',
+        borderRadius: Responsive.hp(1),
     },
     title1: {
         color: colors.themeTextBlack,

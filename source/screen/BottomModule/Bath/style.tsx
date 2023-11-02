@@ -4,9 +4,10 @@ import Responsive from '../../../utils/Responsive';
 
 export const style = StyleSheet.create({
     headerContainer: {
-        backgroundColor: colors.bedList,
+        backgroundColor: colors.themeGreen,
         top: 0,
-        position: 'relative'
+        position: 'relative',
+        alignItems: "flex-end"
     },
     listContainer: {
         width: "92%",

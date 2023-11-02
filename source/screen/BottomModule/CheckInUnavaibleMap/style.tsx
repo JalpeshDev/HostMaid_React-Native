@@ -7,7 +7,7 @@ const screen = Dimensions.get('window');
 export const style = StyleSheet.create({
     mainView: { flex: 1 },
     mapView: {
-        height: PlatformType.android ? Responsive.hp(62):Responsive.hp(53),
+        height: PlatformType.android ? Responsive.hp(62) : Responsive.hp(53),
     },
     text: {
         fontSize: 20,
@@ -37,10 +37,10 @@ export const style = StyleSheet.create({
         width: Responsive.wp(20),
         backgroundColor: colors.MapHeadLine,
         borderRadius: Responsive.hp(1),
-        height:PlatformType.android? Responsive.hp(0.5) :Responsive.hp(0.3),
+        height: PlatformType.android ? Responsive.hp(0.5) : Responsive.hp(0.3),
         marginTop: Responsive.hp(0.8),
         alignSelf: 'center',
-        marginBottom:PlatformType.android ? Responsive.hp(2) :Responsive.hp(1)
+        marginBottom: Responsive.hp(1)
     },
     bottomContainer: {
         justifyContent: "center",
@@ -48,7 +48,7 @@ export const style = StyleSheet.create({
         paddingBottom: Responsive.hp(1.5),
     },
     btn: { width: "90%", },
-    btnTitle: { ...GlobalStyle.Fonts_B_15, fontSize:PlatformType.android ? Responsive.hp(1.9) : Responsive.hp(1.5)},
+    btnTitle: { ...GlobalStyle.Fonts_B_15, fontSize: PlatformType.android ? Responsive.hp(1.9) : Responsive.hp(1.5) },
     sourceIconStyle: {
         height: Responsive.hp(4), width: Responsive.hp(4),
         backgroundColor: colors.white, borderRadius: Responsive.hp(5)
@@ -81,8 +81,8 @@ export const style = StyleSheet.create({
         width: "100%",
         borderRadius: Responsive.hp(1.5), resizeMode: 'contain',
     },
-    imgContainer: { marginTop:PlatformType.android ? Responsive.hp(10) : Responsive.hp(6), flexDirection: "row",},
-    arrowContainer: { justifyContent: 'center', width: PlatformType.android ?"15%":"13%", alignItems: 'center', },
+    imgContainer: { marginTop: PlatformType.android ? Responsive.hp(10) : Responsive.hp(6), flexDirection: "row", },
+    arrowContainer: { justifyContent: 'center', width: PlatformType.android ? "15%" : "13%", alignItems: 'center', },
     containerPagging: {
         position: "absolute",
         bottom: 0,
@@ -97,8 +97,8 @@ export const style = StyleSheet.create({
 
     timerContainer: { height: Responsive.hp(9), justifyContent: 'center', alignItems: 'center' },
     CarouselStyle: {
-        height: PlatformType.android?Responsive.hp(46) : Responsive.hp(44), 
-        width:PlatformType.android ? "70%" : "74%",
+        height: PlatformType.android ? Responsive.hp(46) : Responsive.hp(44),
+        width: PlatformType.android ? "70%" : "74%",
         borderRadius: Responsive.hp(1.5), alignItems: 'center',
     },
     markerInsideView: { justifyContent: 'center', alignItems: 'center' },

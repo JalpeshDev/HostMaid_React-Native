@@ -42,7 +42,7 @@ export const AddressFlatlistCmp = ({ item, onArrowPress, property_id }: any) => 
                     </View>
                     <View style={{ ...style.flexView, width: "90%", }}>
                         <Text numberOfLines={1} style={style.secondTextList}>{`${item.item.property_address1}`}</Text>
-                        <View style={style.timeStyle}>
+                        <View>
                             <Text style={style.timeStyle}>{timeString}</Text>
                         </View>
                     </View>
@@ -79,12 +79,12 @@ const style = StyleSheet.create({
     firstTextList: {
         marginHorizontal: Responsive.wp(1), ...GlobalStyle.Fonts_B_16,
         color: colors.themeFontBlack, flex: 1, marginBottom: Responsive.hp(0.6),
-        fontSize:PlatformType.android ? Responsive.hp(1.9):Responsive.hp(1.7)
+        fontSize: PlatformType.android ? Responsive.hp(1.9) : Responsive.hp(1.7)
     },
     secondTextList: {
         marginHorizontal: Responsive.wp(1), ...GlobalStyle.Fonts_R_14,
         color: colors.themeBlueGray, flex: 1,
-        fontSize:PlatformType.android ? Responsive.hp(1.5) : Responsive.hp(1.3)
+        fontSize: PlatformType.android ? Responsive.hp(1.5) : Responsive.hp(1.3)
     },
     imageView: {
         backgroundColor: colors.white,

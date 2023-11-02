@@ -1,16 +1,20 @@
-import { FlatList, SafeAreaView, View } from 'react-native'
+import { FlatList, SafeAreaView, View, StatusBar } from 'react-native'
 import React, { useEffect } from 'react'
 import viewModel from './viewModel'
 import { style } from './style'
-import { BedListCmp } from '../../../components/ListCmp/BedListCmp'
+import BedListCmp from '../../../components/ListCmp/BedListCmp'
 import Responsive from '../../../utils/Responsive'
 import { NavigationHeader } from '../../../components/AppThemeHeaderComponent/navigationHeader'
 import { GlobalStyle } from '../../../utils/GlobalStyle'
+import { Strings } from '../../../utils/strings'
+import { useAppSelector } from '../../../redux'
+import colors from '../../../utils/colors'
+import PlatformType from '../../../utils/PlatformType'
 
 
 const Bath = () => {
     const { DATA } = viewModel();
-
+    const { elapsed } = useAppSelector((state) => state.authReducer);
     const renderItem = (item: any) => {
         return (
             <BedListCmp listItem={item} />
@@ -19,8 +23,16 @@ const Bath = () => {
 
     return (
         <SafeAreaView style={GlobalStyle.mainContainer}>
-            <NavigationHeader isTitle={true} containerStyle={{ height: Responsive.hp(6) }} leftTitle={"Bed/Bath Summary"} />
-            <View style={{ paddingTop: Responsive.hp(5) }}>
+            {PlatformType.android &&
+                <StatusBar
+                    animated
+                    translucent={false}
+                    backgroundColor={colors.themeGreen}
+                />
+            }
+            <NavigationHeader isTitle={true} containerStyle={style.headerContainer}
+                leftTitle={Strings.BedBath} elapsedTime={elapsed} />
+            <View style={{}}>
                 <FlatList
                     numColumns={1}
                     data={DATA}

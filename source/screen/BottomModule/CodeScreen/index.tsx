@@ -1,4 +1,4 @@
-import { SafeAreaView, View } from 'react-native'
+import { SafeAreaView, View, StatusBar } from 'react-native'
 import React, { useEffect } from 'react'
 import { style } from './style'
 import viewModel from './viewModel'
@@ -7,6 +7,8 @@ import { NavigationHeader } from '../../../components/AppThemeHeaderComponent/na
 import { Strings } from '../../../utils/strings'
 import { useAppSelector } from '../../../redux'
 import { GlobalStyle } from '../../../utils/GlobalStyle'
+import colors from '../../../utils/colors'
+import PlatformType from '../../../utils/PlatformType'
 
 const CodeScreen = () => {
 
@@ -20,7 +22,15 @@ const CodeScreen = () => {
 
     return (
         <View style={GlobalStyle.mainContainer}>
-            <NavigationHeader containerStyle={style.headerContainer} centerText={Strings.CodesParking} elapsedTime={elapsed} />
+            {PlatformType.android &&
+                <StatusBar
+                    animated
+                    translucent={false}
+                    backgroundColor={colors.themeGreen}
+                />
+            }
+            <NavigationHeader isTitle={true} containerStyle={style.headerContainer}
+                leftTitle={Strings.CodesParking} elapsedTime={elapsed} />
             {values.arryList &&
                 values.arryList.map((item: any, index: any) => {
                     return (

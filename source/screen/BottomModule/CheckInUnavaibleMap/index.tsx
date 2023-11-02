@@ -10,7 +10,7 @@ import { images } from '../../../utils/images';
 import MapAddressCmp from '../../../components/MapAddressCmp';
 import { ThemeButtonComponent } from '../../../components/ThemeButtonComponent';
 import navigationServices from '../../../navigator/navigationServices';
-import { elapsedTimes } from '../../../redux/slices/authSlice';
+import { disableTabNavigation, elapsedTimes, enableTabNavigation } from '../../../redux/slices/authSlice';
 import { Strings } from '../../../utils/strings';
 import { NavigationHeader } from '../../../components/AppThemeHeaderComponent/navigationHeader';
 import ImageView from 'react-native-image-viewing'
@@ -87,11 +87,11 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                     console.warn(err);
                 }
             } else {
-                const locationStation =await locationPermission()
-                if (locationStation ==='granted') {
+                const locationStation = await locationPermission()
+                if (locationStation === 'granted') {
                     getLocation();
-                }else{
-                    
+                } else {
+
                 }
             }
         };
@@ -166,7 +166,7 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                     updateState({ isTimer: true })
                     updateState({ checkInBtn: 2 })
                     updateState({ isRunning: true })
-
+                    dispatch(enableTabNavigation())
                     // if (timeElapsedSinceStart >= 0 && timeElapsedSinceStart < 24 * 60 * 60 * 1000) {
                     //     await localStorage.setItemObject(`property_id${routeData?.property_id}`, {
                     //         startTime: startTime.toString(),
@@ -243,8 +243,8 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                                 ref={isCarousel}
                                 data={slideImgdata}
                                 renderItem={renderImageSlider}
-                                sliderWidth={PlatformType.android ? Responsive.hp(36):Responsive.hp(34)}
-                                itemWidth={PlatformType.android ? Responsive.hp(36):Responsive.hp(34)}
+                                sliderWidth={PlatformType.android ? Responsive.hp(36) : Responsive.hp(34)}
+                                itemWidth={PlatformType.android ? Responsive.hp(36) : Responsive.hp(34)}
                                 onSnapToItem={(index) => updateState({ index: index })}
                                 scrollEnabled={true}
 
@@ -279,7 +279,7 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                         longitudeDelta: 0.0121,
                     }}
                 >
-                    <Marker coordinate={coordinates[0]} T={console.log("coordinates[0]-->",coordinates[0])}>
+                    <Marker coordinate={coordinates[0]} >
                         <View style={style.lightGreenRing}>
                             <View style={style.greyRing}>
                                 <View style={style.sourceIconStyle}>

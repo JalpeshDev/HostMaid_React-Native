@@ -21,5 +21,8 @@ export const Strings = {
     Login: "Login",
     CodesParking: "Codes/Parking",
     Okay: "Okay",
-    CheckOut: "Check Out"
+    CheckOut: "Check Out",
+    BedBath: "Bed/Bath Summary",
+    NotesPhotos: "Notes/Photos",
+    Misc: "Misc"
 }

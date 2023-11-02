@@ -21,7 +21,14 @@ export const NavigationHeader = ({
         >
             <View style={style.containerIn}>
                 {isTitle ?
-                    <Text style={style.title}>{leftTitle}</Text>
+                    <>
+                        <View style={{ ...style.leftTitleContainer }}>
+                            <Text style={style.title}>{leftTitle}</Text>
+                        </View>
+                        <TouchableOpacity onPress={onPressRight} style={{ ...style.rightIconView }}>
+                            <TimerCmp mainTimerStyle={style.mainTimerStyle} timetitleStyle={style.timetitleStyle} elapsedTime={elapsedTime} />
+                        </TouchableOpacity>
+                    </>
                     :
                     <>
                         <TouchableOpacity onPress={onPressLeft} style={{ ...style.leftIconView }}>
@@ -49,7 +56,7 @@ const style = StyleSheet.create({
         justifyContent: "center",
         flexDirection: "row",
         width: "100%",
-        height:PlatformType.android ? Responsive.hp(7) : Responsive.hp(12),
+        height: PlatformType.android ? Responsive.hp(7) : Responsive.hp(12),
         position: 'absolute', top: 10, zIndex: 100,
     },
     containerIn: {
@@ -58,14 +65,14 @@ const style = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
     },
-    leftIconStyle: { 
-        width: PlatformType.android ? Responsive.hp(2.5):Responsive.hp(1.8), 
-        height:PlatformType.android ? Responsive.hp(2.5):Responsive.hp(1.8),
-     },
-    rightIconStyle: { 
-        width: PlatformType.android ? Responsive.hp(2.5):Responsive.hp(2), 
-        height:PlatformType.android ? Responsive.hp(2.5):Responsive.hp(2),
-     },
+    leftIconStyle: {
+        width: PlatformType.android ? Responsive.hp(2.5) : Responsive.hp(1.8),
+        height: PlatformType.android ? Responsive.hp(2.5) : Responsive.hp(1.8),
+    },
+    rightIconStyle: {
+        width: PlatformType.android ? Responsive.hp(2.5) : Responsive.hp(2),
+        height: PlatformType.android ? Responsive.hp(2.5) : Responsive.hp(2),
+    },
     leftIconView: {
         height: Responsive.hp(7),
         // width: Responsive.hp(7),
@@ -88,11 +95,11 @@ const style = StyleSheet.create({
         fontSize: Responsive.hp(2)
     },
     mainTimerStyle: {
-        width: Responsive.wp(20),
+        width: Responsive.wp(21),
         borderRadius: Responsive.hp(3),
         borderWidth: 1,
         borderColor: colors.white,
-        height:PlatformType.android ? Responsive.hp(3):Responsive.hp(2),
+        height: PlatformType.android ? Responsive.hp(2.5) : Responsive.hp(2),
         justifyContent: 'center',
         backgroundColor: colors.themeGreen
     },
@@ -104,6 +111,11 @@ const style = StyleSheet.create({
     title: {
         color: colors.themeTextBlack,
         ...GlobalStyle.Fonts_B_16,
-        fontSize: Responsive.hp(2.2)
+        fontSize: Responsive.hp(2.4)
+    },
+    leftTitleContainer: {
+        height: Responsive.hp(7),
+        width: '75%',
+        justifyContent: 'center',
     }
 })

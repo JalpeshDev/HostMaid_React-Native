@@ -27,6 +27,7 @@ const BottomNavigation = ({ route }: any) => {
         { name: 'Misc', component: Misc, label: "Misc" },
         { name: 'Photos', component: Photos, label: "Notes/Photos" },
     ];
+    console.log("isClickable is->", isClickable);
 
     return (
         <Tab.Navigator
@@ -38,7 +39,7 @@ const BottomNavigation = ({ route }: any) => {
                 tabBarHideOnKeyboard: false,
                 tabBarShowLabel: true,
                 tabBarStyle: {
-                    height:PlatformType.android ? Responsive.hp(7) : Responsive.hp(9),
+                    height: PlatformType.android ? Responsive.hp(7) : Responsive.hp(9),
                     backgroundColor: colors.MapDownColor,
                     borderTopWidth: 0
                 },
@@ -55,7 +56,7 @@ const BottomNavigation = ({ route }: any) => {
                         tabBarButton: (props) => (
                             <Pressable
                                 {...props}
-                                disabled={false} // Control clickability here
+                                disabled={isClickable} // Control clickability here
                             />
                         ),
                     })}

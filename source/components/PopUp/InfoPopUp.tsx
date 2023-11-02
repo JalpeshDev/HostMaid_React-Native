@@ -14,6 +14,8 @@ import { Strings } from '../../utils/strings';
 import { images } from '../../utils/images';
 import { localStorage } from '../../utils/localStorageProvider';
 import PlatformType from '../../utils/PlatformType';
+import { enableTabNavigation } from '../../redux/slices/authSlice';
+import { useAppDispatch } from '../../redux';
 const textInfo = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
 
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
@@ -28,6 +30,8 @@ const InfoPopUp = ({
     isInfoPopup, updateState, isImage, isImagePop,
     checkInBtn, startTimer, property_id
 }: any) => {
+    const dispatch = useAppDispatch();
+
     const onPressOkay = async () => {
         try {
             updateState({ isInfoPopup: !isInfoPopup });
@@ -38,6 +42,7 @@ const InfoPopUp = ({
             } else { }
             const savedTimeData = await localStorage.getItemObject(`property_id${property_id}`)
             if (savedTimeData == undefined || savedTimeData == null) {
+                dispatch(enableTabNavigation())
                 startTimer()
             } else { }
         } catch (error) {
@@ -124,7 +129,7 @@ const style = StyleSheet.create({
         position: 'absolute', bottom: 1, marginBottom: Responsive.hp(8),
     },
     btn: { marginVertical: Responsive.hp(1), width: "90%", backgroundColor: colors.headerTitleColor },
-    btnTitle: { ...GlobalStyle.Fonts_B_15, fontSize:PlatformType.android ? Responsive.hp(1.9) : Responsive.hp(1.5)},
+    btnTitle: { ...GlobalStyle.Fonts_B_15, fontSize: PlatformType.android ? Responsive.hp(1.9) : Responsive.hp(1.5) },
     containerLine: {
         width: Responsive.wp(20),
         backgroundColor: colors.MapHeadLine,

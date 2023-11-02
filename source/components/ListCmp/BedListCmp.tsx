@@ -1,20 +1,19 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import colors from '../../utils/colors'
 import Responsive from '../../utils/Responsive'
 import { GlobalStyle } from '../../utils/GlobalStyle'
 import PlatformType from '../../utils/PlatformType'
 
-
-export const BedListCmp = ({ listItem }: any) => {
-    const { data, title } = listItem?.item;
+const BedListCmp = ({ listItem }: any) => {
+    const { data, title, notes } = listItem?.item;
 
     return (
         <View style={style.itemContainer}>
             <View style={{ ...style.itemUpContainer }}>
                 <Text style={style.title}>{title}</Text>
                 <View style={style.separatorLine} />
-                {data &&
+                {data != undefined &&
                     data.map((item: any) =>
                     (
                         <View style={style.row}>
@@ -25,11 +24,14 @@ export const BedListCmp = ({ listItem }: any) => {
                         </View>
                     ))
                 }
+                {notes &&
+                    <Text style={style.notes}>{notes}</Text>
+                }
             </View>
         </View>
     )
 }
-
+export default memo(BedListCmp)
 const style = StyleSheet.create({
     itemContainer: {
         backgroundColor: colors.bedList,
@@ -74,7 +76,7 @@ const style = StyleSheet.create({
         marginBottom: Responsive.hp(1.3),
     },
     imgContainer: {
-        height:PlatformType.android ? Responsive.hp(4) : Responsive.hp(3.2), 
+        height: PlatformType.android ? Responsive.hp(4) : Responsive.hp(3.2),
         width: PlatformType.android ? Responsive.hp(4) : Responsive.hp(3.2),
         backgroundColor: colors.themeGrayLight50, borderRadius: Responsive.hp(1),
         justifyContent: 'center',
@@ -83,6 +85,16 @@ const style = StyleSheet.create({
     row: {
         paddingBottom: Responsive.hp(1.2),
         flexDirection: 'row',
-        paddingHorizontal: Responsive.wp(2.5),alignItems:'center'
+        paddingHorizontal: Responsive.wp(2.5), alignItems: 'center'
+    },
+    notes: {
+        color: colors.themeTextBlack,
+        ...GlobalStyle.Fonts_M_15,
+        fontSize: Responsive.hp(1.5),
+        paddingHorizontal: Responsive.hp(1),
+        paddingBottom: Responsive.hp(1),
+        // textAlignVertical: 'center',
+        // marginLeft: Responsive.hp(1),
+
     }
 })
