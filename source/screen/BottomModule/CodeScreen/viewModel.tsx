@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 const data = [
     { id: 0, label: "Gate code", number: [{ key: 1, }, { key: 2 }, { key: 3 }, { key: 4 }] },
     { id: 1, label: "Door code", number: [{ key: 1 }, { key: 2 }, { key: 3 }, { key: 4 }] },
@@ -6,6 +7,7 @@ const data = [
     { id: 3, label: "Alarm code", number: [{ key: 1 }, { key: 2 }, { key: 3 }, { key: 4 }] },
     { id: 4, label: "Parking Info", number: [{ key: 1 }, { key: 2 }, { key: 3 }, { key: 4 }] },
 ]
+
 export default function viewModel() {
     const [values, setValues] = useState({
         arryList: [],

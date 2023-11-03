@@ -3,10 +3,10 @@ import React from 'react'
 import Responsive from '../utils/Responsive'
 import colors from '../utils/colors'
 import { GlobalStyle } from '../utils/GlobalStyle'
-import { timeFormate } from '../utils/generalFunction'
+import {  timeFormate, trackerTime } from '../utils/generalFunction'
+import PlatformType from '../utils/PlatformType'
 
-const TimerCmp = ({ mainTimerStyle, timetitleStyle }: any) => {
-
+const TimerCmp = ({ mainTimerStyle, timetitleStyle, elapsedTime }: any) => {
     return (
         <TouchableOpacity style={{
             ...style.main, ...mainTimerStyle,
@@ -16,7 +16,9 @@ const TimerCmp = ({ mainTimerStyle, timetitleStyle }: any) => {
         }}>
             <Text style={{
                 ...style.title, ...timetitleStyle
-            }}>{timeFormate()}</Text>
+            }}>
+                {trackerTime(elapsedTime)}
+            </Text>
         </TouchableOpacity>
     )
 }
@@ -26,12 +28,12 @@ export default TimerCmp
 
 const style = StyleSheet.create({
     main: {
-        width: Responsive.wp(35),
+        width:PlatformType.android ? Responsive.wp(35):Responsive.wp(33),
         backgroundColor: colors.MapDownColor,
         borderRadius: Responsive.hp(3),
         borderWidth: 0.61,
         borderColor: colors.timerbackground,
-        height: Responsive.hp(5),
+        height:PlatformType.android ? Responsive.hp(5):Responsive.hp(4.5),
         justifyContent: 'center',
         elevation: 1,
         shadowOffset: { width: 0.2, height: 0.2 },
@@ -41,7 +43,7 @@ const style = StyleSheet.create({
     },
     title: {
         color: colors.timerColor, ...GlobalStyle.Fonts_B_16,
-        textAlign: 'center', fontSize: Responsive.hp(2)
+        textAlign: 'center', fontSize: Responsive.hp(2.2)
     },
     styleSelectStyle: {
         borderWidth: 1,

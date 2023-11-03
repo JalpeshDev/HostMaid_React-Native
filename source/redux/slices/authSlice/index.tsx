@@ -9,19 +9,25 @@ import { AuthStateType } from '../../types';
 const initialState: AuthStateType = {
   loading: false,
   data: {},
-  isClickable: false,
+  isClickable: true,
+  elapsed: null
 };
+
+
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     enableTabNavigation: (state) => {
-      state.isClickable = true;
-    },
-    disableTabNavigation: (state) => {
       state.isClickable = false;
     },
+    disableTabNavigation: (state) => {
+      state.isClickable = true;
+    },
+    elapsedTimes: (state, action) => {
+      state.elapsed = action.payload.elapsedTime;
+    }
   },
   extraReducers: builder => {
     builder.addCase(userLoginAction.pending, (state, action) => {
@@ -39,5 +45,8 @@ const authSlice = createSlice({
     });
   },
 });
-export const { enableTabNavigation, disableTabNavigation } = authSlice.actions;
+export const {
+  enableTabNavigation, disableTabNavigation,
+  elapsedTimes
+} = authSlice.actions;
 export const authReducer = authSlice.reducer;

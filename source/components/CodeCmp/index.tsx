@@ -3,6 +3,7 @@ import React from 'react'
 import Responsive from '../../utils/Responsive'
 import colors from '../../utils/colors'
 import { GlobalStyle } from '../../utils/GlobalStyle'
+import PlatformType from '../../utils/PlatformType'
 
 const CodeCmp = ({ label, number, onPressNumberBox }: any) => {
 
@@ -37,14 +38,15 @@ const style = StyleSheet.create({
         width: "100%",
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: Responsive.hp(4)
+        paddingTop: Responsive.hp(3),
     },
     sunContainer: {
         width: "90%",
     },
     labelStyle: {
         color: colors.themeTextBlack,
-        ...GlobalStyle.Fonts_B_16
+        ...GlobalStyle.Fonts_M_15,
+        fontSize: Responsive.hp(1.9)
     },
     numberStyle: {
         color: colors.themeTextBlack,
@@ -53,12 +55,12 @@ const style = StyleSheet.create({
     rightContainBG: {
         flexDirection: "row",
         justifyContent: 'space-between',
-        width: "63%",
+        width: "60%",
         paddingTop: Responsive.hp(3.5),
     },
     boxStyle: {
-        height: Responsive.hp(6),
-        width: Responsive.hp(6),
+        height:PlatformType.android ? Responsive.hp(6) :Responsive.hp(5),
+        width: PlatformType.android ? Responsive.hp(6) :Responsive.hp(5),
         backgroundColor: colors.numberBox,
         borderRadius: Responsive.hp(1),
         justifyContent: 'center',

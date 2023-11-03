@@ -26,8 +26,14 @@ export const images = {
     sliderImg1: require('../assests/images/sliderImg1.png'),
     ForwordArrow: require('../assests/images/ForwordArrow.png'),
     BackArrow: require('../assests/images/BackArrow.png'),
-    Home2: require('../assests/images/Home2.jpg'),
     Home1: require('../assests/images/Home1.jpg'),
+    Home2: require('../assests/images/Home2.jpg'),
+    Home3: require('../assests/images/Home3.jpg'),
+    checkImage: require('../assests/images/checkImg.png'),
+    uncheckImage: require('../assests/images/uncheck.png'),
+    bathroom: require('../assests/images/Bathroom.png'),
+    kingBed: require('../assests/images/KingBed.png'),
+    Bed: require('../assests/images/Bed.png'),
 
 };
 

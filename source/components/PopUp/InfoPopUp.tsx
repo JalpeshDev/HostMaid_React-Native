@@ -3,15 +3,19 @@ import {
     View,
     Modal,
     TouchableOpacity,
-    Linking, Text, Button, Image
+    Text, Image
 } from 'react-native';
-import React, { useState, FC } from 'react';
+import React from 'react';
 import Responsive from '../../utils/Responsive';
 import colors from '../../utils/colors';
 import { ThemeButtonComponent } from '../ThemeButtonComponent';
 import { GlobalStyle } from '../../utils/GlobalStyle';
 import { Strings } from '../../utils/strings';
 import { images } from '../../utils/images';
+import { localStorage } from '../../utils/localStorageProvider';
+import PlatformType from '../../utils/PlatformType';
+import { enableTabNavigation } from '../../redux/slices/authSlice';
+import { useAppDispatch } from '../../redux';
 const textInfo = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries
 
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
@@ -22,14 +26,29 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
 
 Lorem Ipsum is simply dummy text of the printing and typesetting industry.`
 
-const InfoPopUp = ({ isInfoPopup, setIsPopup, isImage, isImagePop, isImgScroll, timer, checkInBtn, setCheckInBtn }: any) => {
-    const onPressOkay = () => {
-        setIsPopup({ isInfoPopup: !isInfoPopup });
-        setIsPopup({ timer: true });
-        setIsPopup({ isImgScroll: true });
-        if (checkInBtn == 1) {
-            setCheckInBtn(checkInBtn + 1)
-        } else { }
+const InfoPopUp = ({
+    isInfoPopup, updateState, isImage, isImagePop,
+    checkInBtn, startTimer, property_id
+}: any) => {
+    const dispatch = useAppDispatch();
+
+    const onPressOkay = async () => {
+        try {
+            updateState({ isInfoPopup: !isInfoPopup });
+            updateState({ isTimer: true });
+            updateState({ isImgScroll: true });
+            if (checkInBtn == 1) {
+                updateState({ checkInBtn: checkInBtn + 1 })
+            } else { }
+            const savedTimeData = await localStorage.getItemObject(`property_id${property_id}`)
+            if (savedTimeData == undefined || savedTimeData == null) {
+                dispatch(enableTabNavigation())
+                startTimer()
+            } else { }
+        } catch (error) {
+            console.error('Error loading elapsed time: ', error);
+        }
+
     }
     return (
         <Modal
@@ -38,21 +57,20 @@ const InfoPopUp = ({ isInfoPopup, setIsPopup, isImage, isImagePop, isImgScroll, 
             visible={isInfoPopup}
             onRequestClose={() => {
                 if (isImage) {
-                    setIsPopup({ isImagePop: !isImagePop })
+                    updateState({ isImagePop: !isImagePop })
                 } else {
-                    setIsPopup({ isInfoPopup: !isInfoPopup })
+                    updateState({ isInfoPopup: !isInfoPopup })
                 }
             }}>
             {isImage ?
                 <TouchableOpacity
-                    onPress={() => setIsPopup({ isImagePop: !isImagePop })} style={{ ...style.modalContainer, justifyContent: 'flex-start' }}>
+                    onPress={() => updateState({ isImagePop: !isImagePop })} style={{ ...style.modalContainer, justifyContent: 'flex-start' }}>
                     <View style={style.imgSubContainer}>
                         <Image source={images.House} style={{ height: Responsive.hp(44), width: Responsive.hp(44) }} resizeMode='cover' />
                     </View>
                 </TouchableOpacity>
                 :
                 <View
-                    // onPress={() => setIsPopup({ isInfoPopup: !isInfoPopup })} 
                     style={style.modalContainer}>
                     <View style={style.subContainer}>
                         <View style={style.containerLine} />
@@ -108,10 +126,10 @@ const style = StyleSheet.create({
     bottomContainer: {
         justifyContent: "center",
         width: "100%", alignItems: "center",
-        position: 'absolute', bottom: 1, marginBottom: Responsive.hp(8)
+        position: 'absolute', bottom: 1, marginBottom: Responsive.hp(8),
     },
     btn: { marginVertical: Responsive.hp(1), width: "90%", backgroundColor: colors.headerTitleColor },
-    btnTitle: { ...GlobalStyle.Fonts_B_15 },
+    btnTitle: { ...GlobalStyle.Fonts_B_15, fontSize: PlatformType.android ? Responsive.hp(1.9) : Responsive.hp(1.5) },
     containerLine: {
         width: Responsive.wp(20),
         backgroundColor: colors.MapHeadLine,

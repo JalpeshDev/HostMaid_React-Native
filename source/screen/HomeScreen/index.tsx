@@ -1,6 +1,6 @@
-import { FlatList, SafeAreaView, Text, View, ScrollView, Image } from 'react-native'
+import { FlatList, SafeAreaView, Text, View, ScrollView, Image, StatusBar } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
-import { AppThemeHeaderComponent } from '../../components/AppThemeHeaderComponent'
+import AppThemeHeaderComponent from '../../components/AppThemeHeaderComponent'
 import { images } from '../../utils/images'
 import { style } from './style'
 import { AddressFlatlistCmp } from '../../components/AddressFlatlistCmp/AddressFlatlistCmp'
@@ -16,9 +16,16 @@ import { Strings } from '../../utils/strings'
 import navigationServices from '../../navigator/navigationServices'
 import routes from '../../navigator/routes'
 import { useAppDispatch, useAppSelector } from '../../redux'
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { GlobalStyle } from '../../utils/GlobalStyle'
+import { useGetBookingByDateQuery } from '../../redux/services/ApiQuery'
+import MapView from 'react-native-maps'
+import PlatformType from '../../utils/PlatformType'
+import colors from '../../utils/colors'
 
 const HomeScreen = () => {
     const dispatch = useAppDispatch();
+    const isFocused = useIsFocused();
 
     const {
         state,
@@ -27,8 +34,6 @@ const HomeScreen = () => {
         createTwoButtonAlert, year, month,
         formattedDate, currentDay,
         currentMonth, currentYear, currentWeek } = viewModel()
-    const { data, loading } = useAppSelector((state) => state.bookingReducer);
-
     const {
         calendarDataArray,
         date,
@@ -38,6 +43,7 @@ const HomeScreen = () => {
         selectDate,
         showAppoinment,
         flatlistData } = state
+    const { isLoading, data } = useGetBookingByDateQuery(`${year}-${month}-${selectDate}`)
 
     useEffect(() => {
         dispatch(getBookingsAction());
@@ -45,13 +51,13 @@ const HomeScreen = () => {
 
     const renderItem = (item: any) => {
         return (
-            <AddressFlatlistCmp item={item}
-                onArrowPress={() => navigationServices.navigateToNext(routes.BottomNavigation, {})}
+            <AddressFlatlistCmp item={item} property_id={item?.item?.property_id}
+                onArrowPress={() => navigationServices.navigateToNext(routes.BottomNavigation, { property_id: item?.item?.property_id })}
             />
         )
     }
 
-    const showPicker = useCallback((value: any) => updateState({ show: value }), []);
+    const showPicker = useCallback((value: any): any => updateState({ show: value }), []);
 
     const onValueChange = useCallback(
         (event: any, newDate: any) => {
@@ -98,29 +104,15 @@ const HomeScreen = () => {
         }
     }
 
-    useEffect(() => {
-        const result: any = data?.data?.filter((item: any) => {
-            const bookingDate = new Date(item.cleaning_date);
-            let filterDate = bookingDate.getDate();
-            let filterMonth = bookingDate.getMonth() + 1;
-            let filterYear = bookingDate.getFullYear();
-            return filterDate == selectDate && filterMonth == month && filterYear == year;
-        });
-        if (result?.length != 0) {
-            updateState({ flatlistData: result })
-            updateState({ showAppoinment: true })
-        } else {
-            if (currentMonth === month && currentYear === year && currentDay == selectDate) {
-                updateState({ flatlistData: arryList })
-                updateState({ showAppoinment: true })
-            } else {
-                updateState({ showAppoinment: false })
-            }
-        }
-    }, [selectIndex, selectDate, loading])
-
     return (
-        <SafeAreaView style={style.mainView}>
+        <SafeAreaView style={GlobalStyle.mainContainer}>
+            {PlatformType.android &&
+                <StatusBar
+                    animated
+                    translucent={false}
+                    backgroundColor={colors.themeGreen}
+                />
+            }
             <View style={{ paddingTop: Responsive.hp(1.5) }}>
                 <AppThemeHeaderComponent onPressRight={() => { createTwoButtonAlert() }} onPressRightLeft={() => { }}
                     LeftIcon={images.filter}
@@ -132,7 +124,7 @@ const HomeScreen = () => {
                     onDateSelect={() => showPicker(true)}
                 />
             </View>
-            <Loader loading={loading} />
+            <Loader loading={isLoading} />
             <View style={style.weekMainView}>
                 <View style={style.inWeekContainer}>
                     <View style={style.rowContainer}>
@@ -185,18 +177,19 @@ const HomeScreen = () => {
 
                 </View>
             </View>
-            {showAppoinment ?
+            {data?.data?.length != 0 ?
                 <View>
                     <View style={style.flatlistHeaderView}>
                         <Text style={style.flatlistHeader}>Appointments</Text>
                     </View>
                     <FlatList
                         numColumns={1}
-                        data={loading ? [] : flatlistData}
+                        data={isLoading ? [] : data?.data}
                         renderItem={renderItem}
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={style.listInContainer}
                         style={style.listContainer}
+                        extraData={isFocused}
                     />
                 </View>
                 :

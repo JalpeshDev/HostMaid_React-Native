@@ -1,11 +1,13 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import Responsive from '../../../utils/Responsive';
 import colors from '../../../utils/colors';
+import { GlobalStyle } from '../../../utils/GlobalStyle';
+import PlatformType from '../../../utils/PlatformType';
 const screen = Dimensions.get('window');
 export const style = StyleSheet.create({
     mainView: { flex: 1 },
     mapView: {
-        height: Responsive.hp(62)
+        height: PlatformType.android ? Responsive.hp(59) : Responsive.hp(53),
     },
     text: {
         fontSize: 20,
@@ -35,17 +37,18 @@ export const style = StyleSheet.create({
         width: Responsive.wp(20),
         backgroundColor: colors.MapHeadLine,
         borderRadius: Responsive.hp(1),
-        height: Responsive.hp(0.5),
+        height: PlatformType.android ? Responsive.hp(0.5) : Responsive.hp(0.3),
         marginTop: Responsive.hp(0.8),
         alignSelf: 'center',
-        marginBottom: Responsive.hp(2)
+        marginBottom: Responsive.hp(1)
     },
     bottomContainer: {
         justifyContent: "center",
         width: "100%", alignItems: "center",
         paddingBottom: Responsive.hp(1.5),
     },
-    btn: { width: "90%" },
+    btn: { width: "90%", },
+    btnTitle: { ...GlobalStyle.Fonts_B_15, fontSize: PlatformType.android ? Responsive.hp(1.9) : Responsive.hp(1.5) },
     sourceIconStyle: {
         height: Responsive.hp(4), width: Responsive.hp(4),
         backgroundColor: colors.white, borderRadius: Responsive.hp(5)
@@ -64,22 +67,22 @@ export const style = StyleSheet.create({
     },
     homeImages: { width: Responsive.hp(17), height: Responsive.hp(17), resizeMode: 'contain' },
     backgroundSlider: {
-        alignItems: "center",
-        justifyContent: "center",
         elevation: 5,
         shadowOffset: { width: 0.2, height: 0.2 },
-        shadowColor: colors.black,
+        shadowColor: colors.whiteGrey60,
         shadowRadius: 1,
         shadowOpacity: 0.1,
+        paddingBottom: Responsive.hp(8),
+        borderRadius: Responsive.hp(1.5),
+        width: "100%",
     },
     imageSlider: {
         height: "100%",
         width: "100%",
-        resizeMode: "cover", borderRadius: Responsive.hp(1.5),
+        borderRadius: Responsive.hp(1.5), resizeMode: 'contain',
     },
-    imgContainer: { marginTop: Responsive.hp(10), flexDirection: "row" },
-    arrowContainer: { justifyContent: 'center', width: "15%", alignItems: 'center' },
-    arrowImg: { height: Responsive.hp(3.5), width: Responsive.hp(3.5) },
+    imgContainer: { marginTop: PlatformType.android ? Responsive.hp(10) : Responsive.hp(5.5), flexDirection: "row", },
+    arrowContainer: { justifyContent: 'center', width: PlatformType.android ? "15%" : "13%", alignItems: 'center', },
     containerPagging: {
         position: "absolute",
         bottom: 0,
@@ -91,11 +94,29 @@ export const style = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: colors.themeGreen,
     },
-    arrowView: { height: Responsive.hp(10), justifyContent: 'center' },
-    timerContainer: { height: Responsive.hp(8), justifyContent: 'center', alignItems: 'center' },
-    CarouselStyle: {
-        height: Responsive.hp(41), width: "70%", borderRadius: Responsive.hp(2), alignItems: 'center',
 
+    timerContainer: { height: Responsive.hp(9), justifyContent: 'center', alignItems: 'center' },
+    CarouselStyle: {
+        height: PlatformType.android ? Responsive.hp(46) : Responsive.hp(44),
+        width: PlatformType.android ? "70%" : "74%",
+        borderRadius: Responsive.hp(1.5), alignItems: 'center',
     },
-    markerInsideView: { justifyContent: 'center', alignItems: 'center' }
+    markerInsideView: { justifyContent: 'center', alignItems: 'center', },
+    containerTextSlider: {
+        position: "absolute",
+        bottom: 0,
+        height: Responsive.hp(7),
+        width: '100%',
+        borderRadius: Responsive.hp(1.5),
+        flexDirection: 'row',
+        justifyContent: 'center', alignItems: 'center',
+    },
+    sliderBottomText: {
+        color: colors.headerTitleColor,
+        ...GlobalStyle.Fonts_M_15,
+        textAlign: 'left',
+        flex: 1,
+    },
+    itemCheckView: { paddingRight: Responsive.hp(1.2), },
+    itemCheckImg: { width: Responsive.hp(2.5), height: Responsive.hp(2.5), marginTop: Responsive.hp(0.5) },
 });

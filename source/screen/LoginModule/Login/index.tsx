@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import viewModel from './viewModel'
-import { Text, View, Image, ImageBackground, SafeAreaView, Platform, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Text, View, Image, ImageBackground, SafeAreaView, Platform, StatusBar, } from 'react-native';
 import { style } from './style';
 import { images } from '../../../utils/images';
 import Responsive from '../../../utils/Responsive';
@@ -10,18 +10,24 @@ import { emailvalidate } from '../../../utils/Validation';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Loader from '../../../components/Loader';
 import { Strings } from '../../../utils/strings';
+import colors from '../../../utils/colors';
+import PlatformType from '../../../utils/PlatformType';
 
 const Login = () => {
     const { onChange, visiblePassword, email, loginService, loading } = viewModel()
-    const keyboardBehavior = Platform.OS == 'ios' ? 'padding' : 'height'
 
     return (
-        <SafeAreaView
+        <View
             style={style.mainView}>
+            {PlatformType.android &&
+                <StatusBar
+                    animated
+                    translucent={false}
+                    backgroundColor={colors.black}
+                />
+            }
             <ImageBackground source={images.backgroundSpalsh} resizeMode="cover" style={style.imageBGContainer}>
                 <KeyboardAwareScrollView>
-                    {/* <KeyboardAvoidingView style={{ flex: 1 }} >
-                    <ScrollView contentContainerStyle={style.scrollViewContent} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}> */}
                     <View style={style.headerView}>
                         <Image source={images.appLogo} style={{ ...style.imageLogoContainer, }} resizeMode='contain' />
                     </View>
@@ -60,11 +66,9 @@ const Login = () => {
                             }}
                         />
                     </View>
-                    {/* </ScrollView>
-                </KeyboardAvoidingView> */}
                 </KeyboardAwareScrollView>
             </ImageBackground>
-        </SafeAreaView>
+        </View>
     )
 }
 

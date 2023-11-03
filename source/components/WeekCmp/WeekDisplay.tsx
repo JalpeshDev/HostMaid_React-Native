@@ -3,6 +3,7 @@ import React from 'react'
 import Responsive from '../../utils/Responsive'
 import colors from '../../utils/colors'
 import { GlobalStyle } from '../../utils/GlobalStyle'
+import PlatformType from '../../utils/PlatformType'
 const WeekDisplay = ({ keyIndex, data, isCheckWeekView, onPressWeek, numberOfWeek }: any) => {
 
     return (
@@ -31,7 +32,7 @@ const style = StyleSheet.create({
         borderWidth: 1,
         borderColor: colors.themeTextGrey,
         marginHorizontal: Responsive.hp(1),
-        height: Responsive.hp(4),
+        height:PlatformType.android ? Responsive.hp(4):Responsive.hp(3),
         justifyContent: 'center',
         elevation: 2,
         shadowOffset: { width: 0.2, height: 0.2 },

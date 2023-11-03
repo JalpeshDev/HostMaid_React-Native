@@ -11,7 +11,7 @@ import Feather from "react-native-vector-icons/Feather";
 import Entypo from "react-native-vector-icons/Entypo";
 import responsive from './Responsive';
 export default {
-  
+
   sideMenuIcon: (
     <Feather name="menu" size={responsive.hp(3)} color={Color.black} />
   ),
@@ -26,5 +26,11 @@ export default {
   ),
   rightTickIcon: (
     <Octicons name="check-circle-fill" size={responsive.hp(2.5)} color={Color.black} />
+  ),
+  checkImg: (
+    <Ionicons name="checkbox" size={responsive.hp(2.5)} color={Color.themeGreen} />
+  ),
+  checkOutLineImg: (
+    <MaterialCommunityIcons name="checkbox-blank-outline" size={responsive.hp(2.5)} color={Color.themeGreen} />
   ),
 };

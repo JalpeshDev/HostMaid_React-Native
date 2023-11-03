@@ -1,12 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import colors from '../../utils/colors'
 import Responsive from '../../utils/Responsive'
 import { GlobalStyle } from '../../utils/GlobalStyle'
 import { images } from '../../utils/images'
-import { convertDateWithFormat } from '../../utils/generalFunction'
+import { localStorage } from '../../utils/localStorageProvider'
+import { useIsFocused } from '@react-navigation/native';
+import PlatformType from '../../utils/PlatformType'
 
-export const AddressFlatlistCmp = ({ item, onArrowPress }: any) => {
+export const AddressFlatlistCmp = ({ item, onArrowPress, property_id }: any) => {
+    const [state, setState] = useState(false)
+    useEffect(() => {
+        const loadElapsedTime = async () => {
+            try {
+                const savedTimeData = await localStorage.getItemObject(`property_id${property_id}`)
+                if (savedTimeData) {
+                    setState(true)
+                } else { setState(false) }
+            } catch (error) {
+                console.error('Error loading elapsed time: ', error);
+            }
+        };
+
+        loadElapsedTime();
+    }, [property_id, item]);
+
     const dateTime = new Date(item.item.cleaning_date);
     const hours = dateTime.getHours();
     const minutes = dateTime.getMinutes();
@@ -17,14 +35,16 @@ export const AddressFlatlistCmp = ({ item, onArrowPress }: any) => {
 
     return (
         <View style={style.itemContainer}>
-            <View style={style.itemUpContainer}>
+            <View style={{ ...style.itemUpContainer, backgroundColor: state ? colors.themeGreen20 : colors.themeSubFontGray }}>
                 <View style={style.firstView}>
                     <View style={style.flexView}>
                         <Text numberOfLines={2} style={style.firstTextList}>{`${item.item.property_name}`}</Text>
                     </View>
                     <View style={{ ...style.flexView, width: "90%", }}>
                         <Text numberOfLines={1} style={style.secondTextList}>{`${item.item.property_address1}`}</Text>
-                        <Text style={style.timeStyle}>{timeString}</Text>
+                        <View style={style.timeStyleView}>
+                            <Text style={style.timeStyle}>{timeString}</Text>
+                        </View>
                     </View>
                 </View>
                 <View style={style.secondView}>
@@ -59,11 +79,12 @@ const style = StyleSheet.create({
     firstTextList: {
         marginHorizontal: Responsive.wp(1), ...GlobalStyle.Fonts_B_16,
         color: colors.themeFontBlack, flex: 1, marginBottom: Responsive.hp(0.6),
+        fontSize: PlatformType.android ? Responsive.hp(1.9) : Responsive.hp(1.7)
     },
     secondTextList: {
         marginHorizontal: Responsive.wp(1), ...GlobalStyle.Fonts_R_14,
         color: colors.themeBlueGray, flex: 1,
-        fontSize: Responsive.hp(1.5),
+        fontSize: PlatformType.android ? Responsive.hp(1.5) : Responsive.hp(1.3)
     },
     imageView: {
         backgroundColor: colors.white,
@@ -95,11 +116,17 @@ const style = StyleSheet.create({
     timeStyle: {
         ...GlobalStyle.Fonts_M_15,
         fontSize: Responsive.hp(1.2),
-        backgroundColor: colors.themeGreen,
-        borderRadius: Responsive.hp(1),
-        paddingVertical: Responsive.hp(0.4),
-        paddingHorizontal: Responsive.hp(1),
+        // backgroundColor: colors.themeGreen,
+        // borderRadius: Responsive.hp(1),
+        // paddingVertical: Responsive.hp(0.2),
+        // paddingHorizontal: Responsive.hp(1),
         color: colors.white,
-        elevation: 1
+        elevation: 1,
+    },
+    timeStyleView:{
+        borderRadius: Responsive.hp(0.5),
+        paddingVertical: Responsive.hp(0.3),
+        paddingHorizontal: Responsive.hp(1),
+        backgroundColor: colors.themeGreen
     }
 })

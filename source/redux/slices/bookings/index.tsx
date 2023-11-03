@@ -4,7 +4,7 @@ import { getBookingsAction, } from '../../action/authAction';
 
 const initialState = {
     loading: false,
-    data: {},
+    bookingList: {},
 };
 
 const bookingSlice = createSlice({
@@ -16,11 +16,11 @@ const bookingSlice = createSlice({
             state.loading = true;
         });
         builder.addCase(getBookingsAction.fulfilled, (state, action) => {
-            state.data = action.payload;
+            state.bookingList = action.payload;
             state.loading = false;
         });
         builder.addCase(getBookingsAction.rejected, (state, action) => {
-            state.data = {};
+            state.bookingList = {};
             state.loading = false;
         });
     },

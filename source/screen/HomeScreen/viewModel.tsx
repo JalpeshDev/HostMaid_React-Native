@@ -11,27 +11,28 @@ const monthNames = [
 ];
 const arryList: any = [
     {
+        property_id: 1,
         property_name: "1340 Reynolds Ave #116-1097",
         property_address1: "Irvine, CA 92614 United States",
         cleaning_date: "2023-08-28 00:00:00",
     },
     {
+        property_id: 2,
         property_name: "1340 Reynolds Ave #116-1097",
         property_address1: "Irvine, CA 92614 United States",
         cleaning_date: "2023-10-06T10:11:21.189Z",
-
     },
     {
+        property_id: 3,
         property_name: "1340 Reynolds Ave #116-1097",
         property_address1: "Irvine, CA 92614 United States",
         cleaning_date: "2023-08-28 00:00:00",
-
     },
     {
+        property_id: 4,
         property_name: "1340 Reynolds Ave #116-1097",
         property_address1: "Irvine, CA 92614 United States",
         cleaning_date: "2023-10-06T10:11:21.189Z",
-
     },
 ]
 export default function viewModel() {

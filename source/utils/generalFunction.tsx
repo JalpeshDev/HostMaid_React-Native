@@ -4,7 +4,6 @@ import { Image } from 'react-native'
 
 import moment from "moment";
 import { Alert } from 'react-native'
-import Responsive from './Responsive';
 import { GlobalStyle } from './GlobalStyle';
 export const bottomIconsChange = (tab: any, color: any) => {
     switch (tab) {
@@ -168,3 +167,16 @@ export const timeFormate = () => {
 
     return hours + ' : ' + minutes + ' : ' + seconds;
 }
+
+export const trackerTime = (milliseconds: any) => {
+    const seconds = Math.floor((milliseconds / 1000) % 60);
+    const minutes = Math.floor((milliseconds / (1000 * 60)) % 60);
+    const hours = Math.floor((milliseconds / (1000 * 60 * 60)) % 48);
+
+    const s = seconds.toString().length == 1 ? `0${seconds}` : seconds
+    const m = minutes.toString().length == 1 ? `0${minutes}` : minutes
+    const h = hours.toString().length == 1 ? `0${hours}` : hours
+
+    return `${h} : ${m} : ${s}`;
+};
+
