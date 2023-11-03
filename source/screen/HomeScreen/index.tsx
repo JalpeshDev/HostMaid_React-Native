@@ -1,4 +1,4 @@
-import { FlatList, SafeAreaView, Text, View, ScrollView, Image } from 'react-native'
+import { FlatList, SafeAreaView, Text, View, ScrollView, Image, StatusBar } from 'react-native'
 import React, { useCallback, useEffect, useState } from 'react'
 import AppThemeHeaderComponent from '../../components/AppThemeHeaderComponent'
 import { images } from '../../utils/images'
@@ -20,6 +20,8 @@ import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { GlobalStyle } from '../../utils/GlobalStyle'
 import { useGetBookingByDateQuery } from '../../redux/services/ApiQuery'
 import MapView from 'react-native-maps'
+import PlatformType from '../../utils/PlatformType'
+import colors from '../../utils/colors'
 
 const HomeScreen = () => {
     const dispatch = useAppDispatch();
@@ -104,6 +106,13 @@ const HomeScreen = () => {
 
     return (
         <SafeAreaView style={GlobalStyle.mainContainer}>
+            {PlatformType.android &&
+                <StatusBar
+                    animated
+                    translucent={false}
+                    backgroundColor={colors.themeGreen}
+                />
+            }
             <View style={{ paddingTop: Responsive.hp(1.5) }}>
                 <AppThemeHeaderComponent onPressRight={() => { createTwoButtonAlert() }} onPressRightLeft={() => { }}
                     LeftIcon={images.filter}

@@ -10,14 +10,22 @@ import { emailvalidate } from '../../../utils/Validation';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import Loader from '../../../components/Loader';
 import { Strings } from '../../../utils/strings';
+import colors from '../../../utils/colors';
+import PlatformType from '../../../utils/PlatformType';
 
 const Login = () => {
     const { onChange, visiblePassword, email, loginService, loading } = viewModel()
-    const keyboardBehavior = Platform.OS == 'ios' ? 'padding' : 'height'
 
     return (
         <View
             style={style.mainView}>
+            {PlatformType.android &&
+                <StatusBar
+                    animated
+                    translucent={false}
+                    backgroundColor={colors.black}
+                />
+            }
             <ImageBackground source={images.backgroundSpalsh} resizeMode="cover" style={style.imageBGContainer}>
                 <KeyboardAwareScrollView>
                     <View style={style.headerView}>
