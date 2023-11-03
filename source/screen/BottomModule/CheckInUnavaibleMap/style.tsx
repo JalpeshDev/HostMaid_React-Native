@@ -81,7 +81,7 @@ export const style = StyleSheet.create({
         width: "100%",
         borderRadius: Responsive.hp(1.5), resizeMode: 'contain',
     },
-    imgContainer: { marginTop: PlatformType.android ? Responsive.hp(10) : Responsive.hp(6), flexDirection: "row", },
+    imgContainer: { marginTop: PlatformType.android ? Responsive.hp(10) : Responsive.hp(5.5), flexDirection: "row", },
     arrowContainer: { justifyContent: 'center', width: PlatformType.android ? "15%" : "13%", alignItems: 'center', },
     containerPagging: {
         position: "absolute",
@@ -101,11 +101,11 @@ export const style = StyleSheet.create({
         width: PlatformType.android ? "70%" : "74%",
         borderRadius: Responsive.hp(1.5), alignItems: 'center',
     },
-    markerInsideView: { justifyContent: 'center', alignItems: 'center' },
+    markerInsideView: { justifyContent: 'center', alignItems: 'center' ,},
     containerTextSlider: {
         position: "absolute",
         bottom: 0,
-        height: Responsive.hp(8),
+        height: Responsive.hp(7),
         width: '100%',
         borderRadius: Responsive.hp(1.5),
         flexDirection: 'row',
@@ -115,7 +115,7 @@ export const style = StyleSheet.create({
         color: colors.headerTitleColor,
         ...GlobalStyle.Fonts_M_15,
         textAlign: 'left',
-        flex: 1
+        flex: 1,
     },
     itemCheckView: { paddingRight: Responsive.hp(1.2), },
     itemCheckImg: { width: Responsive.hp(2.5), height: Responsive.hp(2.5), marginTop: Responsive.hp(0.5) },

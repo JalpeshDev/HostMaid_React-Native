@@ -19,6 +19,7 @@ import { useAppDispatch, useAppSelector } from '../../redux'
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { GlobalStyle } from '../../utils/GlobalStyle'
 import { useGetBookingByDateQuery } from '../../redux/services/ApiQuery'
+import MapView from 'react-native-maps'
 
 const HomeScreen = () => {
     const dispatch = useAppDispatch();

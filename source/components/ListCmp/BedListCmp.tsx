@@ -35,7 +35,7 @@ export default memo(BedListCmp)
 const style = StyleSheet.create({
     itemContainer: {
         backgroundColor: colors.bedList,
-        marginBottom: Responsive.hp(2), justifyContent: "space-between",
+        marginBottom:PlatformType.android ? Responsive.hp(2) : Responsive.hp(1), justifyContent: "space-between",
         alignItems: "center", marginHorizontal: Responsive.wp(1), borderRadius: Responsive.hp(1),
         shadowOffset: { width: 0.2, height: 0.2 },
         shadowColor: colors.black,
@@ -58,7 +58,7 @@ const style = StyleSheet.create({
     },
     title: {
         color: colors.themeTextBlack,
-        ...GlobalStyle.Fonts_B_15,
+        ...GlobalStyle.Fonts_M_15,
         paddingBottom: Responsive.hp(1),
         marginTop: Responsive.hp(1),
         paddingHorizontal: Responsive.wp(2.5),

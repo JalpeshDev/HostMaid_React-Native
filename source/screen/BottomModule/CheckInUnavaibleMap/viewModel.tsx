@@ -117,6 +117,9 @@ export default function viewModel() {
     };
 
     const onMarkerPress = () => {
+        console.log("state.isShowHome-->",state.isShowHome);
+        // console.log("state.isShowHome-->",state.isShowHome);
+        
         if (state.isShowHome) {
             updateState({ isFullViewImgVisible: !state.isFullViewImgVisible })
         } else {

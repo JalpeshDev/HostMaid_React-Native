@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, PermissionsAndroid, SafeAreaView, View, Alert, Image, TouchableOpacity, Linking } from 'react-native';
+import { Dimensions, PermissionsAndroid, SafeAreaView, View, Alert, Image, TouchableOpacity, Linking,StatusBar } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
 import viewModel from './viewModel';
@@ -220,8 +220,14 @@ const CheckInUnavaibleMap = ({ route }: any) => {
         dispatch(elapsedTimes({ elapsedTime: elapsedTime }))
     }, [elapsedTime])
 
+
     return (
         <SafeAreaView style={style.mainView}>
+            <StatusBar
+                animated
+                translucent={false}
+                backgroundColor={colors.MapDownColor}
+            />
             <NavigationHeader LeftIcon={images.backIcon} RightIcon={images.Info} checkInBtn={checkInBtn} isTimer={isTimer}
                 onPressLeft={() => navigationServices.navigationGoBack()} onPressRight={() => updateState({ isInfoPopup: !isInfoPopup })} />
             <Loader loading={isLoading} />
@@ -270,7 +276,7 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                     zoomTapEnabled={true}
                     showsMyLocationButton={true}
                     showsCompass={true}
-                    provider={PROVIDER_GOOGLE}
+                    // provider={PROVIDER_GOOGLE}
                     style={style.mapView}
                     region={{
                         latitude: coordinates[0].latitude,
@@ -298,7 +304,7 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                                         style={style.homeImages} />
                                 </TouchableOpacity>
                             }
-                            <TouchableOpacity style={style.destinationIconStyle} onPress={() => updateState({ isShowHome: !isShowHome })}>
+                            <TouchableOpacity style={style.destinationIconStyle}>
                                 <Image source={images.HomeDestination} style={style.markerStyle} resizeMode='contain' />
                             </TouchableOpacity>
                         </TouchableOpacity>

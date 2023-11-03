@@ -48,6 +48,7 @@ target 'HostMaid' do
   target 'HostMaidTests' do
     inherit! :complete
     # Pods for testing
+
   end
 
   post_install do |installer|

@@ -27,7 +27,6 @@ const BottomNavigation = ({ route }: any) => {
         { name: 'Misc', component: Misc, label: "Misc" },
         { name: 'Photos', component: Photos, label: "Notes/Photos" },
     ];
-    console.log("isClickable is->", isClickable);
 
     return (
         <Tab.Navigator

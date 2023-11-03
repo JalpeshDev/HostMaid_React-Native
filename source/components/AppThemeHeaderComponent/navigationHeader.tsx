@@ -37,7 +37,7 @@ export const NavigationHeader = ({
                         <View style={{ ...style.centerView }}>
                             {centerText && <Text style={style.centerText}>{centerText}</Text>}
                         </View>
-                        <TouchableOpacity onPress={onPressRight} style={{ ...style.rightIconView }}>
+                        <TouchableOpacity onPress={onPressRight} style={{ ...style.rightIconView }} disabled={isTimer ? false : true}>
                             {RightIcon ?
                                 isTimer && <Image source={RightIcon} style={{ ...style.rightIconStyle }} tintColor={colors.headerTitleColor} resizeMode="contain" />
                                 : <TimerCmp mainTimerStyle={style.mainTimerStyle} timetitleStyle={style.timetitleStyle} elapsedTime={elapsedTime} />
@@ -57,7 +57,7 @@ const style = StyleSheet.create({
         flexDirection: "row",
         width: "100%",
         height: PlatformType.android ? Responsive.hp(7) : Responsive.hp(12),
-        position: 'absolute', top: 10, zIndex: 100,
+        position: 'absolute', top: PlatformType.android ? 10 :30, zIndex: 100,
     },
     containerIn: {
         flexDirection: "row",

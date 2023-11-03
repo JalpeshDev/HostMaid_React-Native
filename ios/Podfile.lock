@@ -377,7 +377,7 @@ PODS:
     - glog
   - react-native-geolocation-service (5.3.1):
     - React
-  - react-native-maps (1.7.1):
+  - react-native-maps (1.7.0):
     - React-Core
   - react-native-month-year-picker (1.9.0):
     - React
@@ -751,7 +751,7 @@ SPEC CHECKSUMS:
   React-jsinspector: aaed4cf551c4a1c98092436518c2d267b13a673f
   React-logger: da1ebe05ae06eb6db4b162202faeafac4b435e77
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
-  react-native-maps: 667f9b975549c6fa9b1631bf859440f68ebd3b8f
+  react-native-maps: 65c630dfdd797e246f31b4b471cc6e31aa51ade9
   react-native-month-year-picker: 948797e981ca502427024a34b17f545eb321bbff
   react-native-safe-area-context: 7aa8e6d9d0f3100a820efb1a98af68aa747f9284
   react-native-simple-toast: 0c7d14bcad288b5b83ae4b0eea65651b4ca829b0
@@ -783,6 +783,6 @@ SPEC CHECKSUMS:
   Yoga: 3efc43e0d48686ce2e8c60f99d4e6bd349aff981
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: ba37915883485e55791a8bb7d6c997d36b322fff
+PODFILE CHECKSUM: 0b4f9cf7fa81339ff3b7c84594de335a708021d5
 
 COCOAPODS: 1.13.0

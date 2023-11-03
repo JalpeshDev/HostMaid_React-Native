@@ -22,7 +22,7 @@ const Bath = () => {
     }
 
     return (
-        <SafeAreaView style={GlobalStyle.mainContainer}>
+        <View style={GlobalStyle.mainContainer}>
             {PlatformType.android &&
                 <StatusBar
                     animated
@@ -42,7 +42,7 @@ const Bath = () => {
                     style={style.listContainer}
                 />
             </View>
-        </SafeAreaView>
+        </View>
     )
 }
 
