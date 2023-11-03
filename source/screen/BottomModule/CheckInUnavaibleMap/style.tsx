@@ -7,7 +7,7 @@ const screen = Dimensions.get('window');
 export const style = StyleSheet.create({
     mainView: { flex: 1 },
     mapView: {
-        height: PlatformType.android ? Responsive.hp(62) : Responsive.hp(53),
+        height: PlatformType.android ? Responsive.hp(59) : Responsive.hp(53),
     },
     text: {
         fontSize: 20,
@@ -101,7 +101,7 @@ export const style = StyleSheet.create({
         width: PlatformType.android ? "70%" : "74%",
         borderRadius: Responsive.hp(1.5), alignItems: 'center',
     },
-    markerInsideView: { justifyContent: 'center', alignItems: 'center' ,},
+    markerInsideView: { justifyContent: 'center', alignItems: 'center', },
     containerTextSlider: {
         position: "absolute",
         bottom: 0,

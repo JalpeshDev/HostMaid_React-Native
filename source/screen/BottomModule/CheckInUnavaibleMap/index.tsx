@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dimensions, PermissionsAndroid, SafeAreaView, View, Alert, Image, TouchableOpacity, Linking,StatusBar } from 'react-native';
+import { Dimensions, PermissionsAndroid, SafeAreaView, View, Alert, Image, TouchableOpacity, Linking, StatusBar } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
 import viewModel from './viewModel';
@@ -167,16 +167,7 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                     updateState({ checkInBtn: 2 })
                     updateState({ isRunning: true })
                     dispatch(enableTabNavigation())
-                    // if (timeElapsedSinceStart >= 0 && timeElapsedSinceStart < 24 * 60 * 60 * 1000) {
-                    //     await localStorage.setItemObject(`property_id${routeData?.property_id}`, {
-                    //         startTime: startTime.toString(),
-                    //         timerStartingDate: Date.now(),
-                    //         elapsedTime: savedTimeData ? savedTimeData.elapsedTime + elapsedTime : elapsedTime,
-                    //     });
-                    //     // updateState({ isRunning: true })
-                    // } else {
-                    //     // updateState({ isRunning: false })
-                    // }
+
                 }
             } catch (error) {
                 console.error('Error loading elapsed time: ', error);
@@ -226,7 +217,7 @@ const CheckInUnavaibleMap = ({ route }: any) => {
             <StatusBar
                 animated
                 translucent={false}
-                backgroundColor={colors.MapDownColor}
+                backgroundColor={PlatformType.android ? colors.themeGreen : colors.MapDownColor}
             />
             <NavigationHeader LeftIcon={images.backIcon} RightIcon={images.Info} checkInBtn={checkInBtn} isTimer={isTimer}
                 onPressLeft={() => navigationServices.navigationGoBack()} onPressRight={() => updateState({ isInfoPopup: !isInfoPopup })} />
@@ -309,28 +300,6 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                             </TouchableOpacity>
                         </TouchableOpacity>
                     </Marker>
-                    {/* <MapViewDirections
-                        origin={coordinates[0]}
-                        destination={coordinates[1]}
-                        apikey={"AIzaSyDjEiy7CxRSQsFGV0yGo8lHfrFxH8V-fYU"}
-                        strokeWidth={4}
-                        strokeColor={colors.directionLine}
-                        strokeColors={['#7F0000']}
-                        optimizeWaypoints={true}
-                        onReady={result => {
-                            console.log(`Distance: ${result.distance} km`)
-                            console.log(`Duration: ${result.duration} min.`)
-                            // mapRef.current.fitToCoordinates(result.coordinates, {
-                            //     edgePadding: {
-                            //         right: 30,
-                            //         bottom: 300,
-                            //         left: 30,
-                            //         top: 100,
-                            //     },
-                            // });
-                        }}
-
-                    /> */}
                     <Polyline
                         coordinates={coordinates}
                         strokeColor={colors.themeGreen}

@@ -12,6 +12,7 @@ import { Provider } from 'react-redux'
 import { store } from './source/redux'
 import { RootSiblingParent } from 'react-native-root-siblings';
 import PlatformType from './source/utils/PlatformType'
+import colors from './source/utils/colors'
 
 const App = () => {
   return (
@@ -19,8 +20,8 @@ const App = () => {
       <StatusBar
         animated
         translucent={false}
-        backgroundColor={'black'}
-        barStyle={PlatformType.android ? "light-content":"dark-content"}
+        backgroundColor={colors.themeGreen}
+        barStyle={PlatformType.android ? "light-content" : "dark-content"}
       />
       <Provider store={store}>
         <RootSiblingParent>

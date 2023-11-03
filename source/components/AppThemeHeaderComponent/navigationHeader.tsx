@@ -57,7 +57,9 @@ const style = StyleSheet.create({
         flexDirection: "row",
         width: "100%",
         height: PlatformType.android ? Responsive.hp(7) : Responsive.hp(12),
-        position: 'absolute', top: PlatformType.android ? 10 :30, zIndex: 100,
+        position: 'absolute',
+        top: PlatformType.android ? 10 : 30,
+        zIndex: 100,
     },
     containerIn: {
         flexDirection: "row",
