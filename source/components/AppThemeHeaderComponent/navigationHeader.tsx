@@ -101,11 +101,7 @@ const style = StyleSheet.create({
         borderRadius: Responsive.hp(3),
         borderWidth: 1,
         borderColor: colors.white,
-<<<<<<< HEAD
-        height: PlatformType.android ? Responsive.hp(2.5) : Responsive.hp(2),
-=======
         height: PlatformType.android ? Responsive.hp(3) : Responsive.hp(2.5),
->>>>>>> Development
         justifyContent: 'center',
         backgroundColor: colors.themeGreen
     },

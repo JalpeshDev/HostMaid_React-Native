@@ -6,11 +6,7 @@ import PlatformType from '../../utils/PlatformType';
 export const style = StyleSheet.create({
       mainView: {
             borderRadius: Responsive.hp(1),
-<<<<<<< HEAD
-            height:PlatformType.android ? Responsive.hp(6) : Responsive.hp(4.5),
-=======
             height: PlatformType.android ? Responsive.hp(6) : Responsive.hp(4.5),
->>>>>>> Development
             justifyContent: "center",
             width: "100%",
             alignItems: 'center',

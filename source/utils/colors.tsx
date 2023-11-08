@@ -34,12 +34,8 @@ export default {
   timerColor: "#F56E6E",
   mapBottomBorder: "#F2F2F2",
   bedList: "#EEF4FA",
-<<<<<<< HEAD
-  bedSeparatorLine: "#7796B550"
-=======
   bedSeparatorLine: "#7796B550",
   disable: "#B2C5D7",
   themeTextBlack10: "#222B4510",
 
->>>>>>> Development
 };
