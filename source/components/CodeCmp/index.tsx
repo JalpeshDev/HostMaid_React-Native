@@ -55,12 +55,12 @@ const style = StyleSheet.create({
     rightContainBG: {
         flexDirection: "row",
         justifyContent: 'space-between',
-        width: "60%",
+        width: "65%",
         paddingTop: Responsive.hp(3.5),
     },
     boxStyle: {
-        height:PlatformType.android ? Responsive.hp(6) :Responsive.hp(5),
-        width: PlatformType.android ? Responsive.hp(6) :Responsive.hp(5),
+        height: PlatformType.android ? Responsive.hp(6) : Responsive.hp(5),
+        width: PlatformType.android ? Responsive.hp(6) : Responsive.hp(5),
         backgroundColor: colors.numberBox,
         borderRadius: Responsive.hp(1),
         justifyContent: 'center',
