@@ -97,18 +97,22 @@ const style = StyleSheet.create({
         fontSize: Responsive.hp(2)
     },
     mainTimerStyle: {
-        width: Responsive.wp(21),
+        width: Responsive.wp(25),
         borderRadius: Responsive.hp(3),
         borderWidth: 1,
         borderColor: colors.white,
+<<<<<<< HEAD
         height: PlatformType.android ? Responsive.hp(2.5) : Responsive.hp(2),
+=======
+        height: PlatformType.android ? Responsive.hp(3) : Responsive.hp(2.5),
+>>>>>>> Development
         justifyContent: 'center',
         backgroundColor: colors.themeGreen
     },
     timetitleStyle: {
         color: colors.white,
         textAlign: 'center',
-        fontSize: Responsive.hp(1.2)
+        fontSize: Responsive.hp(1.8)
     },
     title: {
         color: colors.themeTextBlack,

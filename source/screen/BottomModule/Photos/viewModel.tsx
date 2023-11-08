@@ -7,13 +7,53 @@ const DATA = [
 ];
 export default function viewModel() {
     const [state, setState] = useState<any>({
+<<<<<<< HEAD
 
+=======
+        addNotes: "",
+        imagePickerVisiable: "",
+        deviceImages: null,
+        isEditBtnVisiable: false,
+        isFullImgViewer: false,
+        selectimageindex: 0
+>>>>>>> Development
     });
 
     const updateState = (data: any) => setState((state: any) => ({ ...state, ...data }));
 
+<<<<<<< HEAD
     return {
         state,
         DATA
+=======
+    const onLongPressToDelete = (selectedImg: any) => {
+        let tempArry = [...state.deviceImages]
+        tempArry[selectedImg.index].isDelete = !selectedImg?.item?.isDelete
+        updateState({ deviceImages: tempArry })
+    }
+
+    const onDeletePress = (selectedImg: any) => {
+        let tempArry = [...state.deviceImages]
+        var filterData = tempArry.filter((data, index) => index != selectedImg?.index);
+        updateState({ deviceImages: filterData })
+    }
+
+    const onFullViewerImg = (selectedImg: any) => {
+        updateState({ isFullImgViewer: !state.isFullImgViewer })
+        for (let index = 0; index < state.deviceImages?.length; index++) {
+            if (index === selectedImg?.index) {
+                updateState({ selectimageindex: index })
+            } else { }
+        }
+    }
+
+    return {
+        state,
+        DATA,
+        updateState,
+        onLongPressToDelete,
+        onDeletePress,
+        onFullViewerImg
+>>>>>>> Development
     };
 }

@@ -33,4 +33,10 @@ export default {
   checkOutLineImg: (
     <MaterialCommunityIcons name="checkbox-blank-outline" size={responsive.hp(2.5)} color={Color.themeGreen} />
   ),
+<<<<<<< HEAD
+=======
+  cancel: (
+    <MaterialIcons name='cancel' size={responsive.hp(2.8)} color={Color.themeTextBlack} />
+  )
+>>>>>>> Development
 };

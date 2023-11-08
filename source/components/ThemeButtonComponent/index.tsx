@@ -1,9 +1,9 @@
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, Image, View } from "react-native";
 import Color from "../../utils/colors";
-import { GlobalStyle } from "../../utils/GlobalStyle";
-import Responsive from "../../utils/Responsive";
 import { style } from "./style";
+import colors from "../../utils/colors";
+import Responsive from "../../utils/Responsive";
 
 export const ThemeButtonComponent = ({
   title,
@@ -11,7 +11,9 @@ export const ThemeButtonComponent = ({
   textStyle,
   onPress,
   isActive,
-  checkInBtn
+  checkInBtn,
+  isImage,
+  disabled
 }: any) => {
 
   return (
@@ -25,23 +27,45 @@ export const ThemeButtonComponent = ({
               : checkInBtn === 2
                 ? Color.timerColor
                 : Color.deactive,
-          // backgroundColor: isActive ? Color.themeGreen : Color.deactive,
           ...style.mainView,
           ...buttonStyle,
         }}
-        activeOpacity={0.9}
+        activeOpacity={0.7}
         onPress={() => {
           onPress();
         }}
+        disabled={disabled}
       >
-        <Text
-          style={{
-            ...style.btnTitle,
-            ...textStyle,
-          }}
-        >
-          {title}
-        </Text>
+        {isImage ?
+          <View style={style.row}>
+            <Image source={isImage} style={{
+              ...style.image,
+              width: title ? Responsive.hp(2.5) : Responsive.hp(3),
+              height: title ? Responsive.hp(2.5) : Responsive.hp(3),
+            }}
+              tintColor={title ? colors.white : colors.themeTextBlack}
+            />
+            {title && <Text
+              style={{
+                ...style.btnTitle,
+                ...textStyle,
+                marginLeft: 10
+              }}
+            >
+              {title}
+            </Text>}
+          </View>
+          :
+          <Text
+            style={{
+              ...style.btnTitle,
+              ...textStyle,
+            }}
+          >
+            {title}
+          </Text>
+
+        }
       </TouchableOpacity>
     </>
   );

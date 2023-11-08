@@ -34,7 +34,13 @@ export const images = {
     bathroom: require('../assests/images/Bathroom.png'),
     kingBed: require('../assests/images/KingBed.png'),
     Bed: require('../assests/images/Bed.png'),
+<<<<<<< HEAD
 
+=======
+    Edit: require('../assests/images/Edit.png'),
+    Upload: require('../assests/images/Upload.png'),
+    Cross: require('../assests/images/cross.png')
+>>>>>>> Development
 };
 
 
