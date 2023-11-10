@@ -23,6 +23,7 @@ import MapView from 'react-native-maps'
 import PlatformType from '../../utils/PlatformType'
 import colors from '../../utils/colors'
 
+
 const HomeScreen = () => {
     const dispatch = useAppDispatch();
     const isFocused = useIsFocused();
@@ -103,6 +104,7 @@ const HomeScreen = () => {
             updateState({ selectIndex: 0 })
         }
     }
+
 
     return (
         <SafeAreaView style={GlobalStyle.mainContainer}>

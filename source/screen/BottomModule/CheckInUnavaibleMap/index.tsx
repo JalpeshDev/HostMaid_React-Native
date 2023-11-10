@@ -27,7 +27,7 @@ import { useGetBookingByIdQuery } from '../../../redux/services/ApiQuery';
 import Loader from '../../../components/Loader';
 import { getCurrentLocation, locationPermission } from '../../../utils/HelperFunction';
 import MapViewDirections from 'react-native-maps-directions';
-
+import { GOOGLE_MAPKEY } from "@env"
 export const SLIDER_WIDTH = Dimensions.get('window').width + 30;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.8);
 const screen = Dimensions.get('window');
@@ -268,7 +268,7 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                     <MapViewDirections
                         origin={curLoc}
                         destination={destinationCords}
-                        apikey={"AIzaSyB9-FYhCwpis1aPW-AbpG4cDXIgcxYdtDc"}
+                        apikey={GOOGLE_MAPKEY}
                         strokeWidth={4}
                         strokeColor={colors.directionLine}
                         strokeColors={['#7F0000']}
