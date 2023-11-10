@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, Image, View, TouchableOpacity, ScrollView } from 'react-native'
 import React, { memo } from 'react'
 import colors from '../../utils/colors'
 import Responsive from '../../utils/Responsive'
@@ -7,22 +7,32 @@ import icons from '../../utils/icons'
 import PlatformType from '../../utils/PlatformType'
 
 const RenderImgSlider = ({ item, checkInBtnText, onCheckBoxPress }: any) => {
+
     return (
         <View style={style.backgroundSlider}>
             <Image source={item.url} style={style.imageSlider} />
-            <View style={style.containerTextSlider}>
-                <TouchableOpacity style={style.itemCheckView} onPress={() => {
-                    onCheckBoxPress(item)
-                }}>
-                    {item?.isCheck ?
-                        icons.checkImg : icons.checkOutLineImg
-                    }
-                </TouchableOpacity>
-                <Text style={style.sliderBottomText}>{checkInBtnText}</Text>
-            </View>
+            <ScrollView style={style.containerTextSlider}>
+                {item?.checkList &&
+                    item?.checkList.map((element: any, index: number) => {
+                        return (
+                            <View style={style.checkContainer}>
+                                <TouchableOpacity style={style.itemCheckView} onPress={() => {
+                                    onCheckBoxPress(index, item.id)
+                                }}>
+                                    {element?.isCheck ?
+                                        icons.checkImg : icons.checkOutLineImg
+                                    }
+                                </TouchableOpacity>
+                                <Text style={style.sliderBottomText}>{element?.checkList}</Text>
+                            </View>
+                        )
+                    })
+                }
+            </ScrollView>
         </View>
     )
 }
+
 
 export default memo(RenderImgSlider)
 
@@ -33,30 +43,30 @@ const style = StyleSheet.create({
         shadowColor: colors.whiteGrey60,
         shadowRadius: 1,
         shadowOpacity: 0.1,
-        paddingBottom: Responsive.hp(8),
+        paddingBottom: Responsive.hp(35),
         borderRadius: Responsive.hp(1.5),
         width: "100%",
     },
     imageSlider: {
         height: "100%",
         width: "100%",
-        borderRadius: Responsive.hp(1.5), resizeMode:PlatformType.android ? 'contain' : 'cover',
+        borderRadius: Responsive.hp(1.5), resizeMode: 'cover',
     },
-    imgContainer: { marginTop: Responsive.hp(10), flexDirection: "row" },
-    itemCheckView: { paddingRight: Responsive.hp(1.2), height: Responsive.hp(8), justifyContent: 'center' },
+    checkContainer: { flexDirection: "row", paddingVertical: Responsive.hp(1) },
+    itemCheckView: {
+        paddingRight: Responsive.hp(1.2),
+    },
     containerTextSlider: {
         position: "absolute",
         bottom: 0,
-        height: Responsive.hp(8),
+        height: Responsive.hp(35),
         width: '100%',
         borderRadius: Responsive.hp(1.5),
-        flexDirection: 'row',
-        justifyContent: 'center', alignItems: 'center',
     },
     sliderBottomText: {
         color: colors.headerTitleColor,
         ...GlobalStyle.Fonts_M_15,
         textAlign: 'left',
-        flex: 1
+        flex: 1,
     },
 })

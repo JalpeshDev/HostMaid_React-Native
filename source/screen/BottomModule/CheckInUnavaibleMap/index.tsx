@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Dimensions, PermissionsAndroid, SafeAreaView, View, Alert, Image, TouchableOpacity, Linking, StatusBar } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-import MapView, { PROVIDER_GOOGLE, Marker, Polyline } from 'react-native-maps';
+import MapView, { Marker, AnimatedRegion } from 'react-native-maps';
 import viewModel from './viewModel';
 import colors from '../../../utils/colors';
 import Responsive from '../../../utils/Responsive';
@@ -25,7 +25,9 @@ import PlatformType from '../../../utils/PlatformType';
 import ArrowCmp from '../../../components/ArrowCmp';
 import { useGetBookingByIdQuery } from '../../../redux/services/ApiQuery';
 import Loader from '../../../components/Loader';
-import { locationPermission } from '../../../utils/HelperFunction';
+import { getCurrentLocation, locationPermission } from '../../../utils/HelperFunction';
+import MapViewDirections from 'react-native-maps-directions';
+import { GOOGLE_MAPKEY } from '../../../../env';
 
 export const SLIDER_WIDTH = Dimensions.get('window').width + 30;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.8);
@@ -35,117 +37,51 @@ const LATITUDE_DELTA = 0.04;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const CheckInUnavaibleMap = ({ route }: any) => {
+
     const routeData = route.params.routeData;
     const { isLoading, data } = useGetBookingByIdQuery(routeData?.property_id)
-
+    const [isOpen, setIsOpen] = useState(false)
     const [elapsedTime, setElapsedTime] = useState(0);
     const dispatch = useAppDispatch();
-    const {
-        onChange, coordinates, state, updateState, checkInBtnText, createAList, callNumber,
-        isCarousel, onScrollLeft, onScrollRight, isLeftArrowDisabled,
-        isRightArrowDisabled, fullViewImg, isClickable, onMarkerPress
-    } = viewModel()
-
-    const {
-        isFullViewImgVisible, isInfoPopup, isShowHome, isImgScroll, isTimer, slideImgdata,
-        isRunning, index, checkInBtn
-    } = state;
-
     useEffect(() => {
         createAList()
     }, [])
 
+    const {
+        state, updateState, checkInBtnText, createAList, callNumber,
+        isCarousel, onScrollLeft, onScrollRight, isLeftArrowDisabled,
+        isRightArrowDisabled, fullViewImg, isClickable, onMarkerPress,
+        markerRef, mapRef
+    } = viewModel()
+
+    const {
+        isFullViewImgVisible, isInfoPopup, isShowHome, isImgScroll, isTimer, slideImgdata,
+        isRunning, index, checkInBtn, curLoc, time, distance, destinationCords, coordinate, heading
+    } = state;
+
     const renderImageSlider = ({ item }: any) => {
         return (
             <RenderImgSlider checkInBtnText={checkInBtnText} item={item}
-                onCheckBoxPress={(item: any) => {
-                    let tempArry = [...slideImgdata]
-                    tempArry[item.id - 1].isCheck = !item.isCheck
-                    updateState({ slideImgdata: tempArry })
+                onCheckBoxPress={(CheckListIndex: any, id: any) => {
+                    const tempArry = [...slideImgdata];
+                    const newArray = tempArry.map((element: any, index: number) => {
+                        if (index === id) {
+                            const newCheckListArray = element?.checkList.map((item: any, index: number) => ({
+                                ...item,
+                                isCheck: CheckListIndex === index ? !item.isCheck : item.isCheck
+                            }));
+                            return {
+                                ...element,
+                                checkList: newCheckListArray,
+                            };
+                        } else { }
+                        return element;
+                    });
+                    updateState({ slideImgdata: newArray });
                 }}
             />
         );
     };
-
-    useEffect(() => {
-        const requestLocationPermission = async () => {
-            if (PlatformType.android) {
-                try {
-                    const granted = await PermissionsAndroid.request(
-                        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-                        {
-                            title: 'Location Permission',
-                            message: 'This app needs access to your location to function properly.',
-                        }
-                    );
-                    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                        getLocation();
-                    } else {
-                        Alert.alert('Location permission denied.');
-                    }
-                } catch (err) {
-                    console.warn(err);
-                }
-            } else {
-                const locationStation = await locationPermission()
-                if (locationStation === 'granted') {
-                    getLocation();
-                } else {
-
-                }
-            }
-        };
-        const getLocation = () => {
-            Geolocation.getCurrentPosition(
-                (position) => {
-                    onChange(position.coords.latitude, "latitude");
-                    onChange(position.coords.longitude, "longitude");
-                    // setCoordinates((prevCoordinates) => [
-                    //     ...prevCoordinates,
-                    //     {
-                    //         latitude: position.coords.latitude,
-                    //         longitude: position.coords.longitude,
-                    //     },
-                    // ]);
-                },
-                (error) => {
-                    Alert.alert(error.message.toString());
-                },
-                {
-                    showLocationDialog: true,
-                    enableHighAccuracy: true,
-                    timeout: 20000,
-                    maximumAge: 0,
-                }
-            );
-
-            Geolocation.watchPosition(
-                (position) => {
-                    onChange(position.coords.latitude, "latitude");
-                    onChange(position.coords.longitude, "longitude");
-                    // setCoordinates((prevCoordinates) => [
-                    //     ...prevCoordinates,
-                    //     {
-                    //         latitude: position.coords.latitude,
-                    //         longitude: position.coords.longitude,
-                    //     },
-                    // ]);
-                },
-                (error) => {
-                    console.log(error);
-                },
-                {
-                    showLocationDialog: true,
-                    enableHighAccuracy: true,
-                    timeout: 20000,
-                    maximumAge: 0,
-                    distanceFilter: 0,
-                }
-            );
-        };
-
-        requestLocationPermission();
-    }, []);
 
     useEffect(() => {
         const loadElapsedTime = async () => {
@@ -154,14 +90,11 @@ const CheckInUnavaibleMap = ({ route }: any) => {
 
                 if (savedTimeData) {
                     const startTime = parseInt(savedTimeData.startTime, 10);
-                    const timerStartingDate = savedTimeData.timerStartingDate;
                     const now = Date.now();
                     const elapsed = now - startTime;
 
                     setElapsedTime(elapsed + parseInt(savedTimeData.elapsedTime, 10));
 
-                    // Calculate the time elapsed since the timer was started
-                    const timeElapsedSinceStart = now - timerStartingDate;
                     updateState({ isImgScroll: true })
                     updateState({ isTimer: true })
                     updateState({ checkInBtn: 2 })
@@ -211,6 +144,40 @@ const CheckInUnavaibleMap = ({ route }: any) => {
         dispatch(elapsedTimes({ elapsedTime: elapsedTime }))
     }, [elapsedTime])
 
+    const animate = (latitude: any, longitude: any) => {
+        const newCoordinate: any = { latitude, longitude };
+        if (PlatformType.android) {
+            if (markerRef.current) {
+                markerRef.current.animateMarkerToCoordinate(newCoordinate, 7000);
+            }
+        } else {
+            coordinate.timing(newCoordinate).start();
+        }
+    }
+    const getLiveLocation = async () => {
+        const locPermissionDenied = await locationPermission()
+        if (locPermissionDenied) {
+            const { latitude, longitude, heading } = await getCurrentLocation()
+            animate(latitude, longitude);
+            updateState({
+                heading: heading,
+                curLoc: { latitude, longitude },
+                coordinate: new AnimatedRegion({
+                    latitude: latitude,
+                    longitude: longitude,
+                    latitudeDelta: LATITUDE_DELTA,
+                    longitudeDelta: LONGITUDE_DELTA
+                })
+            })
+        }
+    }
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            getLiveLocation()
+        }, 3000);
+        return () => clearInterval(interval)
+    }, [])
 
     return (
         <SafeAreaView style={style.mainView}>
@@ -267,16 +234,14 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                     zoomTapEnabled={true}
                     showsMyLocationButton={true}
                     showsCompass={true}
-                    // provider={PROVIDER_GOOGLE}
                     style={style.mapView}
                     region={{
-                        latitude: coordinates[0].latitude,
-                        longitude: coordinates[0].longitude,
-                        latitudeDelta: 0.0622,
-                        longitudeDelta: 0.0121,
+                        ...curLoc,
+                        latitudeDelta: LATITUDE_DELTA,
+                        longitudeDelta: LONGITUDE_DELTA,
                     }}
                 >
-                    <Marker coordinate={coordinates[0]} >
+                    <Marker.Animated coordinate={coordinate} ref={markerRef}>
                         <View style={style.lightGreenRing}>
                             <View style={style.greyRing}>
                                 <View style={style.sourceIconStyle}>
@@ -284,8 +249,8 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                                 </View>
                             </View>
                         </View>
-                    </Marker>
-                    <Marker coordinate={coordinates[1]}
+                    </Marker.Animated>
+                    <Marker.Animated coordinate={destinationCords}
                         onPress={() => onMarkerPress()}
                     >
                         <TouchableOpacity style={style.markerInsideView} >
@@ -299,17 +264,41 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                                 <Image source={images.HomeDestination} style={style.markerStyle} resizeMode='contain' />
                             </TouchableOpacity>
                         </TouchableOpacity>
-                    </Marker>
-                    <Polyline
+                    </Marker.Animated>
+                    <MapViewDirections
+                        origin={curLoc}
+                        destination={destinationCords}
+                        apikey={GOOGLE_MAPKEY}
+                        strokeWidth={4}
+                        strokeColor={colors.directionLine}
+                        strokeColors={[colors.directionLine]}
+                        optimizeWaypoints={true}
+                        onReady={result => {
+                            console.log(`Distance: ${result.distance} km`)
+                            console.log(`Duration: ${result.duration} min.`)
+                            // mapRef.current.fitToCoordinates(result.coordinates, {
+                            //     edgePadding: {
+                            //         right: 30,
+                            //         bottom: 300,
+                            //         left: 30,
+                            //         top: 100,
+                            //     },
+                            // });
+                        }}
+
+                    />
+                    {/* <Polyline
                         coordinates={coordinates}
                         strokeColor={colors.themeGreen}
                         strokeColors={['#7F0000']}
                         strokeWidth={6}
-                    />
+                    /> */}
                 </MapView>
             }
-            <View style={style.MapDownView}>
-                <View style={style.btnContainer} />
+            <View style={{ ...style.MapDownView, height: isOpen ? Responsive.hp(35) : Responsive.hp(3.5) }}>
+                <TouchableOpacity onPress={() => { setIsOpen(!isOpen) }}>
+                    <View style={style.btnContainer} />
+                </TouchableOpacity>
                 <AppThemeHeaderComponent onPressRight={() => { Linking.openURL('sms:+1 123-456-7890') }} onPressRightLeft={(numer: any) => { callNumber(numer) }}
                     LeftIcon={images.callImg}
                     RightIcon={images.messageImg}
@@ -338,20 +327,23 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                     />
                 </View>
             </View>
-            {isInfoPopup &&
+            {
+                isInfoPopup &&
                 <InfoPopUp isInfoPopup={isInfoPopup} updateState={updateState}
                     timer={isTimer} isImgScroll={isImgScroll} checkInBtn={checkInBtn}
                     startTimer={startTimer} property_id={routeData?.property_id}
                 />
             }
 
-            {isFullViewImgVisible && <ImageView
-                images={fullViewImg}
-                imageIndex={0}
-                visible={isFullViewImgVisible}
-                onRequestClose={() => updateState({ isFullViewImgVisible: false })}
-            />}
-        </SafeAreaView>
+            {
+                isFullViewImgVisible && <ImageView
+                    images={fullViewImg}
+                    imageIndex={0}
+                    visible={isFullViewImgVisible}
+                    onRequestClose={() => updateState({ isFullViewImgVisible: false })}
+                />
+            }
+        </SafeAreaView >
     );
 };
 

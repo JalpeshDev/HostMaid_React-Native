@@ -27,6 +27,7 @@ export const GlobalStyle = StyleSheet.create({
   Fonts_B_16: { fontSize: Responsive.hp(1.9), fontFamily: Fonts.DMSans_B, fontWeight: "700" },
   Fonts_B_15: { fontSize: Responsive.hp(1.7), fontFamily: Fonts.DMSans_B, fontWeight: "700" },
   Fonts_M_15: { fontSize: Responsive.hp(1.7), fontFamily: Fonts.DMSans_M, fontWeight: "500" },
+  Fonts_M_14: { fontSize: Responsive.hp(1.4), fontFamily: Fonts.DMSans_M, fontWeight: "500" },
   Fonts_R_16: { fontSize: Responsive.hp(1.8), fontFamily: Fonts.DMSans_R, fontWeight: "400" },
   Fonts_R_14: { fontSize: Responsive.hp(1.6), fontFamily: Fonts.DMSans_R, fontWeight: "400" },
   bottomIconStyle: {

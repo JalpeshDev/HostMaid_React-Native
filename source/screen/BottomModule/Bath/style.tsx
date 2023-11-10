@@ -14,6 +14,7 @@ export const style = StyleSheet.create({
         alignSelf: "center",
         marginTop: Responsive.hp(1),
         marginBottom: Responsive.hp(0.5),
+        height: Responsive.hp(85)
     },
     listInContainer: {
         borderRadius: Responsive.hp(2), paddingTop: Responsive.hp(1),

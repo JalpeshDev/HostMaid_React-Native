@@ -7,7 +7,7 @@ const screen = Dimensions.get('window');
 export const style = StyleSheet.create({
     mainView: { flex: 1 },
     mapView: {
-        height: PlatformType.android ? Responsive.hp(59) : Responsive.hp(53),
+        flex: 1
     },
     text: {
         fontSize: 20,
@@ -18,14 +18,16 @@ export const style = StyleSheet.create({
         height: Dimensions.get('screen').height,
     },
     MapDownView: {
-        flex: 1,
         backgroundColor: colors.MapDownColor,
         borderTopLeftRadius: Responsive.hp(3),
         borderTopRightRadius: Responsive.hp(3),
         borderWidth: 1,
         borderColor: colors.mapBottomBorder,
         paddingBottom: 10,
-        position: 'absolute', bottom: 0, alignSelf: 'center', width: '100%',
+        // position: 'absolute',
+        // bottom: 0,
+        alignSelf: 'center',
+        width: '100%',
         height: Responsive.hp(35),
         elevation: 1,
         shadowOffset: { width: 0.2, height: 0.2 },
@@ -40,7 +42,8 @@ export const style = StyleSheet.create({
         height: PlatformType.android ? Responsive.hp(0.5) : Responsive.hp(0.3),
         marginTop: Responsive.hp(0.8),
         alignSelf: 'center',
-        marginBottom: Responsive.hp(1)
+        marginBottom: Responsive.hp(1),
+
     },
     bottomContainer: {
         justifyContent: "center",
@@ -82,7 +85,11 @@ export const style = StyleSheet.create({
         borderRadius: Responsive.hp(1.5), resizeMode: 'contain',
     },
     imgContainer: { marginTop: PlatformType.android ? Responsive.hp(10) : Responsive.hp(5.5), flexDirection: "row", },
-    arrowContainer: { justifyContent: 'center', width: PlatformType.android ? "15%" : "13%", alignItems: 'center', },
+    arrowContainer: {
+        width: PlatformType.android ? "15%" : "13%",
+        alignItems: 'center',
+        marginTop: Responsive.hp(20)
+    },
     containerPagging: {
         position: "absolute",
         bottom: 0,
@@ -97,7 +104,7 @@ export const style = StyleSheet.create({
 
     timerContainer: { height: Responsive.hp(9), justifyContent: 'center', alignItems: 'center' },
     CarouselStyle: {
-        height: PlatformType.android ? Responsive.hp(46) : Responsive.hp(44),
+        height: PlatformType.android ? Responsive.hp(75) : Responsive.hp(75),
         width: PlatformType.android ? "70%" : "74%",
         borderRadius: Responsive.hp(1.5), alignItems: 'center',
     },

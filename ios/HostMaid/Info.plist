@@ -35,8 +35,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -75,6 +73,18 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App require permission to upload photo of completion of work.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>App require permission to upload photo of completion of work.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>App require permission to navigate user to work location.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>App require permission to navigate user to work location.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App require permission to navigate user to work location.</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>

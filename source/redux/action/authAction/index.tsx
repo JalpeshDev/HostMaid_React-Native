@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { apiUrl } from '../../../utils/apiUrl';
-import AxiosInstance from '../../../utils/AxiosInstance/AxiosInstance';
+import AxiosInstance from '../../../utils/AxiosInstance/axiosInstance';
 let headers = {
   'Content-Type': 'application/json',
 };

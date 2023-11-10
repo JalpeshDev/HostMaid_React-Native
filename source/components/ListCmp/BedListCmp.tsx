@@ -6,7 +6,7 @@ import { GlobalStyle } from '../../utils/GlobalStyle'
 import PlatformType from '../../utils/PlatformType'
 
 const BedListCmp = ({ listItem }: any) => {
-    const { data, title, notes } = listItem?.item;
+    const { data, title } = listItem?.item;
 
     return (
         <View style={style.itemContainer}>
@@ -24,9 +24,9 @@ const BedListCmp = ({ listItem }: any) => {
                         </View>
                     ))
                 }
-                {notes &&
+                {/* {notes &&
                     <Text style={style.notes}>{notes}</Text>
-                }
+                } */}
             </View>
         </View>
     )
@@ -35,7 +35,7 @@ export default memo(BedListCmp)
 const style = StyleSheet.create({
     itemContainer: {
         backgroundColor: colors.bedList,
-        marginBottom:PlatformType.android ? Responsive.hp(2) : Responsive.hp(1), justifyContent: "space-between",
+        marginBottom: PlatformType.android ? Responsive.hp(2) : Responsive.hp(1), justifyContent: "space-between",
         alignItems: "center", marginHorizontal: Responsive.wp(1), borderRadius: Responsive.hp(1),
         shadowOffset: { width: 0.2, height: 0.2 },
         shadowColor: colors.black,

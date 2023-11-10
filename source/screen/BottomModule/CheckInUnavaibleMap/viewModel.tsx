@@ -1,22 +1,38 @@
 import { useRef, useState } from 'react';
 import { images } from '../../../utils/images';
 import PlatformType from '../../../utils/PlatformType';
-import { Linking, Alert } from 'react-native'
+import { Linking, Alert, Dimensions } from 'react-native'
 import { useAppDispatch, useAppSelector } from '../../../redux';
 import { disableTabNavigation, enableTabNavigation } from '../../../redux/slices/authSlice';
+import { AnimatedRegion } from 'react-native-maps';
 const checkInBtnText = `Lorem Ipsum is simply dummy text of the printing and typesetting industry.`
-const imgList: { id: number; url: any, }[] = [
+const imgList: { id: number; url: any, checkList: any }[] = [
+    {
+        id: 0,
+        url: images.Home1,
+        checkList: [
+            { checkList: `Lorem Ipsum is simply dummy text of the printing and typesetting industry.` },
+            { checkList: `Lorem Ipsum is simply dummy text of the printing and typesetting industry.` },
+            { checkList: `Lorem Ipsum is simply dummy text of the printing and typesetting industry.` },
+        ]
+    },
     {
         id: 1,
-        url: images.Home1,
+        url: images.Home2,
+        checkList: [
+            { checkList: `Lorem Ipsum is simply dummy text of the printing and typesetting industry.` },
+        ]
     },
     {
         id: 2,
-        url: images.Home2,
-    },
-    {
-        id: 3,
         url: images.Home3,
+        checkList: [
+            { checkList: `Lorem Ipsum is simply dummy text of the printing and typesetting industry.` },
+            { checkList: `Lorem Ipsum is simply dummy text of the printing and typesetting industry.` },
+            { checkList: `Lorem Ipsum is simply dummy text of the printing and typesetting industry.` },
+            { checkList: `Lorem Ipsum is simply dummy text of the printing and typesetting industry.` },
+            { checkList: `Lorem Ipsum is simply dummy text of the printing and typesetting industry.` },
+        ]
     },
 ];
 const fullViewImg = [
@@ -24,9 +40,15 @@ const fullViewImg = [
         uri: "https://fastly.picsum.photos/id/869/200/200.jpg?hmac=Eqnjw4kAS1sFTick74KSN6CBN01wmQg8OpxqbGtdyCU",
     },
 ];
+const screen = Dimensions.get('window');
+const ASPECT_RATIO = screen.width / screen.height;
+const LATITUDE_DELTA = 0.04;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 export default function viewModel() {
     const isClickable = useAppSelector((state: any) => state.authReducer.isClickable);
     const isCarousel = useRef<any>(null);
+    const mapRef: any = useRef()
+    const markerRef: any = useRef()
     const dispatch = useAppDispatch();
     const [state, setState] = useState<any>({
         isFullViewImgVisible: false,
@@ -38,39 +60,40 @@ export default function viewModel() {
         slideImgdata: [],
         isRunning: false,
         index: 0,
-        checkInBtn: 0
-    });
-    const [values, setValues] = useState({
-        latitude: 0,
-        longitude: 0
-    });
-    const [direction, setDirection] = useState()
-    const [coordinates] = useState([
-        {
-            latitude: 23.0283,
-            longitude: 72.5069,
+        checkInBtn: 0,
+        curLoc: {
+            latitude: 32.253460,
+            longitude: -110.811789,
         },
-        {
-            latitude: 23.0120,
-            longitude: 72.5108,
+        destinationCords: {
+            latitude: 32.253460,
+            longitude: -110.911789,
         },
-    ]);
-
-    function onChange(value: any, prop: any) {
-        setValues({ ...values, [prop]: value });
-    }
+        coordinate: new AnimatedRegion({
+            latitude: 32.253460,
+            longitude: -110.911789,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA
+        }),
+        time: 0,
+        distance: 0,
+        heading: 0
+    });
 
     const updateState = (data: any) => setState((state: any) => ({ ...state, ...data }));
     function createAList() {
-        let tempArry: any[] = []
-        imgList.forEach(element => {
-            const data = {
-                ...element,
+        const newArray = imgList.map((element) => {
+            const newCheckListArray = element?.checkList.map((item: any) => ({
+                ...item,
                 isCheck: false,
-            }
-            tempArry.push(data)
+            }));
+
+            return {
+                ...element,
+                checkList: newCheckListArray,
+            };
         });
-        updateState({ slideImgdata: tempArry })
+        updateState({ slideImgdata: newArray })
     }
     const callNumber = (phone: any) => {
         let phoneNumber = phone;
@@ -124,11 +147,8 @@ export default function viewModel() {
         }
     }
     return {
-        ...values,
         state,
         updateState,
-        onChange,
-        coordinates,
         createAList,
         checkInBtnText,
         callNumber,
@@ -140,7 +160,9 @@ export default function viewModel() {
         fullViewImg,
         isClickable,
         handleTabNavigation,
-        onMarkerPress
+        onMarkerPress,
+        mapRef,
+        markerRef
     };
 }
 

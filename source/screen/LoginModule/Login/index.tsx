@@ -60,7 +60,7 @@ const Login = () => {
                         <ThemeButtonComponent
                             title={Strings.Login}
                             isActive={true}
-                            buttonStyle={{ marginTop: Responsive.hp(5) }}
+                            buttonStyle={{ marginTop: Responsive.hp(5), backgroundColor: colors.themeGreen }}
                             onPress={() => {
                                 loginService()
                             }}

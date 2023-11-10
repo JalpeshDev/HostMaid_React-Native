@@ -68,3 +68,5 @@ package-lock.json
 Gemfile.lock
 app-release.apk
 HOSTMAID.keystore
+
+env.tsx
