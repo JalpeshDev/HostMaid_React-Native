@@ -38,10 +38,10 @@ export const AddressFlatlistCmp = ({ item, onArrowPress, property_id }: any) => 
             <View style={{ ...style.itemUpContainer, backgroundColor: state ? colors.themeGreen20 : colors.themeSubFontGray }}>
                 <View style={style.firstView}>
                     <View style={style.flexView}>
-                        <Text numberOfLines={2} style={style.firstTextList}>{`${item.item.property_name}`}</Text>
+                        <Text numberOfLines={2} style={style.firstTextList}>{`${item?.item?.title}`}</Text>
                     </View>
                     <View style={{ ...style.flexView, width: "90%", }}>
-                        <Text numberOfLines={1} style={style.secondTextList}>{`${item.item.property_address1}`}</Text>
+                        <Text numberOfLines={1} style={style.secondTextList}>{`${item?.item?.subtitle}`}</Text>
                         <View style={style.timeStyleView}>
                             <Text style={style.timeStyle}>{timeString}</Text>
                         </View>
@@ -116,14 +116,10 @@ const style = StyleSheet.create({
     timeStyle: {
         ...GlobalStyle.Fonts_M_15,
         fontSize: Responsive.hp(1.2),
-        // backgroundColor: colors.themeGreen,
-        // borderRadius: Responsive.hp(1),
-        // paddingVertical: Responsive.hp(0.2),
-        // paddingHorizontal: Responsive.hp(1),
         color: colors.white,
         elevation: 1,
     },
-    timeStyleView:{
+    timeStyleView: {
         borderRadius: Responsive.hp(0.5),
         paddingVertical: Responsive.hp(0.3),
         paddingHorizontal: Responsive.hp(1),

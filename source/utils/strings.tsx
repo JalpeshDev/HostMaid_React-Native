@@ -24,5 +24,15 @@ export const Strings = {
     CheckOut: "Check Out",
     BedBath: "Bed/Bath Summary",
     NotesPhotos: "Notes/Photos",
-    Misc: "Misc"
+    Misc: "Misc",
+    Save: "Save",
+    UploadText: "Please Upload Your Cleaning Photos",
+    Notes: "Notes",
+    NotesPlaceholder: "Write your notes here.",
+    AddPhotos: "Add Photos",
+    ImagePickerPermissionTitle: "camera permission denied",
+    ImagePickerPermissionMsg: "please enable your camera permission",
+    Setting: "setting",
+    Camera: "Camera",
+    Gallery: "Gallery",
 }
