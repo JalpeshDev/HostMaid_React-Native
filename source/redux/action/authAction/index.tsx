@@ -8,13 +8,13 @@ let headers = {
 const config = { headers };
 const httpClient = axios.create();
 httpClient.defaults.timeout = 12000;
-export const userLoginAction: any = createAsyncThunk(
-  'user/login',
-  async (body, { rejectWithValue }) => {
+
+export const getBookingDetailsAction: any = createAsyncThunk(
+  'getBookingDetails',
+  async (id, { rejectWithValue }) => {
     try {
-      const response = await httpClient.post(
-        apiUrl.authUrl.userLogin,
-        body,
+      const response = await httpClient.get(
+        `${apiUrl.bookingUrl.getBookingDetails}${id}`,
         config,
       );
       return response.data;

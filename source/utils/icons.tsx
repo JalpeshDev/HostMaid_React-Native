@@ -35,5 +35,11 @@ export default {
   ),
   cancel: (
     <MaterialIcons name='cancel' size={responsive.hp(2.8)} color={Color.themeTextBlack} />
+  ),
+  up: (
+    <Entypo name='chevron-up' size={responsive.hp(3.5)} color={Color.MapHeadLine} />
+  ),
+  down: (
+    <Entypo name='chevron-down' size={responsive.hp(3.5)} color={Color.MapHeadLine} />
   )
 };

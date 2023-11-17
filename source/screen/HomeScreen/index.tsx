@@ -10,22 +10,18 @@ import viewModel from './viewModel'
 import DateDisplay from '../../components/WeekCmp/DateDisplay'
 import MonthPicker from 'react-native-month-year-picker'
 import { CalendarInfo, } from '../../utils/generalFunction'
-import { getBookingsAction } from '../../redux/action/authAction'
 import Loader from '../../components/Loader'
 import { Strings } from '../../utils/strings'
 import navigationServices from '../../navigator/navigationServices'
 import routes from '../../navigator/routes'
-import { useAppDispatch, useAppSelector } from '../../redux'
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import { GlobalStyle } from '../../utils/GlobalStyle'
 import { useGetBookingByDateQuery } from '../../redux/services/ApiQuery'
-import MapView from 'react-native-maps'
 import PlatformType from '../../utils/PlatformType'
 import colors from '../../utils/colors'
 
 
 const HomeScreen = () => {
-    const dispatch = useAppDispatch();
     const isFocused = useIsFocused();
 
     const {
@@ -46,9 +42,6 @@ const HomeScreen = () => {
         flatlistData } = state
     const { isLoading, data } = useGetBookingByDateQuery(`${year}-${month}-${selectDate}`)
 
-    useEffect(() => {
-        dispatch(getBookingsAction());
-    }, [])
 
     const renderItem = (item: any) => {
         return (

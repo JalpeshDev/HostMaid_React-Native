@@ -25,6 +25,19 @@ export const rtkQueryApi = createApi({
                 }
             }
         }),
+
+        postBookingTime: builder.mutation({
+            query: (id) => {
+                console.log("id ->: ", id)
+                return {
+                    url: `api/bookings/time/${id}`,
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                    },
+                }
+            }
+        }),
     }),
 
 })
@@ -32,5 +45,6 @@ export const rtkQueryApi = createApi({
 // Export hooks for usage in functional components, which are auto-generated based on the defined endpoints
 export const {
     useGetBookingByDateQuery,
-    useGetBookingByIdQuery
+    useGetBookingByIdQuery,
+    usePostBookingTimeMutation
 } = rtkQueryApi

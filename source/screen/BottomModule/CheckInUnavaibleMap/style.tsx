@@ -104,7 +104,7 @@ export const style = StyleSheet.create({
 
     timerContainer: { height: Responsive.hp(9), justifyContent: 'center', alignItems: 'center' },
     CarouselStyle: {
-        height: PlatformType.android ? Responsive.hp(75) : Responsive.hp(75),
+        height: Responsive.hp(75),
         width: PlatformType.android ? "70%" : "74%",
         borderRadius: Responsive.hp(1.5), alignItems: 'center',
     },

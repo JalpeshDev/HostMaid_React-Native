@@ -17,7 +17,7 @@ import ImagePickerCmp from '../../../components/ImagePickerCmp';
 import ImageView from "react-native-image-viewing";
 
 const Photos = () => {
-    const { elapsed } = useAppSelector((state) => state.authReducer);
+    const { elapsed, uploadImgStatus } = useAppSelector((state) => state.authReducer);
     const {
         DATA, updateState, state, onLongPressToDelete,
         onDeletePress,

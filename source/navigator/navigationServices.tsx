@@ -1,5 +1,4 @@
-import { CommonActions } from '@react-navigation/native';
-import { DrawerActions } from '@react-navigation/native';
+import { CommonActions, DrawerActions } from '@react-navigation/native';
 
 let _navigator: any;
 

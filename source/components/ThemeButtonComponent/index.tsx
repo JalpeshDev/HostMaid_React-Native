@@ -1,6 +1,5 @@
 import React from "react";
 import { Text, TouchableOpacity, Image, View } from "react-native";
-import Color from "../../utils/colors";
 import { style } from "./style";
 import colors from "../../utils/colors";
 import Responsive from "../../utils/Responsive";
@@ -21,12 +20,12 @@ export const ThemeButtonComponent = ({
       <TouchableOpacity
         style={{
           backgroundColor: checkInBtn === 0
-            ? Color.deactive
+            ? colors.deactive
             : checkInBtn === 1
-              ? Color.themeGreen
+              ? colors.themeGreen
               : checkInBtn === 2
-                ? Color.timerColor
-                : Color.deactive,
+                ? colors.timerColor
+                : colors.deactive,
           ...style.mainView,
           ...buttonStyle,
         }}

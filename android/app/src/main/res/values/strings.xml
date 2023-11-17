@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HostMaid</string>
+    <string name="google_map_key">AIzaSyB9-FYhCwpis1aPW-AbpG4cDXIgcxYdtDc</string>
 </resources>

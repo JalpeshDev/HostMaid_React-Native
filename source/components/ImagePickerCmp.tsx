@@ -32,7 +32,7 @@ const ImagePickerCmp = ({
         })
             .then((res: any) => {
                 if (res.didCancel) {
-                    updateState({ deviceImages: null })
+                    updateState({ deviceImages: deviceImages })
                 } else {
                     res.forEach((element: any) => {
                         element["isDelete"] = false

@@ -62,16 +62,22 @@ export default function viewModel() {
         index: 0,
         checkInBtn: 0,
         curLoc: {
-            latitude: 32.253460,
-            longitude: -110.811789,
+            // latitude: 32.253460,
+            // longitude: -110.811789,
+            latitude: 23.0283,  //development
+            longitude: 72.5069
         },
         destinationCords: {
-            latitude: 32.253460,
-            longitude: -110.911789,
+            // latitude: 32.253460,
+            // longitude: -110.911789,
+            latitude: 23.0120, //development
+            longitude: 72.5108
         },
         coordinate: new AnimatedRegion({
-            latitude: 32.253460,
-            longitude: -110.911789,
+            // latitude: 32.253460,
+            // longitude: -110.811789,
+            latitude: 23.0283,  //development
+            longitude: 72.5069,
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LONGITUDE_DELTA
         }),

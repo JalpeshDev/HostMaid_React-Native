@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Dimensions, PermissionsAndroid, SafeAreaView, View, Alert, Image, TouchableOpacity, Linking, StatusBar } from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
+import React, { useState, useEffect } from 'react';
+import { Dimensions, SafeAreaView, View, Image, TouchableOpacity, Linking, StatusBar } from 'react-native';
 import MapView, { Marker, AnimatedRegion } from 'react-native-maps';
 import viewModel from './viewModel';
 import colors from '../../../utils/colors';
@@ -10,14 +9,14 @@ import { images } from '../../../utils/images';
 import MapAddressCmp from '../../../components/MapAddressCmp';
 import { ThemeButtonComponent } from '../../../components/ThemeButtonComponent';
 import navigationServices from '../../../navigator/navigationServices';
-import { disableTabNavigation, elapsedTimes, enableTabNavigation } from '../../../redux/slices/authSlice';
+import { elapsedTimes, enableTabNavigation, uploadImgEnable } from '../../../redux/slices/authSlice';
 import { Strings } from '../../../utils/strings';
 import { NavigationHeader } from '../../../components/AppThemeHeaderComponent/navigationHeader';
 import ImageView from 'react-native-image-viewing'
 import InfoPopUp from '../../../components/PopUp/InfoPopUp';
 import Carousel from "react-native-snap-carousel";
 import TimerCmp from '../../../components/TimerCmp';
-import { useAppDispatch } from '../../../redux';
+import { useAppDispatch, useAppSelector } from '../../../redux';
 import { localStorage } from '../../../utils/localStorageProvider';
 import AppThemeHeaderComponent from '../../../components/AppThemeHeaderComponent';
 import RenderImgSlider from '../../../components/ListCmp/RenderImgSlider';
@@ -28,6 +27,10 @@ import Loader from '../../../components/Loader';
 import { getCurrentLocation, locationPermission } from '../../../utils/HelperFunction';
 import MapViewDirections from 'react-native-maps-directions';
 import { GOOGLE_MAPKEY } from '../../../../env';
+import icons from '../../../utils/icons';
+import { getBookingDetailsAction } from '../../../redux/action/authAction';
+import Geolocation from 'react-native-geolocation-service';
+
 
 export const SLIDER_WIDTH = Dimensions.get('window').width + 30;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.8);
@@ -39,12 +42,15 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const CheckInUnavaibleMap = ({ route }: any) => {
 
     const routeData = route.params.routeData;
-    const { isLoading, data } = useGetBookingByIdQuery(routeData?.property_id)
+    const { loading, bookingDetails } = useAppSelector((state: any) => state.bookingReducer);
+
     const [isOpen, setIsOpen] = useState(false)
     const [elapsedTime, setElapsedTime] = useState(0);
     const dispatch = useAppDispatch();
     useEffect(() => {
-        createAList()
+        createAList();
+        getLiveLocation();
+        // dispatch(getBookingDetailsAction(routeData?.property_id))
     }, [])
 
     const {
@@ -178,7 +184,15 @@ const CheckInUnavaibleMap = ({ route }: any) => {
         }, 3000);
         return () => clearInterval(interval)
     }, [])
-
+    // const fetchTime = (d: number, t: number) => {
+    //     updateState({
+    //         distance: d,
+    //         time: t
+    //     })
+    //     if (d < 0.021) {
+    //         dispatch(uploadImgEnable());
+    //     } else { }
+    // }
     return (
         <SafeAreaView style={style.mainView}>
             <StatusBar
@@ -188,7 +202,7 @@ const CheckInUnavaibleMap = ({ route }: any) => {
             />
             <NavigationHeader LeftIcon={images.backIcon} RightIcon={images.Info} checkInBtn={checkInBtn} isTimer={isTimer}
                 onPressLeft={() => navigationServices.navigationGoBack()} onPressRight={() => updateState({ isInfoPopup: !isInfoPopup })} />
-            <Loader loading={isLoading} />
+            <Loader loading={loading} />
             {isImgScroll ?
                 <View style={style.mapView}>
                     <View style={style.imgContainer}>
@@ -276,6 +290,7 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                         onReady={result => {
                             console.log(`Distance: ${result.distance} km`)
                             console.log(`Duration: ${result.duration} min.`)
+                            // fetchTime(result?.distance, result?.duration)
                             // mapRef.current.fitToCoordinates(result.coordinates, {
                             //     edgePadding: {
                             //         right: 30,
@@ -296,7 +311,7 @@ const CheckInUnavaibleMap = ({ route }: any) => {
                 </MapView>
             }
             <View style={{ ...style.MapDownView, height: isOpen ? Responsive.hp(35) : Responsive.hp(3.5) }}>
-                <TouchableOpacity onPress={() => { setIsOpen(!isOpen) }}>
+                <TouchableOpacity onPress={() => { setIsOpen(!isOpen) }} >
                     <View style={style.btnContainer} />
                 </TouchableOpacity>
                 <AppThemeHeaderComponent onPressRight={() => { Linking.openURL('sms:+1 123-456-7890') }} onPressRightLeft={(numer: any) => { callNumber(numer) }}
