@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import viewModel from './viewModel'
 import { Text, View, Image, ImageBackground, SafeAreaView, Platform, StatusBar, } from 'react-native';
 import { style } from './style';
@@ -73,4 +73,3 @@ const Login = () => {
 }
 
 export default Login
-

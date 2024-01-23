@@ -44,3 +44,11 @@ export const ToastStyle: any = {
   backgroundColor: colors.white,
   textColor: colors.black,
 };
+export const ToastStyleThemeWhite: any = {
+  duration: Toast.durations.SHORT,
+  position: Toast.positions.BOTTOM,
+  shadow: true,
+  animation: true,
+  backgroundColor: colors.black,
+  textColor: colors.white,
+};

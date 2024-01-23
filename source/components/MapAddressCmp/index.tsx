@@ -6,7 +6,7 @@ import icons from '../../utils/icons'
 import { GlobalStyle } from '../../utils/GlobalStyle'
 import colors from '../../utils/colors'
 
-const MapAddressCmp = ({ icon }: any) => {
+const MapAddressCmp = ({ icon, address }: any) => {
     return (
         <View
             style={style.container}
@@ -16,8 +16,9 @@ const MapAddressCmp = ({ icon }: any) => {
                     <Image source={icon} style={style.logoBg} resizeMode='contain' />
                 </View>
                 <Text style={style.title}>
-                    81-83 Campbell Street,Surry Hills, NSW 2010, Street,Surry Hills, Australia
+                    {address}
                 </Text>
+
             </View>
         </View>
     )
@@ -32,7 +33,7 @@ const style = StyleSheet.create({
         width: "100%",
         maxHeight: Responsive.hp(10),
         minHeight: Responsive.hp(7),
-        marginTop: PlatformType.android ? Responsive.hp(2):Responsive.hp(1),
+        marginTop: PlatformType.android ? Responsive.hp(2) : Responsive.hp(1),
     },
     containerIn: {
         flexDirection: "row",
@@ -54,7 +55,7 @@ const style = StyleSheet.create({
         ...GlobalStyle.Fonts_M_15,
         maxWidth: "83%",
         minWidth: "83%",
-        fontSize:PlatformType.android ? Responsive.hp(1.7) : Responsive.hp(1.4)
+        fontSize: PlatformType.android ? Responsive.hp(1.7) : Responsive.hp(1.4)
     },
     rightIcons: { width: Responsive.wp(1), height: Responsive.hp(5), },
     logoBg: { width: Responsive.wp(5), height: Responsive.hp(2.5), },

@@ -45,8 +45,9 @@ const HomeScreen = () => {
 
     const renderItem = (item: any) => {
         return (
-            <AddressFlatlistCmp item={item} property_id={item?.item?.property_id}
-                onArrowPress={() => navigationServices.navigateToNext(routes.BottomNavigation, { property_id: item?.item?.property_id })}
+            <AddressFlatlistCmp item={item} property_id={item?.item?.booking_id ? item.item.booking_id : item?.item?.property_id ? 20 : 0}
+                onArrowPress={() => navigationServices.navigateToNext(routes.BottomNavigation,
+                    { property_id: item?.item?.booking_id ? item.item.booking_id : item?.item?.property_id ? 20 : 0 })}
             />
         )
     }

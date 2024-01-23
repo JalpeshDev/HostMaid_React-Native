@@ -21,7 +21,7 @@ const AppThemeHeaderComponent = ({
     title1,
     title2,
     imgStyle,
-    onDateSelect
+    onDateSelect, contactName, contactPhone
 }: any) => {
     const containerInStyleObj: any = {
         width: header ? '90%' : '86%',
@@ -53,7 +53,7 @@ const AppThemeHeaderComponent = ({
                     <View style={style.rightContainBG}>
                         <Image source={images.avtarImg} style={style.logoBg} resizeMode='contain' />
                         <Text style={style.title}>
-                            Aleksandr V.
+                            {contactName}
                         </Text>
                     </View>
                 }
@@ -63,7 +63,7 @@ const AppThemeHeaderComponent = ({
                     <TouchableOpacity
                         style={[style.imgView, imgViewStylesObj, { borderRadius: header ? Responsive.hp(1) : Responsive.hp(2) }]}
                         onPress={() => {
-                            onPressRightLeft("+1 123-456-7890")
+                            onPressRightLeft(contactPhone)
                         }}
                     >
                         <Image source={LeftIcon} style={{ ...style.iconsView, ...imgStyle, }} resizeMode='contain' />

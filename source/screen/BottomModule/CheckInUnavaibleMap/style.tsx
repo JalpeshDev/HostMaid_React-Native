@@ -24,8 +24,6 @@ export const style = StyleSheet.create({
         borderWidth: 1,
         borderColor: colors.mapBottomBorder,
         paddingBottom: 10,
-        // position: 'absolute',
-        // bottom: 0,
         alignSelf: 'center',
         width: '100%',
         height: Responsive.hp(35),

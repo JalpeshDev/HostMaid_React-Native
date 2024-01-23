@@ -1,5 +1,7 @@
+import axios from "axios";
 import { PermissionsAndroid, Platform } from "react-native";
 import Geolocation from 'react-native-geolocation-service';
+import { GOOGLE_MAPKEY } from "../../env";
 
 export const getCurrentLocation: any = () =>
     new Promise((resolve, reject) => {
@@ -44,3 +46,23 @@ export const locationPermission = () => new Promise(async (resolve, reject) => {
         return reject(error);
     });
 });
+export const getLatLongFromAddress = async (address: any) => {
+
+    try {
+        const response = await axios.get(
+            `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+                address
+            )}&key=${GOOGLE_MAPKEY}`
+        );
+
+        if (response.data.results.length > 0) {
+            const { lat, lng } = response.data.results[0].geometry.location;
+            return { latitude: lat, longitude: lng };
+        } else {
+            throw new Error('No results found for the given address.');
+        }
+    } catch (error) {
+        console.log("o results found for the given error", error);
+        throw new Error('Error fetching location data.');
+    }
+};

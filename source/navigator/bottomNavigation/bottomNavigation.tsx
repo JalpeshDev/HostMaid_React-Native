@@ -19,6 +19,7 @@ const Tab = createBottomTabNavigator();
 const BottomNavigation = ({ route }: any) => {
     const isClickable = useSelector((state: any) => state.authReducer.isClickable);
     const data = route.params;
+    console.log("isClickable-->", isClickable);
 
     const menudata = [
         { name: 'Map', component: CheckInUnavaibleMap, label: "Map" },

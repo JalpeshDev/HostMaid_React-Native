@@ -6,7 +6,7 @@
  */
 
 import { StatusBar } from 'react-native'
-import React, { useEffect } from 'react'
+import React from 'react'
 import Navigation from './source/navigator/navigation'
 import { Provider } from 'react-redux'
 import { store } from './source/redux'
