@@ -45,9 +45,11 @@ export default function viewModel() {
                     } else {
                         setLoading(false)
                         Toast.show('Invalid login details', ToastStyle);
+                        navigationServices.navigateToNext(routes.HomeScreen, {})
                     }
                 });
             } else {
+                navigationServices.navigateToNext(routes.HomeScreen, {})
                 if (body.email == "" || body.email == undefined) {
                     Toast.show('Enter Email', ToastStyle);
                 } else if (body.password == undefined || body.password == "") {

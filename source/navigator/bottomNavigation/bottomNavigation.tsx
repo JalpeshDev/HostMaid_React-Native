@@ -56,7 +56,7 @@ const BottomNavigation = ({ route }: any) => {
                         tabBarButton: (props) => (
                             <Pressable
                                 {...props}
-                                disabled={false} // Control clickability here
+                                disabled={isClickable} // Control clickability here
                             />
                         ),
                     })}
