@@ -76,11 +76,11 @@ const CheckInUnavaibleMap = ({ route }: any) => {
         getLiveLocation();
         // dispatch(getBookingDetailsAction(routeData?.property_id));
         dispatch(getBookingDetailsAction(routeData?.property_id)); //Custom property id
-        // const cords = {
-        //     latitude: 23.0272496,
-        //     longitude: 72.5005585,
-        // }
-        // updateState({ destinationCords: cords });
+        const cords = {
+            latitude: bookingDetails?.property?.lat,
+            longitude: bookingDetails?.property?.long,
+        }
+        updateState({ destinationCords: cords });
         // getLatLongFromAddress(bookingDetails?.property?.address1)
         // getLatLongFromAddress("Prahlad Nagar, Ahmedabad, Gujarat 380015") //for development
         //     .then(res => updateState({ destinationCords: res }))
