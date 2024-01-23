@@ -6,6 +6,8 @@ import { GlobalStyle } from '../../utils/GlobalStyle'
 import PlatformType from '../../utils/PlatformType'
 
 const CodeCmp = ({ label, number, onPressNumberBox }: any) => {
+    console.log("numebr--->", number.number);
+
 
     return (
         <View style={style.container}>
@@ -13,15 +15,18 @@ const CodeCmp = ({ label, number, onPressNumberBox }: any) => {
                 <Text style={style.labelStyle}>{label}</Text>
                 <View style={style.rightContainBG}>
                     {label === "Parking Info" ?
-                        <Text style={style.content}>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                        <Text style={[style.content]}>
+                            {number.value}
                         </Text>
                         :
                         number.number && number.number.map((item: any, index: any) => {
+                            console.log("item");
+
                             return (
                                 <TouchableOpacity key={index} style={style.boxStyle}
-                                    onPress={() => onPressNumberBox(item, number.id)}>
-                                    <Text style={style.numberStyle}>{item?.key}</Text>
+                                // onPress={() => onPressNumberBox(item, number.id)}
+                                >
+                                    <Text style={style.numberStyle}>{item}</Text>
                                 </TouchableOpacity>
                             )
                         })

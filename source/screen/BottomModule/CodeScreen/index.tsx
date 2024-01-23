@@ -11,13 +11,18 @@ import colors from '../../../utils/colors'
 import PlatformType from '../../../utils/PlatformType'
 
 const CodeScreen = () => {
+    const { loading, bookingDetails } = useAppSelector((state: any) => state.bookingReducer);
 
-    const { data, onChange, values, createAList } = viewModel();
+    const { data1, onChange, values, createAList } = viewModel();
     const { elapsed } = useAppSelector((state) => state.authReducer);
-
     useEffect(() => {
-        createAList()
+        createAList(bookingDetails?.property)
     }, [])
+
+
+    console.log("values-->", values.arryList);
+    // console.log("da-->", data1);
+
 
 
     return (
@@ -31,29 +36,41 @@ const CodeScreen = () => {
             }
             <NavigationHeader isTitle={true} containerStyle={style.headerContainer}
                 leftTitle={Strings.CodesParking} elapsedTime={elapsed} />
+            {/* {resultArray &&
+                resultArray.map((item: any, index: any) => {
+                    return (
+                        <CodeCmp key={index} label={item}
+                            number={item}
+                            onPressNumberBox={(data: any, id: any) => {
+
+                            }}
+                        />
+                    )
+                })
+            } */}
             {values.arryList &&
                 values.arryList.map((item: any, index: any) => {
                     return (
                         <CodeCmp key={index} label={item.label}
                             number={item}
-                            onPressNumberBox={(data: any, id: any) => {
-                                const tempArry = [...values.arryList];
-                                const newArray = tempArry.map((element: any, index: number) => {
-                                    if (index === id) {
-                                        const newNumberArray = element.number.map((numItem: any) => ({
-                                            ...numItem,
-                                            isCheck: data.key === numItem.key && !numItem.isCheck,
-                                        }));
+                        // onPressNumberBox={(data: any, id: any) => {
+                        //     const tempArry = [...values.arryList];
+                        //     const newArray = tempArry.map((element: any, index: number) => {
+                        //         if (index === id) {
+                        //             const newNumberArray = element.number.map((numItem: any) => ({
+                        //                 ...numItem,
+                        //                 isCheck: data.key === numItem.key && !numItem.isCheck,
+                        //             }));
 
-                                        return {
-                                            ...element,
-                                            number: newNumberArray,
-                                        };
-                                    }
-                                    return element;
-                                });
-                                onChange(newArray, "arryList");
-                            }}
+                        //             return {
+                        //                 ...element,
+                        //                 number: newNumberArray,
+                        //             };
+                        //         }
+                        //         return element;
+                        //     });
+                        //     onChange(newArray, "arryList");
+                        // }}
                         />
                     )
                 })

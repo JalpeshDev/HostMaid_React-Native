@@ -54,6 +54,8 @@ const Misc = () => {
         []
     )
 
+
+
     return (
         <View style={GlobalStyle.mainContainer}>
             {PlatformType.android &&
