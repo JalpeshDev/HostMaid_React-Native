@@ -1,8 +1,8 @@
 import axios from 'axios';
-import {localStorage} from '../localStorageProvider';
-import {url} from '../apiUrl';
+import { localStorage } from '../localStorageProvider';
+import { url } from '../apiUrl';
 
-const AxiosInstance = axios.create({baseURL: url});
+const AxiosInstance = axios.create({ baseURL: url });
 AxiosInstance.defaults.timeout = 1000 * 15;
 
 AxiosInstance.interceptors.request.use(async config => {

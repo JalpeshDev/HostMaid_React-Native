@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { apiUrl } from '../../../utils/apiUrl';
-import AxiosInstance from '../../../utils/AxiosInstance/axiosInstance';
 let headers = {
   'Content-Type': 'application/json',
 };
@@ -26,8 +25,9 @@ export const getBookingDetailsAction: any = createAsyncThunk(
 
 
 export const getBookingsAction: any = createAsyncThunk('bookings', async () => {
-  const response = await AxiosInstance.get(
+  const response = await httpClient.get(
     apiUrl.authUrl.bookingList,
+    config
   );
   return response.data
 })

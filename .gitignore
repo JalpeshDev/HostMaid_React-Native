@@ -69,4 +69,4 @@ Gemfile.lock
 app-release.apk
 HOSTMAID.keystore
 
-env.tsx
+# env.tsx

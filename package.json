@@ -10,7 +10,9 @@
     "test": "jest",
     "makeAPK": "cd android && ./gradlew assembleRelease -x bundleReleaseJsAndAssets",
     "makeDebugAPK": "cd android && ./gradlew assembleDebug",
-    "podInstall": "cd ios && pod install"
+    "podInstall": "cd ios && pod install",
+    "simulator": "react-native run-ios --simulator='iPhone 15 Pro Max'",
+    "simulator1": "react-native run-ios --simulator='iPhone 15 Pro'"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.5.1",
